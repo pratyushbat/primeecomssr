@@ -4,6 +4,7 @@ import express from 'express';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import AppServerModule from './src/main.server';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -16,6 +17,15 @@ export function app(): express.Express {
 
   server.set('view engine', 'html');
   server.set('views', browserDistFolder);
+    
+/*  server.use('/api', (req, res) => {
+    createProxyMiddleware({
+      target: 'http://localhost:8000',
+      changeOrigin: true, 
+      secure: false,
+          
+    });
+  }); */
 
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
@@ -27,6 +37,8 @@ export function app(): express.Express {
   // All regular routes use the Angular engine
   server.get('*', (req, res, next) => {
     const { protocol, originalUrl, baseUrl, headers } = req;
+   console.log('req.headers.cookie')
+    console.log(req.headers.cookie)
 
     commonEngine
       .render({
@@ -34,7 +46,7 @@ export function app(): express.Express {
         documentFilePath: indexHtml,
         url: `${protocol}://${headers.host}${originalUrl}`,
         publicPath: browserDistFolder,
-        providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
+        providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }, { provide: 'REQUEST', useValue: req }],
       })
       .then((html) => res.send(html))
       .catch((err) => next(err));
@@ -44,7 +56,7 @@ export function app(): express.Express {
 }
 
 function run(): void {
-  const port = process.env['PORT'] || 4000;
+  const port = process.env['PORT'] || 3000;
 
   // Start up the Node server
   const server = app();

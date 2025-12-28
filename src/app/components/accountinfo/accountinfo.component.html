@@ -1,0 +1,46 @@
+<div class="flex justify-center items-center md:h-screen flex-col py-5 md:p-10">
+    <div class="glass py-5 md:px-10 px-5">
+        <div class="">
+            <div class="flex justify-center flex-col items-center">
+                <h1 class="text-3xl font-bold ">
+                    Welcome {{ userData?.firstName }} !
+                </h1>
+                <p class="text-slate-500 mt-2 text-center text-sm">
+                    Here is your profile info have good day
+                </p>
+                <img [src]="userData?.profilePic !== '' ? userData?.profilePic:null" alt=""
+                    class="w-[8rem] h-[8rem] rounded-full cursor-pointer mt-5" />
+            </div>
+
+              <div class="flex gap-3 md:flex-row flex-col justify-center items-center mt-5">
+                <input type="text" disabled [value]="userData?.firstName"
+                    class="h-12 bg-white outline-none border-none rounded-xl px-5 w-full" placeholder="First Name" />
+                <input type="text" disabled [value]="userData?.lastName"
+                    class="h-12 bg-white outline-none border-none rounded-xl px-5 w-full" placeholder="Last Name" />
+                <input type="text" disabled [value]="userData?.email"
+                    class="h-12 bg-white outline-none border-none rounded-xl px-5 w-full" placeholder="Email Id" />
+            </div>
+             <div class="flex gap-3 md:flex-row flex-col justify-center items-center mt-5">
+                <input type="text" disabled [value]="userData?.userLocationData?.city"
+                    class="h-12 bg-white outline-none border-none rounded-xl px-5 w-full" placeholder="City" />
+                <input type="text" disabled [value]="userData?.userLocationData?.region"
+                    class="h-12 bg-white outline-none border-none rounded-xl px-5 w-full" placeholder="State" />
+                <input type="text" disabled [value]="userData?.userLocationData?.country"
+                    class="h-12 bg-white outline-none border-none rounded-xl px-5 w-full" placeholder="Country" />
+            </div>
+              <div class="flex gap-3 md:flex-row flex-col justify-center items-center mt-5">
+                <input type="text" disabled [value]="userData?.userLocationData?.postal"
+                    class="h-12 bg-white outline-none border-none rounded-xl px-5 w-full" placeholder="Postal Code" />
+                <input type="text" disabled [value]="userData?.phoneNumber"
+                    class="h-12 bg-white outline-none border-none rounded-xl px-5 w-full" placeholder="Mobile Number" />
+                <input type="text" disabled [value]="userData?.userLocationData?.timezone"
+                    class="h-12 bg-white outline-none border-none rounded-xl px-5 w-full" placeholder="Time Zone" />
+            </div>
+
+             <button [disabled]="logoutLoading" (click)="logOut()" 
+                class="w-full bg-violet-800 h-12 rounded-lg mt-5 text-white hover:bg-red-400 cursor-pointer outline-none border-none">
+                {{logoutLoading ? 'Loading Wait' : 'Logout'}}
+            </button>
+        </div>
+    </div>
+</div>

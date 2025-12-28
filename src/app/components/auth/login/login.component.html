@@ -1,0 +1,43 @@
+<div class="flex justify-center items-center h-screen flex-col md:p-10">
+  <div class="glass py-5 px-5 md:px-10 md:w-[28rem] justify-center items-center">
+    <div class="">
+      <div class="flex justify-center flex-col items-center">
+        <h1 class="text-3xl font-bold">Login</h1>
+        <p class="text-slate-500 mt-2 text-center text-sm">
+          Login now, unlock your travel dreams!
+        </p>
+      </div>
+
+      <form class="mt-5 flex flex-col gap-5" (ngSubmit)="submitLogin()">
+        <div class="w-full mt-5 relative flex justify-center items-center h-12 bg-white  rounded-xl overflow-hidden ">
+          <select [(ngModel)]="countryCode" [ngModelOptions]="{standalone: true}"
+            class="py-2 px-1 outline-none border-none h-full">
+            <option value="91" selected class="">
+              +91 IN
+            </option>
+            <option value="1">+1 US</option>
+          </select>
+          <input name="number" type="number" [(ngModel)]="phoneNumber" [ngModelOptions]="{standalone: true}"
+            class="outline-none border-none  pl-2 w-full h-full" placeholder="Phone Number" required />
+        </div>
+        <div class="w-full bg-white rounded-xl relative overflow-hidden">
+          <input name="Password" [attr.type]="isPasswordHidden ? 'text' : 'password'" [(ngModel)]="password"
+            class="h-12 bg-white outline-none border-none w-full px-5 pr-8" placeholder="Password" required />
+          <div class="absolute md:left-[93%] left-[90%] top-[35%]" (click)="isPasswordHidden=!isPasswordHidden">
+            <i [ngClass]="{'bi-eye-slash-fill': !isPasswordHidden, 'bi-eye-fill' : isPasswordHidden }" class="bi "></i>
+          </div>
+        </div>
+        <input name="submit" [disabled]="loading" type="submit" [attr.value]="loading ? 'Login Wait' : 'Login'"
+          class="w-full bg-violet-800 h-12 rounded-lg mt-5 text-white hover:bg-red-400 cursor-pointer outline-none border-none" />
+      </form>
+      <div class="mt-5 ">
+        <p class="text-sm text-slate-400 text-center">
+          Don't have an account?
+          <span class="text-red-400 cursor-pointer" [routerLink]="'/signup'">
+            Register
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
