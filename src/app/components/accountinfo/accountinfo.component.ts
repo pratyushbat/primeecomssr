@@ -36,7 +36,7 @@ export class AccountinfoComponent implements OnInit {
     this._authService.logout().subscribe(data => {
       console.log('logout successfull');
       this._authService.setuserSubjectSub(null);
-          this.router.navigate(["/home"]);
+          this.router.navigate(["/login"]);
 
     }, err => console.log(err));
   }
