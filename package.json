@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:primeecomssr": "node dist/primeecomssr/server/server.mjs",
-    "build:ssr": " ng build   ",
+    "build:ssr": " ng build && node dist/primeecomssr/server/server.mjs  ",
     "serve:ssr": " ng build   && node dist/primeecomssr/server/server.mjs"
   },
   "private": true,
