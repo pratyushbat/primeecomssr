@@ -7,21 +7,21 @@ import { BehaviorSubject, catchError, finalize, firstValueFrom, Observable, of, 
 })
 export class AuthService {
 
-  /* url: string = "http://localhost:8000/api";
-   */
-   url: string = "http://primeecommerce-env.eba-campd2wx.ap-south-1.elasticbeanstalk.com/api";
+  url: string = "http://localhost:8000/api";
+  
+/*   url: string = "http://primeecommerce-env.eba-campd2wx.ap-south-1.elasticbeanstalk.com/api"; */
 
   private userSubject = new BehaviorSubject<any>(null);
   user$ = this.userSubject.asObservable();
 
-private isLoading = false;
+  private isLoading = false;
   constructor(private http: HttpClient) { }
 
-   get currentUser(): any | null {
+  get currentUser(): any | null {
     return this.userSubject.value;
   }
 
-    refreshUser(): Observable<any | null> {
+  refreshUser(): Observable<any | null> {
     if (this.isLoading) {
       return this.user$;
     }
@@ -29,7 +29,7 @@ private isLoading = false;
     this.isLoading = true;
 
     return this.http.get(this.url + "/user/getloggeduser", { withCredentials: true }).pipe(
-      tap((user:any) => this.userSubject.next(user.userData)),
+      tap((user: any) => this.userSubject.next(user.userData)),
       catchError(() => {
         this.userSubject.next(null);
         return of(null);
@@ -41,7 +41,7 @@ private isLoading = false;
   login(password: string, mobile: string) {
     return this.http.post(this.url + "/user/login", { password, phoneNumber: mobile });
   }
- 
+
 
 
   logUserData() {
@@ -87,7 +87,7 @@ private isLoading = false;
   }
 
   logout() {
-     return  this.http.get(this.url + "/user/logout");
+    return this.http.get(this.url + "/user/logout");
   }
 
   get userObs() {
