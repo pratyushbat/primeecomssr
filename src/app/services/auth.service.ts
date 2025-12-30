@@ -7,9 +7,9 @@ import { BehaviorSubject, catchError, finalize, firstValueFrom, Observable, of, 
 })
 export class AuthService {
 
-  url: string = "http://localhost:8000/api";
+/*   url: string = "http://localhost:8000/api"; */
   
-/*   url: string = "http://primeecommerce-env.eba-campd2wx.ap-south-1.elasticbeanstalk.com/api"; */
+  url: string = "http://primeecommerce-env.eba-campd2wx.ap-south-1.elasticbeanstalk.com/api";
 
   private userSubject = new BehaviorSubject<any>(null);
   user$ = this.userSubject.asObservable();
