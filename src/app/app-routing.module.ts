@@ -9,11 +9,18 @@ import { AccountinfoComponent } from './components/accountinfo/accountinfo.compo
 import { NonCookieAuthGuard } from './services/non-auth-guard';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent, canActivate:[NonCookieAuthGuard] },
-  { path: 'signup', component: SignupComponent,  canActivate:[NonCookieAuthGuard] },
-  { path: 'home', component: HomeComponent, },
-  {path: 'contactus', component: ContactusComponent,canActivate:[CookieAuthGuard],},
-    {path: 'accountinfo', component: AccountinfoComponent,canActivate:[CookieAuthGuard],},
+  { path: 'login', component: LoginComponent, canActivate: [NonCookieAuthGuard] },
+  { path: 'signup', component: SignupComponent, canActivate: [NonCookieAuthGuard] },
+  {
+    path: 'home', component: HomeComponent, canActivate: [CookieAuthGuard], children: [
+      { path: 'accountinfo', component: AccountinfoComponent },
+      { path: 'contactus', component: ContactusComponent },
+      { path: '', redirectTo: 'accountinfo', pathMatch: "full" },
+      { path: '**', redirectTo: 'accountinfo' }
+    ]
+  },
+
+
   { path: '', redirectTo: 'login', pathMatch: "full" },
   { path: '**', redirectTo: 'login' }
 ];
