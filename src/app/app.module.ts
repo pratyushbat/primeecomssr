@@ -12,6 +12,10 @@ import { CookieService } from 'ngx-cookie-service';
 import { ContactusComponent } from './components/contactus/contactus.component';
 import { AccountinfoComponent } from './components/accountinfo/accountinfo.component';
 import { AuthService } from './services/auth.service';
+import { LandingHomeComponent } from './components/landing-home/landing-home.component';
+import { ProductsComponent } from './components/products/products.component';
+import { CreateProductComponent } from './components/create-product/create-product.component';
+import { ProductComponent } from './components/product/product.component';
 
 export const apiInterceptor: HttpInterceptorFn = (
   req: HttpRequest<any>,
@@ -31,7 +35,11 @@ export const apiInterceptor: HttpInterceptorFn = (
     SignupComponent,
     HomeComponent,
     ContactusComponent,
-    AccountinfoComponent
+    AccountinfoComponent,
+    LandingHomeComponent,
+    ProductsComponent,
+    CreateProductComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,

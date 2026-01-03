@@ -1,0 +1,140 @@
+<!-- HEADER / NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+
+        <!-- BRAND -->
+        <a class="navbar-brand fw-bold">
+            Girisa<span class="text-success">Shop</span>
+        </a>
+
+        <!-- MOBILE TOGGLE -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- NAV LINKS -->
+        <div class="collapse navbar-collapse" id="mainNavbar">
+
+            <!-- LEFT LINKS -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" [routerLink]="'/login'">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="'/login'">Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"[routerLink]="'/login'">Categories</a>
+                </li>             
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="'/login'">Deals</a>
+                </li>
+            </ul>
+
+            <!-- SEARCH BAR -->
+            <form class="d-flex me-3" role="search">
+                <input class="form-control form-control-sm me-2" type="search" placeholder="Search products">
+                <button class="btn btn-outline-success btn-sm" type="submit">Search</button>
+            </form>
+
+            <!-- RIGHT ICONS -->
+            <div class="d-flex align-items-center gap-3">
+
+                <!-- ACCOUNT -->
+                <a [routerLink]="'/signup'" class="text-decoration-none text-dark">
+                    <i class="bi bi-person fs-5"></i>
+                    <span class="d-none d-lg-inline ms-1">Account</span>
+                </a>
+
+                <!-- CART -->
+                <a  class="text-decoration-none position-relative text-dark">
+                    <i class="bi bi-cart fs-5"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        2
+                    </span>
+                    <span class="d-none d-lg-inline ms-1" [routerLink]="'/login'">Cart</span>
+                </a>
+
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+<!-- HERO SECTION -->
+<section class="hero text-center">
+    <div class="container">
+        <h1 class="display-5 fw-bold">Premium Handcrafted Leather Wallet</h1>
+        <p class="lead mt-3">
+            Slim • Durable • Made in India
+        </p>
+        <a href="#buy" class="btn btn-success btn-lg mt-4">
+            Buy Now
+        </a>
+    </div>
+</section>
+
+<!-- PRODUCT INFO -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <div class="col-md-6">
+                <img src="https://via.placeholder.com/500x400" class="img-fluid rounded" alt="Leather Wallet">
+            </div>
+
+            <div class="col-md-6">
+                <h2>Why You'll Love It</h2>
+                <ul class="list-unstyled mt-3">
+                    <li>✔ 100% Genuine Leather</li>
+                    <li>✔ 6 Card Slots + Cash Pocket</li>
+                    <li>✔ Slim & Pocket Friendly</li>
+                    <li>✔ 1 Year Warranty</li>
+                </ul>
+
+                <div class="mt-4">
+                    <span class="price">₹1,299</span>
+                    <span class="old-price ms-2">₹1,999</span>
+                </div>
+
+                <p class="text-success mt-2">
+                    Free Shipping • Cash on Delivery
+                </p>
+
+                <a href="#buy" class="btn btn-success btn-lg mt-3">
+                    Add to Cart
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="bg-light py-5">
+    <div class="container text-center">
+        <h3>Loved by 10,000+ Customers</h3>
+        <p class="mt-3">⭐ ⭐ ⭐ ⭐ ⭐ 4.8/5 Average Rating</p>
+        <p class="text-muted">
+            “Excellent quality and fast delivery. Highly recommended!”
+        </p>
+    </div>
+</section>
+
+<!-- BUY SECTION -->
+<section id="buy" class="py-5 text-center">
+    <div class="container">
+        <h2>Ready to Upgrade Your Style?</h2>
+        <p class="mt-2">Limited stock available. Order now!</p>
+        <a href="#" class="btn btn-success btn-lg mt-3">
+            Buy Now
+        </a>
+    </div>
+</section>
+
+<!-- STICKY BUY BAR -->
+<div class="sticky-buy d-md-none text-center">
+    <a href="#buy" class="btn btn-success w-100">
+        Buy Now – ₹1,299
+    </a>
+</div>

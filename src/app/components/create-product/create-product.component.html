@@ -1,0 +1,64 @@
+<div class="tw-flex tw-justify-center tw-items-center tw-h-screen tw-flex-col tw-px-1 tw-md:tw-p-10">
+    <div class="glass tw-tw-py-5 tw-px-5 tw-md:tw-px-10 tw-md:tw-h-[35rem] tw-md:tw-w-[30rem]">
+        <div class="">
+            <div class="tw-flex tw-justify-center tw-flex-col tw-items-center">
+                <h1 class="tw-text-3xl tw-font-bold ">Wander Wave 1</h1>
+                <p class="tw-text-slate-500 tw-mt-2 tw-text-center tw-text-sm">
+                    Create Products
+                </p>
+            </div>
+
+            <form class="tw-mt-5" [formGroup]="productsForm" (ngSubmit)="createProduct()">
+                <div class="tw-flex tw-justify-center tw-gatw-p-5 tw-items-center">
+                    <input type="text" formControlName="name"
+                        class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                        placeholder=" Name" />
+
+                    <input type="text" formControlName="description"
+                        class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                        placeholder="description" />
+
+                    <input type="text" formControlName="color"
+                        class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                        placeholder="color" />
+                </div>
+                <div class="tw-flex tw-justify-center tw-gatw-p-5 tw-items-center tw-mt-5">
+                    <div class="tw-w-full">
+                        <input type="number" formControlName="price"
+                            class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                            placeholder="price" />
+                    </div>
+                </div>
+                <div class="tw-flex tw-justify-center tw-gatw-p-5 tw-items-center tw-mt-5">
+                    <div class="tw-w-full">
+                        <input type="number" formControlName="stock"
+                            class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                            placeholder="stock" />
+                    </div>
+                </div>
+                <div class="tw-flex tw-justify-center tw-gatw-p-5 tw-items-center tw-mt-5">
+                    <div class="tw-w-full">
+                        <input type="text" formControlName="brand"
+                            class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                            placeholder="brand" />
+                    </div>
+                </div>
+                <div class="tw-flex tw-justify-center tw-gatw-p-5 tw-items-center tw-mt-5">
+                    <div class="tw-w-full">
+                        <input type="text" formControlName="category"
+                            class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                            placeholder="category" />
+                    </div>
+                </div>
+
+                <input [disabled]="loading" name="submit" type="submit" [attr.value]="'submit'"
+                    class="tw-w-full tw-bg-violet-800 tw-h-12 tw-rounded-lg tw-mt-5 tw-text-white tw-hover:tw-bg-red-400 tw-cursor-pointer tw-outline-none tw-border-none" />
+                      <button (click)="goBackFunc() ">
+     Go Back
+  </button>
+            </form>
+
+
+        </div>
+    </div>
+</div>

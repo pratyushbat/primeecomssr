@@ -1,39 +1,39 @@
-<div class="flex justify-center items-center h-screen flex-col md:p-10">
-  <div class="glass py-5 px-5 md:px-10 md:w-[28rem] justify-center items-center">
+<div class="tw-flex tw-justify-center tw-items-center tw-h-screen tw-flex-col tw-md:tw-p-10">
+  <div class="glass tw-py-5 tw-px-5 tw-md:tw-px-10 tw-md:tw-w-[28rem] tw-md:tw-w-28 tw-justify-center tw-items-center">
     <div class="">
-      <div class="flex justify-center flex-col items-center">
-        <h1 class="text-3xl font-bold">Login</h1>
-        <p class="text-slate-500 mt-2 text-center text-sm">
+      <div class="tw-flex tw-justify-center tw-flex-col tw-items-center">
+        <h1 class="tw-text-3xl tw-font-bold">Login</h1>
+        <p class="tw-text-slate-500 tw-mt-2 tw-text-center tw-text-sm">
           Login now, unlock your travel dreams!
         </p>
       </div>
 
-      <form class="mt-5 flex flex-col gap-5" (ngSubmit)="submitLogin()">
-        <div class="w-full mt-5 relative flex justify-center items-center h-12 bg-white  rounded-xl overflow-hidden ">
+      <form class="tw-mt-5 tw-flex tw-flex-col tw-gap-5" (ngSubmit)="submitLogin()">
+        <div class="tw-w-full tw-mt-5 tw-relative tw-flex tw-justify-center tw-items-center h-12 tw-bg-white  tw-rounded-xl tw-overflow-hidden ">
           <select [(ngModel)]="countryCode" [ngModelOptions]="{standalone: true}"
-            class="py-2 px-1 outline-none border-none h-full">
+            class="tw-py-2 tw-px-1 tw-outline-none tw-border-none tw-h-full">
             <option value="91" selected class="">
               +91 IN
             </option>
             <option value="1">+1 US</option>
           </select>
           <input name="number" type="number" [(ngModel)]="phoneNumber" [ngModelOptions]="{standalone: true}"
-            class="outline-none border-none  pl-2 w-full h-full" placeholder="Phone Number" required />
+            class="tw-outline-none tw-border-none  tw-pl-2 tw-w-full tw-h-full" placeholder="Phone Number" required />
         </div>
-        <div class="w-full bg-white rounded-xl relative overflow-hidden">
+        <div class="tw-w-full tw-bg-white tw-rounded-xl tw-relative tw-overflow-hidden">
           <input name="Password" [attr.type]="isPasswordHidden ? 'text' : 'password'" [(ngModel)]="password"
-            class="h-12 bg-white outline-none border-none w-full px-5 pr-8" placeholder="Password" required />
-          <div class="absolute md:left-[93%] left-[90%] top-[35%]" (click)="isPasswordHidden=!isPasswordHidden">
+            class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-w-full tw-px-5 tw-pr-8" placeholder="Password" required />
+          <div class="tw-absolute tw-md:tw-left-[93%] tw-left-[90%] tw-top-[35%]" (click)="isPasswordHidden=!isPasswordHidden">
             <i [ngClass]="{'bi-eye-slash-fill': !isPasswordHidden, 'bi-eye-fill' : isPasswordHidden }" class="bi "></i>
           </div>
         </div>
         <input name="submit" [disabled]="loading" type="submit" [attr.value]="loading ? 'Login Wait' : 'Login'"
-          class="w-full bg-violet-800 h-12 rounded-lg mt-5 text-white hover:bg-red-400 cursor-pointer outline-none border-none" />
+          class="tw-w-full tw-bg-violet-800 tw-h-12 tw-rounded-lg tw-mt-5 tw-text-white tw-hover:tw-bg-red-400 tw-cursor-pointer tw-outline-none tw-border-none" />
       </form>
-      <div class="mt-5 ">
-        <p class="text-sm text-slate-400 text-center">
+      <div class="tw-mt-5 ">
+        <p class="tw-text-sm tw-text-slate-400 tw-text-center">
           Don't have an account?
-          <span class="text-red-400 cursor-pointer" [routerLink]="'/signup'">
+          <span class="tw-text-red-400 tw-cursor-pointer" [routerLink]="'/signup'">
             Register
           </span>
         </p>

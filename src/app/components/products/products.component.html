@@ -1,0 +1,92 @@
+<!-- <add-product *ngIf="!!user && isAddProduct " (goBack)="isAddProduct=false;"
+    (isCreated)="refreshProducts($event)"></add-product> -->
+<app-create-product *ngIf="!!userData && isAddProduct"  (goBack)="isAddProduct=false;"   (isCreated)="refreshProducts($event)"></app-create-product>
+
+<div class="merchandise-section">
+    <div class="section-header">
+        <h1>Merchandise</h1>
+          <button  class="btn btn-secondary w-100 btn-sm"  *ngIf="!!userData && !isAddProduct " color="primary" id="checkout-button" (click)='isAddProduct=true'>Add
+            Product</button>
+    </div>
+
+    <!--   <div *ngIf="isError" class="error-container">
+        <div class="error-icon">⚠️</div>
+        <h3>Unable to load products</h3>
+        <p>{{ 'Something went wrong while fetching products.' }}</p>
+        <p>Try switching to a different driver in the debug bar below, then click Retry.</p>
+        <button class="retry-button">Retry</button>
+    </div>
+ -->
+
+    <ng-template #noProducts>
+        <p>No products found.</p>
+    </ng-template>
+
+
+    <div *ngIf="isLoading else loadDataTemplate" class="loading-container">
+        <div class="loading-spinner"></div>
+        <p>Loading products...</p>
+    </div>
+
+    <ng-template #loadDataTemplate>
+        <div class="container py-5">
+            <h1 class="mb-4 text-center">Featured Products</h1>
+
+            <div class="row g-4" *ngIf="products$ | async as products; else noProducts ">
+
+                <!-- PRODUCT CARD -->
+                <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let item of products$ | async; let i = index">
+                    <div class="card product-card position-relative">
+                        <!--         <span class="badge badge-discount">30% OFF</span> -->
+
+                        <img [src]="item?.image" [alt]="item?.name" class="product-img w-100">
+
+                        <div class="card-body">
+                            <h6 class="card-title">{{ item?.name }}</h6>
+
+                            <div class="rating mb-2">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star"></i>
+                                <span class="text-muted ms-1">({{ item?.totalRatings }})</span>
+                            </div>
+
+                            <div class="mb-2">
+                                <span class="price">{{ item?.price }}</span>
+                                <!--             <span class="old-price ms-2">{{ item?.price }}</span> -->
+                            </div>
+
+                            <button class="btn btn-success w-100 btn-sm">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <ng-template #noProducts>
+            <p>No products found.</p>
+        </ng-template>
+    </ng-template>
+</div>
+
+
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary"   (click)="openModalt();">
+    Launch demo modal
+</button>
+
+<app-signup *ngIf="openModal" (isClosedModal)="closeModal($event)"></app-signup>
+
+
+<div *ngIf="user$ | async as user">
+  <h3>{{ user?.name }}</h3>
+  <p>{{ user?.email }}</p>
+  <p>ID: {{ user?.id }}</p>
+</div> -->

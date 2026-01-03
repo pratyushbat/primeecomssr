@@ -17,15 +17,16 @@ export function app(): express.Express {
 
   server.set('view engine', 'html');
   server.set('views', browserDistFolder);
-    
-/*  server.use('/api', (req, res) => {
-    createProxyMiddleware({
-      target: 'http://localhost:8000',
-      changeOrigin: true, 
-      secure: false,
-          
-    });
-  }); */
+  const BASE_URL = 'https://girisa.shop';
+
+  /*  server.use('/api', (req, res) => {
+      createProxyMiddleware({
+        target: 'http://localhost:8000',
+        changeOrigin: true, 
+        secure: false,
+            
+      });
+    }); */
 
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
@@ -34,10 +35,54 @@ export function app(): express.Express {
     maxAge: '1y'
   }));
 
+  // ---------------- SITEMAP ----------------
+  server.get('/sitemap.xml', (req, res) => {
+    res.set('Content-Type', 'application/xml');
+
+    const staticRoutes = [
+      '/',
+      '/home',
+      '/home/accountinfo',
+      '/home/contactus',
+      '/home/products',
+
+    ];
+
+    const productSlugs = [
+      'girisa nails',
+      'artifical nails',
+      'girisa beauty'
+    ];
+    const urls = [
+      ...staticRoutes.map(route => ({
+        loc: `${BASE_URL}${route}`,
+        priority: '1.0',
+        changefreq: 'daily'
+      })),
+      ...productSlugs.map(slug => ({
+        loc: `${BASE_URL}/product/${slug}`,
+        priority: '0.8',
+        changefreq: 'weekly'
+      }))
+    ];
+
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map(u => `
+  <url>
+    <loc>${u.loc}</loc>
+    <changefreq>${u.changefreq}</changefreq>
+    <priority>${u.priority}</priority>
+  </url>`).join('')}
+</urlset>`;
+
+    res.send(xml);
+  });
+
   // All regular routes use the Angular engine
   server.get('*', (req, res, next) => {
     const { protocol, originalUrl, baseUrl, headers } = req;
-   console.log('req.headers.cookie')
+    console.log('req.headers.cookie')
     console.log(req.headers.cookie)
 
     commonEngine

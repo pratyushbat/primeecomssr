@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
 import { map } from 'rxjs';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -18,8 +19,15 @@ export class HomeComponent implements OnInit {
 
   currentUserData: any;
   public logoutLoading: boolean = false;
-  constructor(private _authService: AuthService, private router: Router) {
 
+  constructor(private _authService: AuthService, private router: Router, private meta: Meta) {
+    this.meta.addTag({ name: 'description', content: "Welcome to Girisa Enterprise website, we are an MSE based out of India. We aim to deliver high-quality nails to our customers." });
+    this.meta.addTag({ property: 'keywords', content: "GIRISA NAILS, buy GIRISA NAILS online, GIRISA NAILS SHOP price" });
+    this.meta.addTag({ name: 'twitter-card', content: "GIRISA NAILS" });
+    this.meta.addTag({ property: 'og:type', content: "website" });
+    this.meta.addTag({ property: 'og:title', content: "Buy GIRISA nails  online at best prices on https://girisa.shop" });
+    this.meta.addTag({ property: 'og:description', content: "Welcome to Girisa Nails Enterprise website, we are an MSE based out of India. We aim to deliver high-quality nails to our customers." });
+    this.meta.addTag({ property: 'og:keywords', content: "GIRISA, buy GIRISA online, GIRISA price" });
   }
   ngOnInit(): void {
     this.getData()
@@ -30,7 +38,7 @@ export class HomeComponent implements OnInit {
       this.currentUserData = this._authService.currentUser;
       console.log('currentUserData', this.currentUserData)
       this.userRole = this.currentUserData.role;
-      this.userId =  this.currentUserData._id;
+      this.userId = this.currentUserData._id;
 
     }
     else {
