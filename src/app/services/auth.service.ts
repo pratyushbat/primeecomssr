@@ -7,8 +7,7 @@ import { BehaviorSubject, catchError, finalize, firstValueFrom, Observable, of, 
 })
 export class AuthService {
 
-  /*  url: string = "https://girisa.shop/api"; */
-  url: string = "http://localhost:8000/api";
+  url: string = "https://girisa.shop/api"; 
 
 
   private userSubject = new BehaviorSubject<any>(null);

@@ -31,6 +31,17 @@
                 </div>
                 <div class="tw-flex tw-justify-center tw-gatw-p-5 tw-items-center tw-mt-5">
                     <div class="tw-w-full">
+                        <input type="file" class="form-control" multiple accept="image/*"
+                            (change)="onFileChange($event)">
+                        <small class="text-muted">
+                            You can upload up to 6 images
+                        </small>
+
+                        <img *ngFor="let img of images" [src]="img.url" width="120" class="me-2 mb-2 rounded">
+                    </div>
+                </div>
+                <div class="tw-flex tw-justify-center tw-gatw-p-5 tw-items-center tw-mt-5">
+                    <div class="tw-w-full">
                         <input type="number" formControlName="stock"
                             class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
                             placeholder="stock" />
@@ -53,9 +64,9 @@
 
                 <input [disabled]="loading" name="submit" type="submit" [attr.value]="'submit'"
                     class="tw-w-full tw-bg-violet-800 tw-h-12 tw-rounded-lg tw-mt-5 tw-text-white tw-hover:tw-bg-red-400 tw-cursor-pointer tw-outline-none tw-border-none" />
-                      <button (click)="goBackFunc() ">
-     Go Back
-  </button>
+                <button (click)="goBackFunc() ">
+                    Go Back
+                </button>
             </form>
 
 

@@ -21,8 +21,8 @@ const routes: Routes = [
       { path: 'product', component: ProductComponent },
       { path: 'accountinfo', component: AccountinfoComponent },
       { path: 'contactus', component: ContactusComponent },
-      { path: '', redirectTo: 'accountinfo', pathMatch: "full" },
-      { path: '**', redirectTo: 'accountinfo' }
+      { path: '', redirectTo: 'products', pathMatch: "full" },
+      { path: '**', redirectTo: 'products' }
     ]
   },
 

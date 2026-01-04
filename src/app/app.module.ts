@@ -16,6 +16,7 @@ import { LandingHomeComponent } from './components/landing-home/landing-home.com
 import { ProductsComponent } from './components/products/products.component';
 import { CreateProductComponent } from './components/create-product/create-product.component';
 import { ProductComponent } from './components/product/product.component';
+import { ImageslidercomponentComponent } from './components/common/imageslidercomponent/imageslidercomponent.component';
 
 export const apiInterceptor: HttpInterceptorFn = (
   req: HttpRequest<any>,
@@ -39,7 +40,8 @@ export const apiInterceptor: HttpInterceptorFn = (
     LandingHomeComponent,
     ProductsComponent,
     CreateProductComponent,
-    ProductComponent
+    ProductComponent,
+    ImageslidercomponentComponent
   ],
   imports: [
     BrowserModule,
