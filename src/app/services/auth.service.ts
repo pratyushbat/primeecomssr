@@ -98,4 +98,15 @@ export class AuthService {
     return this.http.get("https://ipinfo.io/json");
   }
 
+
+
+  saveAddress(payload: any): Observable<any> {
+    return this.http.post(`${this.url}/user/addUpdateAddress`, payload);
+  }
+
+
+  deleteAddress(addressId: string): Observable<any> {
+    return this.http.delete(`${this.url}/user/address/${addressId}`);
+  }
+
 }

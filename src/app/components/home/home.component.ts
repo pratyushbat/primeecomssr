@@ -19,7 +19,6 @@ export class HomeComponent implements OnInit {
   userId: string | any;
 
   currentUserData: any;
-  public logoutLoading: boolean = false;
   isLoading: boolean = false;
   cartLength: number = 0;
 

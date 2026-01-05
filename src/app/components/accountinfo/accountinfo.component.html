@@ -1,7 +1,7 @@
-<div class="flex justify-center tw-items-center md:h-screen flex-col py-5 md:p-10">
-    <div class="glass py-5 md:px-10 px-5">
+<div class="tw-flex tw-justify-center tw-items-center tw-md:h-screen tw-flex-col py-5 tw-md:p-10">
+    <div class="glass py-5 tw-md:px-10 tw-px-5">
         <div class="">
-            <div class="flex justify-center flex-col tw-items-center">
+            <div class="tw-flex tw-justify-center tw-flex-col tw-items-center">
                 <h1 class="text-3xl font-bold ">
                     Welcome {{ userData?.firstName }} !
                 </h1>
@@ -9,38 +9,142 @@
                     Here is your profile info have good day
                 </p>
                 <img [src]="userData?.profilePic !== '' ? userData?.profilePic:null" alt=""
-                    class="w-[8rem] h-[8rem] rounded-full cursor-pointer mt-5" />
+                    class="w-[8rem] h-[8rem] rounded-full cursor-pointer tw-mt-5" />
             </div>
 
-              <div class="flex gap-3 md:flex-row flex-col justify-center tw-items-center mt-5">
+            <div class="tw-flex gap-3 tw-md:tw-flex-row tw-flex-col tw-justify-center tw-items-center tw-mt-5">
                 <input type="text" disabled [value]="userData?.firstName"
-                    class="h-12 bg-white outline-none border-none rounded-xl px-5 w-full" placeholder="First Name" />
+                    class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                    placeholder="First Name" />
                 <input type="text" disabled [value]="userData?.lastName"
-                    class="h-12 bg-white outline-none border-none rounded-xl px-5 w-full" placeholder="Last Name" />
+                    class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                    placeholder="Last Name" />
                 <input type="text" disabled [value]="userData?.email"
-                    class="h-12 bg-white outline-none border-none rounded-xl px-5 w-full" placeholder="Email Id" />
+                    class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                    placeholder="Email Id" />
             </div>
-             <div class="flex gap-3 md:flex-row flex-col justify-center tw-items-center mt-5">
+            <div class="tw-flex gap-3 tw-md:tw-flex-row tw-flex-col tw-justify-center tw-items-center tw-mt-5">
                 <input type="text" disabled [value]="userData?.userLocationData?.city"
-                    class="h-12 bg-white outline-none border-none rounded-xl px-5 w-full" placeholder="City" />
+                    class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                    placeholder="City" />
                 <input type="text" disabled [value]="userData?.userLocationData?.region"
-                    class="h-12 bg-white outline-none border-none rounded-xl px-5 w-full" placeholder="State" />
+                    class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                    placeholder="State" />
                 <input type="text" disabled [value]="userData?.userLocationData?.country"
-                    class="h-12 bg-white outline-none border-none rounded-xl px-5 w-full" placeholder="Country" />
+                    class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                    placeholder="Country" />
             </div>
-              <div class="flex gap-3 md:flex-row flex-col justify-center tw-items-center mt-5">
+            <div class="tw-flex gap-3 tw-md:tw-flex-row tw-flex-col tw-justify-center tw-items-center tw-mt-5">
                 <input type="text" disabled [value]="userData?.userLocationData?.postal"
-                    class="h-12 bg-white outline-none border-none rounded-xl px-5 w-full" placeholder="Postal Code" />
+                    class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                    placeholder="Postal Code" />
                 <input type="text" disabled [value]="userData?.phoneNumber"
-                    class="h-12 bg-white outline-none border-none rounded-xl px-5 w-full" placeholder="Mobile Number" />
+                    class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                    placeholder="Mobile Number" />
                 <input type="text" disabled [value]="userData?.userLocationData?.timezone"
-                    class="h-12 bg-white outline-none border-none rounded-xl px-5 w-full" placeholder="Time Zone" />
+                    class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                    placeholder="Time Zone" />
             </div>
 
-             <button [disabled]="logoutLoading" (click)="logOut()" 
-                class="w-full bg-violet-800 h-12 rounded-lg mt-5 text-white hover:bg-red-400 cursor-pointer outline-none border-none">
-                {{logoutLoading ? 'Loading Wait' : 'Logout'}}
+            <div *ngIf="userData.addresses?.length">
+                <div *ngFor="let add of userData.addresses; let i=index ">
+                    <h1>Address #{{i+1}} </h1>
+                    <p> {{add.fullName}} </p>
+                    <p> {{add.phone}} </p>
+                    <p> {{add.addressLine1}} </p>
+                    <p> {{add.addressLine2}} </p>
+                    <p> {{add.city}} </p>
+                    <p> {{add.state}} </p>
+                    <p> {{add.pincode}} </p>
+                    <p> {{add.country}} </p>
+                    <p> {{add.isDefault}} </p>
+
+                </div>
+
+            </div>
+            <button [disabled]="isLoading" (click)="logOut()"
+                class="tw-w-full bg-violet-800 tw-h-12 rounded-lg tw-mt-5 text-white hover:bg-red-400 cursor-pointer tw-outline-none tw-border-none">
+                {{isLoading ? 'Loading Wait' : 'Logout'}}
             </button>
+            <button [disabled]="isLoading" (click)="isAddAddress=true;"
+                class="tw-w-full bg-violet-800 tw-h-12 rounded-lg tw-mt-5 text-white hover:bg-red-400 cursor-pointer tw-outline-none tw-border-none">
+                Add Address
+            </button>
+
+        </div>
+
+
+        <div [hidden]="!isAddAddress">
+            <h2>Add Address</h2>
+
+            <form class="tw-mt-5" [formGroup]="addressForm" (ngSubmit)="saveAdd()">
+                <div class="tw-flex tw-justify-center tw-gatw-p-5 tw-items-center">
+                    <input type="text" formControlName="fullName"
+                        class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                        placeholder=" fullName" />
+
+                    <input type="text" formControlName="phone"
+                        class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                        placeholder="phone" />
+
+                    <input type="text" formControlName="addressLine1"
+                        class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                        placeholder="addressLine1" />
+                </div>
+                <div class="tw-flex tw-justify-center tw-gatw-p-5 tw-items-center tw-mt-5">
+                    <div class="tw-w-full">
+                        <input type="text" formControlName="addressLine2"
+                            class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                            placeholder="addressLine2" />
+                    </div>
+                </div>
+
+                <div class="tw-flex tw-justify-center tw-gatw-p-5 tw-items-center tw-mt-5">
+                    <div class="tw-w-full">
+                        <input type="text" formControlName="city"
+                            class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                            placeholder="city" />
+                    </div>
+                </div>
+                <div class="tw-flex tw-justify-center tw-gatw-p-5 tw-items-center tw-mt-5">
+                    <div class="tw-w-full">
+                        <input type="text" formControlName="state"
+                            class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                            placeholder="state" />
+                    </div>
+                </div>
+                <div class="tw-flex tw-justify-center tw-gatw-p-5 tw-items-center tw-mt-5">
+                    <div class="tw-w-full">
+                        <input type="text" formControlName="pincode"
+                            class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                            placeholder="pincode" />
+                    </div>
+                </div>
+                <div class="tw-flex tw-justify-center tw-gatw-p-5 tw-items-center tw-mt-5">
+                    <div class="tw-w-full">
+                        <label>Country</label>
+                        <select formControlName="country" [disabled]="true">
+                            <option *ngFor="let c of countries" [value]="c">
+                                {{ c }}
+                            </option>
+                        </select>
+
+                    </div>
+                </div>
+                <div class="tw-flex tw-justify-center tw-gatw-p-5 tw-items-center tw-mt-5">
+                    <div class="tw-w-full">
+                        <select formControlName="isDefault">
+                            <option *ngFor="let opt of booleanOptions" [ngValue]="opt.value">
+                                {{ opt.label }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <input [disabled]="isLoading" name="submit" type="submit" [attr.value]="'submit'"
+                    class="tw-w-full tw-bg-violet-800 tw-h-12 tw-rounded-lg tw-mt-5 tw-text-white tw-hover:tw-bg-red-400 tw-cursor-pointer tw-outline-none tw-border-none" />
+            </form>
+
         </div>
     </div>
 </div>
