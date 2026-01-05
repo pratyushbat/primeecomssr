@@ -10,6 +10,7 @@ import { NonCookieAuthGuard } from './services/non-auth-guard';
 import { LandingHomeComponent } from './components/landing-home/landing-home.component';
 import { ProductsComponent } from './components/products/products.component';
 import { ProductComponent } from './components/product/product.component';
+import { CartComponent } from './components/cart/cart.component';
 
 const routes: Routes = [
   { path: '', component: LandingHomeComponent, canActivate: [NonCookieAuthGuard] },
@@ -18,7 +19,8 @@ const routes: Routes = [
   {
     path: 'home', component: HomeComponent, canActivate: [CookieAuthGuard], children: [
       { path: 'products', component: ProductsComponent },
-      { path: 'product', component: ProductComponent },
+      { path: 'product/:productId', component: ProductComponent },
+      { path: 'bag', component: CartComponent },
       { path: 'accountinfo', component: AccountinfoComponent },
       { path: 'contactus', component: ContactusComponent },
       { path: '', redirectTo: 'products', pathMatch: "full" },

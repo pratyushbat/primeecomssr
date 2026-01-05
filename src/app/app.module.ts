@@ -17,6 +17,7 @@ import { ProductsComponent } from './components/products/products.component';
 import { CreateProductComponent } from './components/create-product/create-product.component';
 import { ProductComponent } from './components/product/product.component';
 import { ImageslidercomponentComponent } from './components/common/imageslidercomponent/imageslidercomponent.component';
+import { CartComponent } from './components/cart/cart.component';
 
 export const apiInterceptor: HttpInterceptorFn = (
   req: HttpRequest<any>,
@@ -41,7 +42,8 @@ export const apiInterceptor: HttpInterceptorFn = (
     ProductsComponent,
     CreateProductComponent,
     ProductComponent,
-    ImageslidercomponentComponent
+    ImageslidercomponentComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

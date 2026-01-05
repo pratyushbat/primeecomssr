@@ -6,9 +6,8 @@ import { shareReplay } from 'rxjs';
   providedIn: 'root'
 })
 export class ProductsService {
-
- url: string = "https://girisa.shop/api";
- 
+    url: string = "http://localhost:8000/api";
+/*  url: string = "https://girisa.shop/api"; */
   constructor(private http: HttpClient) { }
 
   createProduct(products: any) {

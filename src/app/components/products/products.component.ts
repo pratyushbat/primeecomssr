@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from 'express';
 import { map, shareReplay, Subject, take, takeUntil } from 'rxjs';
 import { ProductsService } from '../../services/products.service';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-products',
@@ -11,13 +12,14 @@ import { ProductsService } from '../../services/products.service';
 })
 export class ProductsComponent implements OnInit, OnDestroy {
 
+
   private destroy$ = new Subject<void>();
   userData: any;
   isLoading: boolean = false;
   products$: any;
   productList: any[] = [];
   isAddProduct = false;
-  constructor(private _authService: AuthService, private _productService: ProductsService) {
+  constructor(private _authService: AuthService, private _cartService: CartService, private _productService: ProductsService) {
 
   }
 
@@ -43,7 +45,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   }
   getProducts() {
-    console.log('inside getProd')
     this.isLoading = true;
 
     this.products$ = this._productService.allproducts();
@@ -78,6 +79,17 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   }
 
-
+  addToCart(product: any) {
+    this.isLoading = true;
+    this._cartService.addToCart({ productId: product._id, quantity: 1 })
+      .subscribe(
+        (result: any) => {
+          console.log('added to cart UI', result);
+          this.isLoading = false;
+           this._cartService.updateCartMessage('Hello from Sender!');
+        },
+        (error: any) => (this.isLoading = false)
+      );
+  }
 
 }

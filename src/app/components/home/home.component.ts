@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
 import { map } from 'rxjs';
 import { Meta } from '@angular/platform-browser';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-home',
@@ -19,8 +20,10 @@ export class HomeComponent implements OnInit {
 
   currentUserData: any;
   public logoutLoading: boolean = false;
+  isLoading: boolean = false;
+  cartLength: number = 0;
 
-  constructor(private _authService: AuthService, private router: Router, private meta: Meta) {
+  constructor(private _authService: AuthService, private router: Router, private meta: Meta, private _cartService: CartService) {
     this.meta.addTag({ name: 'description', content: "Welcome to Girisa Enterprise website, we are an MSE based out of India. We aim to deliver high-quality nails to our customers." });
     this.meta.addTag({ property: 'keywords', content: "GIRISA NAILS, buy GIRISA NAILS online, GIRISA NAILS SHOP price" });
     this.meta.addTag({ name: 'twitter-card', content: "GIRISA NAILS" });
@@ -30,15 +33,20 @@ export class HomeComponent implements OnInit {
     this.meta.addTag({ property: 'og:keywords', content: "GIRISA, buy GIRISA online, GIRISA price" });
   }
   ngOnInit(): void {
-    this.getData()
+ this._cartService.currentCartMessage$.subscribe(msg => {
+    console.log('Received:', msg);
+    this.getCount();
+  });
+    this.getData();
+
   }
 
   getData() {
     if (this._authService.currentUser) {
       this.currentUserData = this._authService.currentUser;
-      console.log('currentUserData', this.currentUserData)
       this.userRole = this.currentUserData.role;
       this.userId = this.currentUserData._id;
+      this.getCount();
 
     }
     else {
@@ -47,7 +55,8 @@ export class HomeComponent implements OnInit {
 
           if (user) {
             this.currentUserData = user;
-            console.log('user', user)
+            this.getCount();
+
           }
         })
       );
@@ -94,6 +103,20 @@ export class HomeComponent implements OnInit {
       this.router.navigate(["/login"]);
 
     }, err => console.log(err));
+  }
+
+  getCount() {
+    this.isLoading = true;
+    this._cartService.getCart()
+      .subscribe(
+        (result: any) => {
+          this.cartLength = result.items.length;
+          console.log(this.cartLength)
+          this.isLoading = false;
+        },
+        (error: any) => (this.isLoading = false)
+      );
+
   }
 
 }
