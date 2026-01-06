@@ -10,7 +10,7 @@ export class CartService {
     private cartmessageSource = new BehaviorSubject<string>('default message');
   currentCartMessage$ = this.cartmessageSource.asObservable();
   
-  url: string = "http://localhost:8000/api";
+    url: string = "https://girisa.shop/api"; 
   constructor(private http: HttpClient) { }
 
   addToCart(cartObj: any) {
