@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { APP_INITIALIZER, inject, NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -18,16 +18,47 @@ import { CreateProductComponent } from './components/create-product/create-produ
 import { ProductComponent } from './components/product/product.component';
 import { ImageslidercomponentComponent } from './components/common/imageslidercomponent/imageslidercomponent.component';
 import { CartComponent } from './components/cart/cart.component';
-
+import { catchError, throwError } from 'rxjs';
+import { Router } from '@angular/router';
+const AUTH_EXCLUDED_URLS = [
+  '/api/login',
+  '/api/register',
+  '/api/refresh',
+  '/api/logout',
+];
 export const apiInterceptor: HttpInterceptorFn = (
   req: HttpRequest<any>,
   next: HttpHandlerFn
 ) => {
-  // Include the `apiUrl` in your environment, like `//localhost:3000`
-  if (req.url.includes("/api")) {
-    req = req.clone({ withCredentials: true });
-  }
-  return next(req);
+  const authService = inject(AuthService);
+  const tokenCP = authService.getUrlClientProd();
+  const router = inject(Router);
+  if (!req.url.startsWith('/api') || req.url.includes('.')) 
+    return next(req);
+  
+  const apiReq = req.clone({
+    setHeaders: {
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache'
+      },
+    url: `${tokenCP}${req.url}`,
+    withCredentials: true
+  });
+
+  return next(apiReq).pipe(
+    catchError(err => {
+      /*  const isExcluded = AUTH_EXCLUDED_URLS.some(url =>
+         router.url.includes(url)
+      ); */
+/*       && !isExcluded */
+      if (err.status === 401  ) {
+        alert('unquthorized now get out'+req.url);
+        authService.setuserSubjectSub(null);
+        router.navigate(['/login']);// 🔥 auto logout
+      }
+      return throwError(() => err);
+    })
+  );
 }
 
 @NgModule({

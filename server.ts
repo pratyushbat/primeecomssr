@@ -19,17 +19,6 @@ export function app(): express.Express {
   server.set('views', browserDistFolder);
   const BASE_URL = 'https://girisa.shop';
 
-  /*  server.use('/api', (req, res) => {
-      createProxyMiddleware({
-        target: 'http://localhost:8000',
-        changeOrigin: true, 
-        secure: false,
-            
-      });
-    }); */
-
-  // Example Express Rest API endpoints
-  // server.get('/api/**', (req, res) => { });
   // Serve static files from /browser
   server.get('*.*', express.static(browserDistFolder, {
     maxAge: '1y'
@@ -80,8 +69,8 @@ ${urls.map(u => `
   });
 
   // All regular routes use the Angular engine
-  server.get('*', (req, res, next) => {
-    const { protocol, originalUrl, baseUrl, headers } = req;
+  server.get('*', (req:any, res, next) => {
+    const { protocol, originalUrl, baseUrl, headers, user } = req;
     console.log('req.headers.cookie')
     console.log(req.headers.cookie)
 
@@ -91,7 +80,8 @@ ${urls.map(u => `
         documentFilePath: indexHtml,
         url: `${protocol}://${headers.host}${originalUrl}`,
         publicPath: browserDistFolder,
-        providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }, { provide: 'REQUEST', useValue: req }],
+        providers: [{ provide: APP_BASE_HREF, useValue: baseUrl },{provide: 'USER', useValue: user || null
+    }, { provide: 'REQUEST', useValue: req }],
       })
       .then((html) => res.send(html))
       .catch((err) => next(err));

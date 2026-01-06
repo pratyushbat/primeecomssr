@@ -19,20 +19,6 @@ export class NonCookieAuthGuard implements CanActivate {
       return of(true);
     }
 
-    /* return this.authService.logUserData().pipe(
-      map((res:any) => {
-        if (res.success) {
-          this.authService.setuserSubjectSub(res.userData);
-          return true;
-        }
-        this.router.navigate(['/login']);
-        return false;
-      }),
-      catchError(() => {
-        this.router.navigate(['/login']);
-        return of(false);
-      })
-    ); */
 
     // 2️⃣ Otherwise refresh from backend
     return this.authService.refreshUser().pipe(

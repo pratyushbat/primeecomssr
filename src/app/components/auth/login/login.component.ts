@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
+import { Subject, take, takeUntil } from 'rxjs';
 
 
 const validatePassword = (password: any) => {
@@ -34,19 +35,19 @@ const validatePhoneNumber = (phoneNumber: any) => {
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit,OnDestroy {
   countryCode = "91";
   phoneNumber = "";
   isPasswordHidden = false;
   loading = false;
   password = "";
+  private destroy$ = new Subject<void>();
 
-
-  constructor(private _authService: AuthService,private router:Router) {
+  constructor(private _authService: AuthService, private router: Router) {
 
   }
   ngOnInit(): void {
-    
+
   }
 
   setCounterCode(arg: any) {
@@ -63,23 +64,29 @@ export class LoginComponent implements OnInit {
     } else if (!isValidPhoneNumber) {
       alert("Invalid Phone Number 🙄");
     } else {
-      this._authService.login(this.password, this.countryCode + "" + this.phoneNumber).subscribe(data => {
-        console.log(data)
-        this._authService.logUserData().subscribe((data: any) => {
-          console.log(data)
-          /*    this._authService.loggedUser = data.userData; */
-          this._authService.setuserSubjectSub(data.userData);
-          this.router.navigate(["/home"]);
+      this._authService.login(this.password, this.countryCode + "" + this.phoneNumber)
+        .pipe(takeUntil(this.destroy$), take(1))
+        .subscribe(data => {
+          this._authService.logUserData()
+            .pipe(takeUntil(this.destroy$), take(1))
+            .subscribe((data: any) => {
+              this._authService.setuserSubjectSub(data.userData);
+              this.router.navigate(["/home"]);
+            },
+              error => {
+                console.log(error);
+              });
         },
           error => {
             console.log(error);
           });
-      },
-        error => {
-          console.log(error);
-        });
     }
   }
 
+ ngOnDestroy() {
+    this.destroy$?.next();
+    this.destroy$?.complete();
+
+  }
 
 }

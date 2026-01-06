@@ -6,22 +6,21 @@ import { shareReplay } from 'rxjs';
   providedIn: 'root'
 })
 export class ProductsService {
-    url: string = "http://localhost:8000/api";
-/*  url: string = "https://girisa.shop/api"; */
+
   constructor(private http: HttpClient) { }
 
   createProduct(products: any) {
-    return this.http.post(this.url + "/product/create ", products, { withCredentials: true });
+    return this.http.post("/api/product/create ", products, { withCredentials: true });
   }
   
   allproducts() {
-    return this.http.get(this.url + "/product/all")  .pipe(shareReplay(1));;
+    return this.http.get("/api/product/all").pipe(shareReplay(1));;
   }
   productById() {
-    return this.http.get(this.url + "/productsById");
+    return this.http.get("/api/productsById");
   }
   cartProductsById() {
-    return this.http.get(this.url + "/products/cart/userId", { withCredentials: true });
+    return this.http.get("/api/products/cart/userId", { withCredentials: true });
   }
 
 

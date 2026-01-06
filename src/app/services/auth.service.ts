@@ -6,9 +6,10 @@ import { BehaviorSubject, catchError, finalize, firstValueFrom, Observable, of, 
   providedIn: 'root'
 })
 export class AuthService {
+  
 
-    url: string = "https://girisa.shop/api"; 
- /*   url: string = "http://localhost:8000/api"; */
+/*     url: string = "https://girisa.shop"; */ 
+   url: string = "http://localhost:8000";
 
 
   private userSubject = new BehaviorSubject<any>(null);
@@ -16,6 +17,10 @@ export class AuthService {
 
   private isLoading = false;
   constructor(private http: HttpClient) { }
+
+  getUrlClientProd() {
+  return this.url;
+  }
 
   get currentUser(): any | null {
     return this.userSubject.value;
@@ -28,7 +33,7 @@ export class AuthService {
 
     this.isLoading = true;
 
-    return this.http.get(this.url + "/user/getloggeduser", { withCredentials: true }).pipe(
+    return this.logUserData().pipe(
       tap((user: any) => this.userSubject.next(user.userData)),
       catchError(() => {
         this.userSubject.next(null);
@@ -39,26 +44,26 @@ export class AuthService {
   }
 
   login(password: string, mobile: string) {
-    return this.http.post(this.url + "/user/login", { password, phoneNumber: mobile });
+    return this.http.post( "/api/user/login", { password, phoneNumber: mobile });
   }
 
 
 
   logUserData() {
-    return this.http.get(this.url + "/user/getloggeduser", { withCredentials: true });
+    return this.http.get( "/api/user/getloggeduser", { withCredentials: true });
   }
 
   sendOtp(phoneNumber: string, email: string) {
-    return this.http.post(this.url + "/user/register/sendotp?phoneNumber=" + phoneNumber, { email });
+    return this.http.post( "/api/user/register/sendotp?phoneNumber=" + phoneNumber, { email });
   }
 
   resendOtp(phoneNumber: string, userData: any) {
-    return this.http.post(this.url + "/user/resentotp?phoneNumber=" + phoneNumber, { userData });
+    return this.http.post( "/api/user/resentotp?phoneNumber=" + phoneNumber, { userData });
   }
 
   register(phoneNumber: string, verificationCode: string, userData: any) {
     console.log('registering')
-    return this.http.post(this.url + "/user/verify/register?phoneNumber=" + phoneNumber + "&verificationCode=" + verificationCode, userData);
+    return this.http.post( "/api/user/verify/register?phoneNumber=" + phoneNumber + "&verificationCode=" + verificationCode, userData);
   }
 
   async loadUser() {
@@ -87,7 +92,7 @@ export class AuthService {
   }
 
   logout() {
-    return this.http.get(this.url + "/user/logout");
+    return this.http.get( "/api/user/logout");
   }
 
   get userObs() {

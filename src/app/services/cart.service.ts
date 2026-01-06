@@ -7,26 +7,25 @@ import { BehaviorSubject, shareReplay } from 'rxjs';
 })
 export class CartService {
 
-    private cartmessageSource = new BehaviorSubject<string>('default message');
+  private cartmessageSource = new BehaviorSubject<string>('default message');
   currentCartMessage$ = this.cartmessageSource.asObservable();
-  
-    url: string = "https://girisa.shop/api"; 
+
   constructor(private http: HttpClient) { }
 
   addToCart(cartObj: any) {
-    return this.http.post(this.url + "/cart/addToCart ", cartObj, { withCredentials: true });
+    return this.http.post("/api/cart/addToCart ", cartObj, { withCredentials: true });
   }
 
   getCart() {
-    return this.http.get(this.url + "/cart/getCart").pipe(shareReplay(1));;
+    return this.http.get("/api/cart/getCart").pipe(shareReplay(1));;
   }
 
-  updateCart(cartObj:any) {
-     return this.http.patch(this.url + "/updateCart",cartObj, { withCredentials: true });
+  updateCart(cartObj: any) {
+    return this.http.patch("/api/updateCart", cartObj, { withCredentials: true });
   }
 
-  removeFromCart(productId:any) {
-    return this.http.delete(`${this.url}/removeFromCart/${productId}`, { withCredentials: true });
+  removeFromCart(productId: any) {
+    return this.http.delete(`/api/removeFromCart/${productId}`, { withCredentials: true });
   }
 
   updateCartMessage(message: string) {

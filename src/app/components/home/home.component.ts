@@ -1,8 +1,8 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
-import { map } from 'rxjs';
+import { map, Subject, take, takeUntil } from 'rxjs';
 import { Meta } from '@angular/platform-browser';
 import { CartService } from '../../services/cart.service';
 
@@ -11,7 +11,8 @@ import { CartService } from '../../services/cart.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit ,OnDestroy {
+  private destroy$ = new Subject<void>();
   toggleSidebar: boolean = false
   isShow: boolean = false;
   topPosToStartShowing = 100;
@@ -32,10 +33,12 @@ export class HomeComponent implements OnInit {
     this.meta.addTag({ property: 'og:keywords', content: "GIRISA, buy GIRISA online, GIRISA price" });
   }
   ngOnInit(): void {
- this._cartService.currentCartMessage$.subscribe(msg => {
-    console.log('Received:', msg);
-    this.getCount();
-  });
+    this._cartService.currentCartMessage$
+      .pipe(takeUntil(this.destroy$), take(1))
+      .subscribe(msg => {
+        console.log('Received:', msg);
+        this.getCount();
+      });
     this.getData();
 
   }
@@ -49,16 +52,17 @@ export class HomeComponent implements OnInit {
 
     }
     else {
-      this._authService.refreshUser().pipe(
-        map(user => {
+      this._authService.refreshUser()
+        .pipe(takeUntil(this.destroy$), take(1))
+        .pipe(
+          map(user => {
+            if (user) {
+              this.currentUserData = user;
+              this.getCount();
 
-          if (user) {
-            this.currentUserData = user;
-            this.getCount();
-
-          }
-        })
-      );
+            }
+          })
+        );
     }
 
 
@@ -97,16 +101,20 @@ export class HomeComponent implements OnInit {
   onSignOut() {
     console.log('clicked onSignOut')
     this._authService.logout().subscribe(data => {
-      console.log('logout successfull');
-      this._authService.setuserSubjectSub(null);
-      this.router.navigate(["/login"]);
+      this.logOutUI();
 
-    }, err => console.log(err));
+    }, err => this.logOutUI());
+  }
+  logOutUI() {
+    console.log('logout successfull');
+    this._authService.setuserSubjectSub(null);
+    this.router.navigate(["/login"]);
   }
 
   getCount() {
     this.isLoading = true;
     this._cartService.getCart()
+      .pipe(takeUntil(this.destroy$), take(1))
       .subscribe(
         (result: any) => {
           this.cartLength = result.items.length;
@@ -118,4 +126,9 @@ export class HomeComponent implements OnInit {
 
   }
 
+  ngOnDestroy() {
+    this.destroy$?.next();
+    this.destroy$?.complete();
+
+  }
 }

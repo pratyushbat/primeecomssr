@@ -25,12 +25,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getData();
+     this.getProducts();
   }
 
   getData() {
     if (this._authService.currentUser) {
       this.userData = this._authService.currentUser;
-      this.getProducts();
+     
     }
 
     else {
@@ -38,7 +39,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
         map(user => {
           if (user)
             this.userData = user;
-          this.getProducts();
         })
       );
     }
