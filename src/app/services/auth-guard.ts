@@ -18,8 +18,6 @@ export class CookieAuthGuard implements CanActivate {
     if (this.authService.currentUser) {
       return of(true);
     }
-
-
     return this.authService.refreshUser().pipe(
       map(user => {
         if (user) return true;

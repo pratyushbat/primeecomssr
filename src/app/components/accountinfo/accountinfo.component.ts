@@ -75,7 +75,7 @@ export class AccountinfoComponent implements OnInit {
       this._authService.setuserSubjectSub(null);
       this.isLoading = false;
       this.router.navigate(["/login"]);
-    }, err => { console.log(err); this.isLoading = false; });
+    }, err => {  this.isLoading = false; });
   }
 
   saveAdd() {
@@ -84,7 +84,7 @@ export class AccountinfoComponent implements OnInit {
       alert('Please fill all fields ');
       return;
     }
-    console.log(this.addressForm.value)
+
     this.saveAddressApi(this.addressForm.value);
   }
   saveAddressApi(address: any) {
@@ -95,7 +95,6 @@ export class AccountinfoComponent implements OnInit {
         alert('Address saved');
         this.isLoading = false;
         this.refreshUser();
-        console.log(res.addresses);
       },
       error: err => {
         alert(err.error.message)

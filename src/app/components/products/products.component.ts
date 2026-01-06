@@ -56,11 +56,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$), take(1))
       .subscribe(
         (result: any) => {
-          console.log('result UI', result);
           this.isLoading = false;
           this.productList = result;
-          console.log(this.productList);
-          /*         this._productService.setProductList(this.products$); */
         },
         (error: any) => (this.isLoading = false)
       );
@@ -84,7 +81,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this._cartService.addToCart({ productId: product._id, quantity: 1 })
       .subscribe(
         (result: any) => {
-          console.log('added to cart UI', result);
           this.isLoading = false;
            this._cartService.updateCartMessage('Hello from Sender!');
         },

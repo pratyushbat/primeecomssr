@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit ,OnDestroy {
     this._cartService.currentCartMessage$
       .pipe(takeUntil(this.destroy$), take(1))
       .subscribe(msg => {
-        console.log('Received:', msg);
+
         this.getCount();
       });
     this.getData();
@@ -99,7 +99,7 @@ export class HomeComponent implements OnInit ,OnDestroy {
   }
 
   onSignOut() {
-    console.log('clicked onSignOut')
+
     this._authService.logout().subscribe(data => {
       this.logOutUI();
 

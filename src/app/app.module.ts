@@ -33,14 +33,14 @@ export const apiInterceptor: HttpInterceptorFn = (
   const authService = inject(AuthService);
   const tokenCP = authService.getUrlClientProd();
   const router = inject(Router);
-  if (!req.url.startsWith('/api') || req.url.includes('.')) 
+  if (!req.url.startsWith('/api') || req.url.includes('.'))
     return next(req);
-  
+
   const apiReq = req.clone({
     setHeaders: {
-        'Cache-Control': 'no-cache',
-        'Pragma': 'no-cache'
-      },
+      'Cache-Control': 'no-cache',
+      'Pragma': 'no-cache'
+    },
     url: `${tokenCP}${req.url}`,
     withCredentials: true
   });
@@ -50,9 +50,8 @@ export const apiInterceptor: HttpInterceptorFn = (
       /*  const isExcluded = AUTH_EXCLUDED_URLS.some(url =>
          router.url.includes(url)
       ); */
-/*       && !isExcluded */
-      if (err.status === 401  ) {
-        alert('unquthorized now get out'+req.url);
+      /*       && !isExcluded */
+      if (err.status === 401) {
         authService.setuserSubjectSub(null);
         router.navigate(['/login']);// 🔥 auto logout
       }

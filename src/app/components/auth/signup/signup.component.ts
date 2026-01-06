@@ -60,7 +60,6 @@ export class SignupComponent implements OnInit, OnDestroy {
       })
   }
   registerUser() {
-    console.log('register user')
     this._authService.register("91" + this.phoneNumber, this.verificationCode, this.userData)
       .pipe(takeUntil(this.destroy$), take(1))
       .subscribe((data: any) => {

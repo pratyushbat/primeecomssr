@@ -19,6 +19,9 @@ export function app(): express.Express {
   server.set('views', browserDistFolder);
   const BASE_URL = 'https://girisa.shop';
 
+
+/*   server.use(cookieParser());    
+  server.use(authMiddleware); */
   // Serve static files from /browser
   server.get('*.*', express.static(browserDistFolder, {
     maxAge: '1y'
@@ -69,19 +72,16 @@ ${urls.map(u => `
   });
 
   // All regular routes use the Angular engine
-  server.get('*', (req:any, res, next) => {
-    const { protocol, originalUrl, baseUrl, headers, user } = req;
-    console.log('req.headers.cookie')
-    console.log(req.headers.cookie)
-
+  server.get('*', (req: any, res, next) => {
+    const { protocol, originalUrl, baseUrl, headers } = req;
+    console.log('protocol,originalUrl,baseUrl', protocol,originalUrl,baseUrl)
     commonEngine
       .render({
         bootstrap: AppServerModule,
         documentFilePath: indexHtml,
         url: `${protocol}://${headers.host}${originalUrl}`,
         publicPath: browserDistFolder,
-        providers: [{ provide: APP_BASE_HREF, useValue: baseUrl },{provide: 'USER', useValue: user || null
-    }, { provide: 'REQUEST', useValue: req }],
+        providers: [{ provide: APP_BASE_HREF, useValue: baseUrl },{ provide: 'REQUEST', useValue: req }],
       })
       .then((html) => res.send(html))
       .catch((err) => next(err));

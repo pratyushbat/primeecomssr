@@ -23,10 +23,17 @@ export class NonCookieAuthGuard implements CanActivate {
     // 2️⃣ Otherwise refresh from backend
     return this.authService.refreshUser().pipe(
       map(user => {
+        console.log('user inside non auth',user)
+        if (this.authService.loading()) {
+          return false;
+        }
+
         if (!user) return true;
-        else
-        this.router.navigate(['/home']);
-        return false;
+        else{
+
+          this.router.navigate(['/home']);
+          return false;
+        }
       })
     );
   }

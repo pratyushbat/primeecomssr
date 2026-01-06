@@ -80,7 +80,6 @@ export class CreateProductComponent {
   createProductAPi(formData:any) {
 
     this._authService.createProduct(formData).subscribe((data: any) => {
-      console.log('added');
       this.isCreated.emit(true);
     })
   }
