@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-create-product',
@@ -31,7 +32,7 @@ export class CreateProductComponent {
 
   });
 
-  constructor(private _authService: ProductsService, private router: Router, private fb: FormBuilder) { }
+  constructor(private _authService: ProductsService, private router: Router, private fb: FormBuilder, private _alertService: AlertService) { }
 
   ngOnInit(): void {
 
@@ -40,7 +41,7 @@ export class CreateProductComponent {
   createProduct() {
 
     if (this.productsForm.invalid || this.selectedFiles.length === 0) {
-      alert('Please fill all fields and select images');
+      this._alertService.error('Please fill all fields and select images');
       return;
     }
     if (this.productsForm.valid) {
@@ -77,14 +78,14 @@ export class CreateProductComponent {
 
 
   }
-  createProductAPi(formData:any) {
+  createProductAPi(formData: any) {
 
     this._authService.createProduct(formData).subscribe((data: any) => {
       this.isCreated.emit(true);
     })
   }
 
-    onFileChange(event: Event) {
+  onFileChange(event: Event) {
     const input = event.target as HTMLInputElement;
     if (!input.files) return;
 

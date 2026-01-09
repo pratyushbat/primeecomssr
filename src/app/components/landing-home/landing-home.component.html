@@ -18,24 +18,24 @@
             <!-- LEFT LINKS -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" [routerLink]="'/login'">Home</a>
+                    <a class="nav-link active" [routerLink]="'/'">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" [routerLink]="'/login'">Shop</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"[routerLink]="'/login'">Categories</a>
-                </li>             
+                    <a class="nav-link" [routerLink]="'/help'">Help</a>
+                </li>
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="'/login'">Deals</a>
+                    <a class="nav-link" [routerLink]="'/contactus'">Contact Us</a>
                 </li>
             </ul>
 
             <!-- SEARCH BAR -->
-            <form class="d-flex me-3" role="search">
+            <!--  <form class="d-flex me-3" role="search">
                 <input class="form-control form-control-sm me-2" type="search" placeholder="Search products">
                 <button class="btn btn-outline-success btn-sm" type="submit">Search</button>
-            </form>
+            </form> -->
 
             <!-- RIGHT ICONS -->
             <div class="d-flex align-items-center gap-3">
@@ -43,17 +43,16 @@
                 <!-- ACCOUNT -->
                 <a [routerLink]="'/signup'" class="text-decoration-none text-dark">
                     <i class="bi bi-person fs-5"></i>
-                    <span class="d-none d-lg-inline ms-1">Account</span>
+                    <span class="d-none d-lg-inline ms-1">Signup</span>
                 </a>
 
-                <!-- CART -->
-                <a  class="text-decoration-none position-relative text-dark">
-                    <i class="bi bi-cart fs-5"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        2
-                    </span>
-                    <span class="d-none d-lg-inline ms-1" [routerLink]="'/login'">Cart</span>
+
+                <!-- ACCOUNT -->
+                <a [routerLink]="'/login'" class="text-decoration-none text-dark">
+                    <i class="bi bi-person fs-5"></i>
+                    <span class="d-none d-lg-inline ms-1">Login</span>
                 </a>
+
 
             </div>
         </div>
@@ -87,23 +86,23 @@
                 <h2>Why You'll Love It</h2>
                 <ul class="list-unstyled mt-3">
                     <li>✔ 100% Genuine Nails</li>
-                    <li>✔ 6 Card Slots + Cash Pocket</li>
-                    <li>✔ Slim & Pocket Friendly</li>
+                    <li>✔ 6 Card Slots + Beauty Pocket</li>
+                    <li>✔ Quality and Skin Friendly</li>
                     <li>✔ 1 Year Warranty</li>
                 </ul>
 
                 <div class="mt-4">
-                    <span class="price">₹1,299</span>
-                    <span class="old-price ms-2">₹1,999</span>
+                    <span class="price">₹299</span>
+                    <span class="old-price ms-2">₹999</span>
                 </div>
 
                 <p class="text-success mt-2">
                     Free Shipping • Cash on Delivery
                 </p>
 
-                <a href="#buy" class="btn btn-success btn-lg mt-3">
+                <!--                 <a href="#buy" class="btn btn-success btn-lg mt-3" >
                     Add to Cart
-                </a>
+                </a> -->
             </div>
 
         </div>
@@ -126,7 +125,7 @@
     <div class="container">
         <h2>Ready to Upgrade Your Style?</h2>
         <p class="mt-2">Limited stock available. Order now!</p>
-        <a href="#" class="btn btn-success btn-lg mt-3">
+        <a [routerLink]="'/login'" class="btn btn-success btn-lg mt-3">
             Buy Now
         </a>
     </div>
@@ -134,7 +133,7 @@
 
 <!-- STICKY BUY BAR -->
 <div class="sticky-buy d-md-none text-center">
-    <a href="#buy" class="btn btn-success w-100">
-        Buy Now – ₹1,299
+    <a [routerLink]="'/login'" class="btn btn-success w-100">
+        Buy Now – ₹299
     </a>
 </div>

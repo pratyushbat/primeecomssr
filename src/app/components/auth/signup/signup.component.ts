@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { Subject, take, takeUntil } from 'rxjs';
+import { AlertService } from '../../../services/alert.service';
 
 @Component({
   selector: 'app-signup',
@@ -27,7 +28,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   userLocationData: any = this.getUserLocation();
   step = "otp";
 
-  constructor(private _authService: AuthService, private router: Router) { }
+  constructor(private _authService: AuthService, private router: Router, private _alertService: AlertService) { }
 
   ngOnInit(): void {
 
@@ -63,12 +64,12 @@ export class SignupComponent implements OnInit, OnDestroy {
     this._authService.register("91" + this.phoneNumber, this.verificationCode, this.userData)
       .pipe(takeUntil(this.destroy$), take(1))
       .subscribe((data: any) => {
-        alert('registerd user');
+        this._alertService.success('registerd user successfully!');
         this.router.navigate(["/home"]);
       });
   }
   handelImageChange($event: Event) {
-    console.log('image change',$event)
+    console.log('image change', $event)
   }
   getUserLocation(): any {
     return this._authService.getoLoaction();

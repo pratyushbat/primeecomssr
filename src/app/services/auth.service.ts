@@ -7,17 +7,13 @@ import { BehaviorSubject, catchError, finalize, firstValueFrom, map, Observable,
   providedIn: 'root'
 })
 export class AuthService implements OnDestroy {
-  loading() {
-    return this.isLoading;
-  }
+
   private destroy$ = new Subject<void>();
 
-  /*     url: string = "https://girisa.shop"; */
-  url: string = "http://localhost:8000";
+  url: string = "https://girisa.shop";
 
 
   private userSubject = new BehaviorSubject<any>(null);
-  /*  user$ = this.userSubject.asObservable(); */
   authState$ = new BehaviorSubject<boolean | null>(null);
   private isLoading = false;
   constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
@@ -188,6 +184,12 @@ export class AuthService implements OnDestroy {
   deleteAddress(addressId: string): Observable<any> {
     return this.http.delete(`${this.url}/user/address/${addressId}`);
   }
+
+  loading() {
+    return this.isLoading;
+  }
+
+
   ngOnDestroy(): void {
     this.destroy$?.next();
     this.destroy$?.complete();

@@ -12,7 +12,7 @@ export class ProductsService {
   createProduct(products: any) {
     return this.http.post("/api/product/create ", products, { withCredentials: true });
   }
-  
+
   allproducts() {
     return this.http.get("/api/product/all").pipe(shareReplay(1));;
   }
@@ -22,6 +22,13 @@ export class ProductsService {
   cartProductsById() {
     return this.http.get("/api/products/cart/userId", { withCredentials: true });
   }
+  /* http://localhost:8000/api/lead?page=1&limit=20&status=new&search=pratyush */
+  getLeads() {
+    return this.http.get("/api/lead/", { withCredentials: true });
+  }
 
+  createLead(leadData: any) {
+    return this.http.post("/api/lead/createLead ", leadData);
+  }
 
 }

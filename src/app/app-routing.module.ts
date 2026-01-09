@@ -11,9 +11,12 @@ import { LandingHomeComponent } from './components/landing-home/landing-home.com
 import { ProductsComponent } from './components/products/products.component';
 import { ProductComponent } from './components/product/product.component';
 import { CartComponent } from './components/cart/cart.component';
+import { HelpsupportComponent } from './components/helpsupport/helpsupport.component';
 
 const routes: Routes = [
   { path: '', component: LandingHomeComponent, canActivate: [NonCookieAuthGuard] },
+  { path: 'contactus', component: ContactusComponent },
+  { path: 'help', component: HelpsupportComponent },
   { path: 'login', component: LoginComponent, canActivate: [NonCookieAuthGuard] },
   { path: 'signup', component: SignupComponent, canActivate: [NonCookieAuthGuard] },
   {
@@ -21,8 +24,8 @@ const routes: Routes = [
       { path: 'products', component: ProductsComponent },
       { path: 'product/:productId', component: ProductComponent },
       { path: 'bag', component: CartComponent },
+      { path: 'help', component: HelpsupportComponent },
       { path: 'accountinfo', component: AccountinfoComponent },
-      { path: 'contactus', component: ContactusComponent },
       { path: '', redirectTo: 'products', pathMatch: "full" },
       { path: '**', redirectTo: 'products' }
     ]

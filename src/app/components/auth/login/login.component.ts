@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { map, Subject, take, takeUntil } from 'rxjs';
+import { error } from 'node:console';
+import { AlertService } from '../../../services/alert.service';
 
 
 const validatePassword = (password: any) => {
@@ -43,7 +45,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   password = "";
   private destroy$ = new Subject<void>();
 
-  constructor(private _authService: AuthService, private router: Router) {
+  constructor(private _authService: AuthService, private router: Router, private _alertService: AlertService) {
 
   }
   ngOnInit(): void {
@@ -51,7 +53,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   setCounterCode(arg: any) {
-    console.log('arg',arg)
+    console.log('arg', arg)
   }
 
   submitLogin() {
@@ -60,9 +62,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     const isValidPhoneNumber = validatePhoneNumber(this.phoneNumber);
 
     if (!isPasswordValid) {
-      alert("Password At Least 5 Character Avoid Speacial Symbol..!!");
+      this._alertService.error('Password At Least 5 Character Avoid Speacial Symbol..!!');
     } else if (!isValidPhoneNumber) {
-      alert("Invalid Phone Number 🙄");
+
+      this._alertService.error('Invalid Phone Number');
     } else {
       this._authService.login(this.password, this.countryCode + "" + this.phoneNumber)
         .pipe(takeUntil(this.destroy$), take(1))

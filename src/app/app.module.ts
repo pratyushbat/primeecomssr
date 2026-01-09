@@ -20,6 +20,9 @@ import { ImageslidercomponentComponent } from './components/common/imagesliderco
 import { CartComponent } from './components/cart/cart.component';
 import { catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { HelpsupportComponent } from './components/helpsupport/helpsupport.component';
+import { AlertComponent } from './components/alert/alert.component';
+import { AlertService } from './services/alert.service';
 const AUTH_EXCLUDED_URLS = [
   '/api/login',
   '/api/register',
@@ -31,6 +34,7 @@ export const apiInterceptor: HttpInterceptorFn = (
   next: HttpHandlerFn
 ) => {
   const authService = inject(AuthService);
+  const alert = inject(AlertService);
   const tokenCP = authService.getUrlClientProd();
   const router = inject(Router);
   if (!req.url.startsWith('/api') || req.url.includes('.'))
@@ -55,6 +59,7 @@ export const apiInterceptor: HttpInterceptorFn = (
         authService.setuserSubjectSub(null);
         router.navigate(['/login']);// 🔥 auto logout
       }
+      alert.error(err?.error?.message || 'Something went wrong');
       return throwError(() => err);
     })
   );
@@ -73,7 +78,9 @@ export const apiInterceptor: HttpInterceptorFn = (
     CreateProductComponent,
     ProductComponent,
     ImageslidercomponentComponent,
-    CartComponent
+    CartComponent,
+    HelpsupportComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

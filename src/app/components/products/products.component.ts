@@ -4,6 +4,7 @@ import { Router } from 'express';
 import { map, shareReplay, Subject, take, takeUntil } from 'rxjs';
 import { ProductsService } from '../../services/products.service';
 import { CartService } from '../../services/cart.service';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-products',
@@ -19,7 +20,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   products$: any;
   productList: any[] = [];
   isAddProduct = false;
-  constructor(private _authService: AuthService, private _cartService: CartService, private _productService: ProductsService) {
+  constructor(private _authService: AuthService, private _cartService: CartService, private _productService: ProductsService, private _alertService: AlertService) {
 
   }
 
@@ -54,6 +55,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
         (result: any) => {
           this.isLoading = false;
           this.productList = result;
+          this._alertService.success('Product received successfully!');
         },
         (error: any) => (this.isLoading = false)
       );

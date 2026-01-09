@@ -1,0 +1,13 @@
+<div *ngIf="alert$ | async as alert"
+    class="fixed tw-top-5 tw-right-5 tw-z-50 tw-max-w-sm tw-rounded-lg tw-px-4 tw-py-3 tw-shadow" [ngClass]="{
+       'tw-bg-green-100 tw-text-green-800': alert.type === 'success',
+       'tw-bg-red-100 tw-text-red-800': alert.type === 'error',
+       'tw-bg-yellow-100 tw-text-yellow-800': alert.type === 'warning',
+       'tw-bg-blue-100 tw-text-blue-800': alert.type === 'info'
+     }">
+
+    <div class="tw-flex tw-items-start tw-justify-between gap-2">
+        <p class="tw-text-sm tw-font-medium">{{ alert.message }}</p>
+        <button (click)="alertService.clear()" class="tw-text-lg tw-leading-none">×</button>
+    </div>
+</div>

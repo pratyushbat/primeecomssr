@@ -1,8 +1,8 @@
-
 <div *ngIf="auth.loading(); else app">
   <div class="loader">Loading...</div>
 </div>
 
 <ng-template #app>
+  <app-alert></app-alert>
   <router-outlet />
 </ng-template>

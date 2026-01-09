@@ -52,7 +52,7 @@
                     </svg>
                     <span *ngIf="!!cartLength" class='badge badge-warning' id='lblCartCount'> {{cartLength}} </span>
                 </a>
-                
+
             </li>
 
             <li class="nav-item dropdown">
@@ -114,7 +114,8 @@
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" data-bs-toggle="dropdown">
                     <img src="{{ currentUserData?.profilePic }}" alt="Profile" class="rounded-circle">
-                    <span class="d-none d-md-block dropdown-toggle ps-2">{{ currentUserData?.firstName | titlecase}}</span>
+                    <span class="d-none d-md-block dropdown-toggle ps-2">{{ currentUserData?.firstName |
+                        titlecase}}</span>
                 </a>
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -141,7 +142,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" routerLink="/home/contactus">
+                        <a class="dropdown-item d-flex align-items-center" routerLink="/home/accountinfo">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-person-gear icon" viewBox="0 0 16 16">
                                 <path
@@ -155,7 +156,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" routerLink="/home/contactus">
+                        <a class="dropdown-item d-flex align-items-center" routerLink="/home/help">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-question-circle icon" viewBox="0 0 16 16">
                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
@@ -209,8 +210,7 @@
         </li>
 
         <li class="nav-item" *ngIf="userRole === 'admin'">
-            <a class="nav-link " routerLink="/home/contactus" routerLinkActive="active"
-                (click)="onclickToggleSidebar()">
+            <a class="nav-link " routerLink="/home/help" routerLinkActive="active" (click)="onclickToggleSidebar()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-people icon" viewBox="0 0 16 16">
                     <path
@@ -246,7 +246,7 @@
                 <span>Product</span>
             </a>
         </li>
-        <li class="nav-item">
+        <!--    <li class="nav-item">
             <a class="nav-link" routerLink="/home/contactus" routerLinkActive="active" (click)="onclickToggleSidebar()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-question-circle icon" viewBox="0 0 16 16">
@@ -256,10 +256,9 @@
                 </svg>
                 <span>Contact Us</span>
             </a>
-        </li>
+        </li> -->
         <li class="nav-item">
-            <a class="nav-link" routerLink="/home/accountinfo" routerLinkActive="active"
-                (click)="onclickToggleSidebar()">
+            <a class="nav-link" routerLink="/home/help" routerLinkActive="active" (click)="onclickToggleSidebar()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-chat icon" viewBox="0 0 16 16">
                     <path

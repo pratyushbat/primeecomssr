@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { map } from 'rxjs';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-accountinfo',
@@ -38,7 +39,7 @@ export class AccountinfoComponent implements OnInit {
 
   countries = ['India'];
 
-  constructor(private _authService: AuthService, private router: Router, private fb: FormBuilder) {
+  constructor(private _authService: AuthService, private router: Router, private fb: FormBuilder, private _alertService: AlertService) {
 
   }
   ngOnInit(): void {
@@ -67,6 +68,7 @@ export class AccountinfoComponent implements OnInit {
   logOut() {
     this.isLoading = true;
     this._authService.logout().subscribe(data => {
+      this._alertService.success('Logout successfully!');
       this._authService.setuserSubjectSub(null);
       this.isLoading = false;
       this.router.navigate(["/login"]);
@@ -76,7 +78,7 @@ export class AccountinfoComponent implements OnInit {
   saveAdd() {
 
     if (this.addressForm.invalid) {
-      alert('Please fill all fields ');
+      this._alertService.error('Please fill all fields');
       return;
     }
 
@@ -88,10 +90,11 @@ export class AccountinfoComponent implements OnInit {
     this._authService.saveAddress(address).subscribe({
       next: res => {
         this.isLoading = false;
+        this._alertService.success('Address added successfully!');
         this._authService.reloadData();
       },
       error: err => {
-        alert(err.error.message)
+        this._alertService.error(err?.error?.message ? err.error.message : 'something went wrong while saving address');
         this.isLoading = false;
       },
     });
@@ -111,7 +114,6 @@ export class AccountinfoComponent implements OnInit {
       state: this.userData.userLocationData.region,
     });
   }
-  /*   goBackFunc() {
-  } */
+
 }
 

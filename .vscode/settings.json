@@ -1,5 +1,5 @@
 {
-    "livePreview.defaultPreviewPath": "/src/app/components/accountinfo/accountinfo.component.html",
+    "livePreview.defaultPreviewPath": "/src/app/components/landing-home/landing-home.component.html",
  "editor.trimAutoWhitespace": true,
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
