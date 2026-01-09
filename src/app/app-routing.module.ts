@@ -12,11 +12,16 @@ import { ProductsComponent } from './components/products/products.component';
 import { ProductComponent } from './components/product/product.component';
 import { CartComponent } from './components/cart/cart.component';
 import { HelpsupportComponent } from './components/helpsupport/helpsupport.component';
+import { PaymentFailiureComponent } from './components/payments/payment-failiure/payment-failiure.component';
+import { PaymentSuccessComponent } from './components/payments/payment-success/payment-success.component';
+import { OrdersComponent } from './components/orders/orders.component';
 
 const routes: Routes = [
   { path: '', component: LandingHomeComponent, canActivate: [NonCookieAuthGuard] },
   { path: 'contactus', component: ContactusComponent },
   { path: 'help', component: HelpsupportComponent },
+  { path: 'payment-success', component: PaymentSuccessComponent },
+  { path: 'payment-failure', component: PaymentFailiureComponent },
   { path: 'login', component: LoginComponent, canActivate: [NonCookieAuthGuard] },
   { path: 'signup', component: SignupComponent, canActivate: [NonCookieAuthGuard] },
   {
@@ -26,6 +31,7 @@ const routes: Routes = [
       { path: 'bag', component: CartComponent },
       { path: 'help', component: HelpsupportComponent },
       { path: 'accountinfo', component: AccountinfoComponent },
+      { path: 'orders', component: OrdersComponent },
       { path: '', redirectTo: 'products', pathMatch: "full" },
       { path: '**', redirectTo: 'products' }
     ]

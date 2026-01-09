@@ -81,6 +81,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       .subscribe(
         (result: any) => {
           this.isLoading = false;
+          this._alertService.success('Added to cart successfully!');
           this._cartService.updateCartMessage('Hello from Sender!');
         },
         (error: any) => (this.isLoading = false)

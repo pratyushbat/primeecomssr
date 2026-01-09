@@ -10,7 +10,7 @@ export class AuthService implements OnDestroy {
 
   private destroy$ = new Subject<void>();
 
-  url: string = "https://girisa.shop";
+  url: string = "http://localhost:8000";
 
 
   private userSubject = new BehaviorSubject<any>(null);

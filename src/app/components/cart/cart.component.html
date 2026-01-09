@@ -22,7 +22,7 @@
 
   <div class="summary">
     <h3>Total: ₹{{ getTotal() }}</h3>
-    <button class="checkout">Checkout</button>
+    <button (click)="createOrderAndMakePayment()" class="checkout">Checkout</button>
   </div>
 
 </div>

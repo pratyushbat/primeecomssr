@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { Subject, take, takeUntil } from 'rxjs';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-cart',
@@ -8,10 +9,11 @@ import { Subject, take, takeUntil } from 'rxjs';
   styleUrl: './cart.component.scss'
 })
 export class CartComponent implements OnInit, OnDestroy {
+
   cart: any;
   loading = true;
   private destroy$ = new Subject<void>();
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService, private _alertService: AlertService) { }
 
   ngOnInit() {
     this.loadCart();
@@ -40,6 +42,34 @@ export class CartComponent implements OnInit, OnDestroy {
       (sum: number, item: any) => sum + item.product.price * item.quantity,
       0
     );
+  }
+
+  createOrderAndMakePayment() {
+    this.cartService.createOrderFromCart().subscribe((res: any) => {
+
+      this._alertService.success('Order Created Successfully' + res.orderId)
+      if (res.msg === "OK")
+        this.redirectToExternal(res.url)
+    }
+    );
+  }
+
+  /*  makePayment() {
+     this.cartService.makePayment({
+       name: "praty chazz",
+       mobileNumber: 9999910089,
+       amount: 100,
+       orderId:
+     }).subscribe((res: any) => {
+         if (res.msg === "OK")
+           this.redirectToExternal(res.url)
+         this._alertService.success('Logout successfully!')
+       }
+       );
+   }
+  */
+  redirectToExternal(url: string) {
+    window.location.href = url;
   }
 
   ngOnDestroy() {

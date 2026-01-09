@@ -23,6 +23,9 @@ import { Router } from '@angular/router';
 import { HelpsupportComponent } from './components/helpsupport/helpsupport.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { AlertService } from './services/alert.service';
+import { PaymentSuccessComponent } from './components/payments/payment-success/payment-success.component';
+import { PaymentFailiureComponent } from './components/payments/payment-failiure/payment-failiure.component';
+import { OrdersComponent } from './components/orders/orders.component';
 const AUTH_EXCLUDED_URLS = [
   '/api/login',
   '/api/register',
@@ -80,7 +83,10 @@ export const apiInterceptor: HttpInterceptorFn = (
     ImageslidercomponentComponent,
     CartComponent,
     HelpsupportComponent,
-    AlertComponent
+    AlertComponent,
+    PaymentSuccessComponent,
+    PaymentFailiureComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

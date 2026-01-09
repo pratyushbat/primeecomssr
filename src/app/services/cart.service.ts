@@ -7,6 +7,7 @@ import { BehaviorSubject, shareReplay } from 'rxjs';
 })
 export class CartService {
 
+
   private cartmessageSource = new BehaviorSubject<string>('default message');
   currentCartMessage$ = this.cartmessageSource.asObservable();
 
@@ -31,5 +32,10 @@ export class CartService {
   updateCartMessage(message: string) {
     this.cartmessageSource.next(message);
   }
-
+  makePayment(payObj: any) {
+    return this.http.post("/api/payment/create-order ", payObj, { withCredentials: true });
+  }
+  createOrderFromCart() {
+    return this.http.post("/api/order/cartToOrder", {}, { withCredentials: true });
+  }
 }
