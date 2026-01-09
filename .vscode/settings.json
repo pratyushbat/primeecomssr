@@ -1,3 +1,9 @@
 {
-    "livePreview.defaultPreviewPath": "/src/app/components/accountinfo/accountinfo.component.html"
+    "livePreview.defaultPreviewPath": "/src/app/components/accountinfo/accountinfo.component.html",
+ "editor.trimAutoWhitespace": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "html.format.extraLiners": "",
+  "html.format.preserveNewLines": true,
+  "html.format.wrapLineLength": 120
 }

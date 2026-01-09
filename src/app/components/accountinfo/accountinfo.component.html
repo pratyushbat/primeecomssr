@@ -88,7 +88,9 @@
                 <span class="tw-text-sm text-gray-500">Name</span>
                 <input class="tw-px-5 tw-w-full" type="checkbox" [checked]="add.isDefault" [disabled]="true" />
             </div>
-            <button  [disabled]="true"  type="button" class=" tw-w-full tw-rounded-lg tw-mt-4 tw-text-white bg-danger tw-box-border tw-border tw-border-transparent  tw-hover:tw-bg-danger-strong tw-focus:tw-ring-4             tw-focus:tw-ring-danger-medium             tw-shadow-xs             tw-font-medium tw-leading-5 tw-rounded-base tw-text-sm tw-px-4 tw-py-2.5 tw-focus:tw-outline-none">  {{isLoading ? 'Deleting Wait' : 'Delete'}}</button>
+            <button [disabled]="true" type="button"
+                class=" tw-w-full tw-rounded-lg tw-mt-4 tw-text-white bg-danger tw-box-border tw-border tw-border-transparent  tw-hover:tw-bg-danger-strong tw-focus:tw-ring-4             tw-focus:tw-ring-danger-medium             tw-shadow-xs             tw-font-medium tw-leading-5 tw-rounded-base tw-text-sm tw-px-4 tw-py-2.5 tw-focus:tw-outline-none">
+                {{isLoading ? 'Deleting Wait' : 'Delete'}}</button>
         </div>
 
     </div>
