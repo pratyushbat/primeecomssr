@@ -87,9 +87,8 @@ export class AccountinfoComponent implements OnInit {
 
     this._authService.saveAddress(address).subscribe({
       next: res => {
-        alert('Address saved');
         this.isLoading = false;
-       this._authService.reloadData();
+        this._authService.reloadData();
       },
       error: err => {
         alert(err.error.message)

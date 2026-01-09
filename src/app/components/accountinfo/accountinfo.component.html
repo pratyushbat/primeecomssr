@@ -3,7 +3,7 @@
         <div class="">
             <div class="tw-flex tw-justify-center tw-flex-col tw-items-center">
                 <h1 class="text-3xl font-bold ">
-                    Welcome {{ userData?.firstName }} !
+                    Welcome {{ userData?.firstName }} {{ userData?.lastName }} !
                 </h1>
                 <p class="text-slate-500 mt-2 text-center text-sm">
                     Here is your profile info have good day
@@ -46,35 +46,55 @@
                     placeholder="Time Zone" />
             </div>
 
-            <div *ngIf="userData?.addresses?.length">
-                <div *ngFor="let add of userData?.addresses; let i=index ">
-                    <h1>Address #{{i+1}} </h1>
-                    <p> {{add.fullName}} </p>
-                    <p> {{add.phone}} </p>
-                    <p> {{add.addressLine1}} </p>
-                    <p> {{add.addressLine2}} </p>
-                    <p> {{add.city}} </p>
-                    <p> {{add.state}} </p>
-                    <p> {{add.pincode}} </p>
-                    <p> {{add.country}} </p>
-                    <p> {{add.isDefault}} </p>
 
-                </div>
 
-            </div>
-            <button [disabled]="isLoading" (click)="logOut()"
-                class="tw-w-full bg-violet-800 tw-h-12 rounded-lg tw-mt-5 text-white hover:bg-red-400 cursor-pointer tw-outline-none tw-border-none">
-                {{isLoading ? 'Loading Wait' : 'Logout'}}
-            </button>
-            <button [disabled]="isLoading" (click)="isAddAddress=true;"
-                class="tw-w-full bg-violet-800 tw-h-12 rounded-lg tw-mt-5 text-white hover:bg-red-400 cursor-pointer tw-outline-none tw-border-none">
-                Add Address
-            </button>
-
+            <!--     <button  [disabled]="isLoading" (click)="logOut()" type="button" class=" tw-w-full tw-rounded-lg tw-mt-4 tw-text-white bg-danger tw-box-border tw-border tw-border-transparent 
+            tw-hover:tw-bg-danger-strong tw-focus:tw-ring-4 
+            tw-focus:tw-ring-danger-medium 
+            tw-shadow-xs
+             tw-font-medium tw-leading-5 tw-rounded-base tw-text-sm tw-px-4 tw-py-2.5 tw-focus:tw-outline-none">  {{isLoading ? 'Loading Wait' : 'Logout'}}</button>
+ -->
+            <button type="button" [disabled]="isLoading" (click)="isAddAddress=true;"
+                class="tw-mt-4 tw-rounded-lg tw-text-white tw-bg-gradient-to-br tw-from-purple-600 tw-to-blue-500 tw-hover:tw-bg-gradient-to-bl tw-focus:tw-ring-4 tw-focus:tw-outline-none tw-focus:tw-ring-blue-300 tw-dark:tw-focus:tw-ring-blue-800 tw-font-medium tw-rounded-base tw-text-sm tw-px-4 tw-py-2.5 tw-text-center tw-leading-5">
+                Add Address</button>
         </div>
 
 
-        <div [hidden]="!isAddAddress">
+
+    </div>
+    <div class="glass py-5 tw-md:px-10 tw-px-5 tw-mt-10" *ngIf="userData?.addresses?.length">
+        <div class="tw-mt-10" *ngFor="let add of userData?.addresses; let i=index ">
+            <h1 class="tw-h-12  tw-px-5 tw-w-full">Address
+                #{{i+1}} </h1>
+
+            <p class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full">
+                {{add.fullName}} </p>
+            <p class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"> {{add.phone}}
+            </p>
+            <p class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full">
+                {{add.addressLine1}} </p>
+            <p class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full">
+                {{add.addressLine2}} </p>
+            <p class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"> {{add.city}}
+            </p>
+            <p class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"> {{add.state}}
+            </p>
+            <p class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full">
+                {{add.pincode}} </p>
+            <p class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full">
+                {{add.country}} </p>
+
+            <div class="tw-flex tw-justify-center">
+                <span class="tw-text-sm text-gray-500">Name</span>
+                <input class="tw-px-5 tw-w-full" type="checkbox" [checked]="add.isDefault" [disabled]="true" />
+            </div>
+            <button  [disabled]="true"  type="button" class=" tw-w-full tw-rounded-lg tw-mt-4 tw-text-white bg-danger tw-box-border tw-border tw-border-transparent  tw-hover:tw-bg-danger-strong tw-focus:tw-ring-4             tw-focus:tw-ring-danger-medium             tw-shadow-xs             tw-font-medium tw-leading-5 tw-rounded-base tw-text-sm tw-px-4 tw-py-2.5 tw-focus:tw-outline-none">  {{isLoading ? 'Deleting Wait' : 'Delete'}}</button>
+        </div>
+
+    </div>
+
+    <div class="glass py-5 tw-md:px-10 tw-px-5 tw-mt-10" *ngIf="isAddAddress && userData?.role ==='user'">
+        <div>
             <h2>Add Address</h2>
 
             <form class="tw-mt-5" [formGroup]="addressForm" (ngSubmit)="saveAdd()">
@@ -87,15 +107,17 @@
                         class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
                         placeholder="phone" />
 
-                    <input type="text" formControlName="addressLine1"
-                        class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
-                        placeholder="addressLine1" />
+
                 </div>
                 <div class="tw-flex tw-justify-center tw-gatw-p-5 tw-items-center tw-mt-5">
                     <div class="tw-w-full">
+                        <input type="text" formControlName="addressLine1"
+                            class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                            placeholder="address 1" />
+
                         <input type="text" formControlName="addressLine2"
                             class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
-                            placeholder="addressLine2" />
+                            placeholder="address2" />
                     </div>
                 </div>
 
@@ -146,5 +168,6 @@
             </form>
 
         </div>
+
     </div>
 </div>
