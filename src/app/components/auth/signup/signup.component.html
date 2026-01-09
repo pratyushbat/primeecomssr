@@ -1,16 +1,15 @@
-
 <div class="tw-flex tw-justify-center tw-items-center tw-h-screen tw-flex-col tw-px-1 tw-md:tw-p-10">
     <div class="glass tw-tw-py-5 tw-px-5 tw-md:tw-px-10 tw-md:tw-h-[35rem] tw-md:tw-w-[30rem]">
         <div class="">
             <div class="tw-flex tw-justify-center tw-flex-col tw-items-center">
-                <h1 class="tw-text-3xl tw-font-bold ">Wander Wave 1</h1>
+                <h1 class="tw-text-3xl tw-font-bold ">Create Account</h1>
                 <p class="tw-text-slate-500 tw-mt-2 tw-text-center tw-text-sm">
-                    Register now, unlock your travel dreams!
+                    Register now, unlock your nails deals!
                 </p>
             </div>
             <div class=" tw-flex tw-flex-col tw-justify-center tw-items-center tw-pt-5">
                 <label for="profilePic">
-                    <img src="/assets/images/profile.png" alt="profile" alt=""
+                    <img src="/assets/images/girlogo.png" alt="profile" alt=""
                         class="tw-w-[8rem] tw-h-[8rem] tw-rounded-full tw-tw-cursor-pointer" />
                 </label>
                 <input type="file" id="profilePic" name="profilePic" class="hidden"
@@ -19,27 +18,32 @@
             <form *ngIf="step==='otp'" class="tw-mt-5" (ngSubmit)="handelOtpSubmit()">
                 <div class="tw-flex tw-justify-center tw-gatw-p-5 tw-items-center">
                     <input type="text" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}"
-                        class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full" placeholder="First Name"
-                        required />
+                        class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                        placeholder="First Name" required />
                     <input type="text" [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}"
-                        class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full" placeholder="Last Name"
-                        required />
-                         <input type="text" [(ngModel)]="role" [ngModelOptions]="{standalone: true}"
-                        class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full" placeholder="Role"
-                        required />
+                        class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                        placeholder="Last Name" required />
+                    <!--   <input type="text" [(ngModel)]="role" [ngModelOptions]="{standalone: true}"
+                        class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                        placeholder="Role" required /> -->
                 </div>
                 <div class="tw-flex tw-justify-center tw-gatw-p-5 tw-items-center tw-mt-5">
                     <div class="tw-w-full">
                         <input type="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}"
-                            class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full" placeholder="Email Id"
-                            required />
+                            class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                            placeholder="Email Id" required />
                     </div>
+
+                </div>
+                <div class="tw-flex tw-justify-center tw-gatw-p-5 tw-items-center tw-mt-5">
+
                     <div class="tw-w-full tw-bg-white tw-rounded-xl tw-relative tw-overflow-hidden">
                         <input [attr.type]="isPasswordHidden ? 'text' : 'password'" [(ngModel)]="password"
                             [ngModelOptions]="{standalone: true}"
-                            class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-w-full tw-px-5 tw-pr-8" placeholder="Password"
-                            required />
-                        <div class="absolute left-[86%] totw-p-[35%]" (click)="isPasswordHidden=!isPasswordHidden">
+                            class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-w-full tw-px-5 tw-pr-8"
+                            placeholder="Password" required />
+                        <div class=" tw-absolute tw-left-[86%] tw-totw-p-[35%]"
+                            (click)="isPasswordHidden=!isPasswordHidden">
                             <i [ngClass]="{'bi-eye-slash-fill': !isPasswordHidden, 'bi-eye-fill' : isPasswordHidden }"
                                 class="bi "></i>
                         </div>
@@ -56,19 +60,22 @@
                     </select>
 
                     <input type="number" [(ngModel)]="phoneNumber" [ngModelOptions]="{standalone: true}"
-                        class="tw-outline-none tw-border-none  tw-pl-2 tw-w-full tw-h-full" placeholder="Phone Number" required />
+                        class="tw-outline-none tw-border-none  tw-pl-2 tw-w-full tw-h-full" placeholder="Phone Number"
+                        required />
                 </div>
-                <input [disabled]="loading" name="submit" type="submit" [attr.value]="loading ? 'Sending OTP Wait' : 'Sent OTP'"
+                <input [disabled]="loading" name="submit" type="submit"
+                    [attr.value]="loading ? 'Sending OTP Wait' : 'Sent OTP'"
                     class="tw-w-full tw-bg-violet-800 tw-h-12 tw-rounded-lg tw-mt-5 tw-text-white tw-hover:tw-bg-red-400 tw-cursor-pointer tw-outline-none tw-border-none" />
             </form>
-             <form  *ngIf="step==='register'" class="tw-mt-5" (ngSubmit)="registerUser()">
+            <form *ngIf="step==='register'" class="tw-mt-5" (ngSubmit)="registerUser()">
                 <div class="tw-flex tw-justify-center tw-gatw-p-5 tw-items-center">
                     <input type="text" [(ngModel)]="verificationCode" [ngModelOptions]="{standalone: true}"
-                        class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full" placeholder="OTP"
-                        required />                 
+                        class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                        placeholder="OTP" required />
                 </div>
-            
-                <input [disabled]="loading" name="submit" type="submit" [attr.value]="loading ? 'Registering' : 'Register'"
+
+                <input [disabled]="loading" name="submit" type="submit"
+                    [attr.value]="loading ? 'Registering' : 'Register'"
                     class="tw-w-full tw-bg-violet-800 tw-h-12 tw-rounded-lg tw-mt-5 tw-text-white tw-hover:tw-bg-red-400 tw-cursor-pointer tw-outline-none tw-border-none" />
             </form>
             <div class="tw-mt-5 ">

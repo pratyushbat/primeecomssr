@@ -22,7 +22,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   countryCode: string = "";
   phoneNumber: string = "";
   verificationCode: string = "";
-  role: string = "";
+  role: string = "user";
   loading: boolean = false;
   userData: any;
   userLocationData: any = this.getUserLocation();
