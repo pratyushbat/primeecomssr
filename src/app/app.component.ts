@@ -14,7 +14,5 @@ export class AppComponent implements OnInit{
 
   }
   
-   constructor(private _authService: AuthService) {
-  
-    }
+ 
 }

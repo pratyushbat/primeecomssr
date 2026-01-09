@@ -11,7 +11,7 @@ import { CartService } from '../../services/cart.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit ,OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   toggleSidebar: boolean = false
   isShow: boolean = false;
@@ -44,28 +44,18 @@ export class HomeComponent implements OnInit ,OnDestroy {
   }
 
   getData() {
-    if (this._authService.currentUser) {
-      this.currentUserData = this._authService.currentUser;
+
+      this._authService.userStatus$().subscribe(data => {
+      if (data) {
+        this.currentUserData = data;
       this.userRole = this.currentUserData.role;
       this.userId = this.currentUserData._id;
       this.getCount();
+      }
+      else
+        this._authService.reloadData();
 
-    }
-    else {
-      this._authService.refreshUser()
-        .pipe(takeUntil(this.destroy$), take(1))
-        .pipe(
-          map(user => {
-            if (user) {
-              this.currentUserData = user;
-              this.getCount();
-
-            }
-          })
-        );
-    }
-
-
+    });
 
   }
 
@@ -106,7 +96,6 @@ export class HomeComponent implements OnInit ,OnDestroy {
     }, err => this.logOutUI());
   }
   logOutUI() {
-    console.log('logout successfull');
     this._authService.setuserSubjectSub(null);
     this.router.navigate(["/login"]);
   }
@@ -118,7 +107,7 @@ export class HomeComponent implements OnInit ,OnDestroy {
       .subscribe(
         (result: any) => {
           this.cartLength = result.items.length;
-          console.log(this.cartLength)
+          console.log('this.cartLength',this.cartLength)
           this.isLoading = false;
         },
         (error: any) => (this.isLoading = false)

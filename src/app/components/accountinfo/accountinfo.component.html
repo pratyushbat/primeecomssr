@@ -46,8 +46,8 @@
                     placeholder="Time Zone" />
             </div>
 
-            <div *ngIf="userData.addresses?.length">
-                <div *ngFor="let add of userData.addresses; let i=index ">
+            <div *ngIf="userData?.addresses?.length">
+                <div *ngFor="let add of userData?.addresses; let i=index ">
                     <h1>Address #{{i+1}} </h1>
                     <p> {{add.fullName}} </p>
                     <p> {{add.phone}} </p>

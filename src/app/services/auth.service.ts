@@ -1,25 +1,29 @@
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, finalize, firstValueFrom, Observable, of, tap } from 'rxjs';
+import { Inject, Injectable, OnDestroy, PLATFORM_ID } from '@angular/core';
+import { BehaviorSubject, catchError, finalize, firstValueFrom, map, Observable, of, Subject, take, takeUntil, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnDestroy {
   loading() {
     return this.isLoading;
   }
-
+  private destroy$ = new Subject<void>();
 
   /*     url: string = "https://girisa.shop"; */
   url: string = "http://localhost:8000";
 
 
   private userSubject = new BehaviorSubject<any>(null);
-  user$ = this.userSubject.asObservable();
-
+  /*  user$ = this.userSubject.asObservable(); */
+  authState$ = new BehaviorSubject<boolean | null>(null);
   private isLoading = false;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
+
+    this.loadUser();
+  }
 
   getUrlClientProd() {
     return this.url;
@@ -29,23 +33,6 @@ export class AuthService {
     return this.userSubject.value;
   }
 
-  refreshUser(): Observable<any | null> {
-    console.log('this.isLoading', this.isLoading)
-    if (this.isLoading) {
-      return this.user$;
-    }
-
-    this.isLoading = true;
-
-    return this.logUserData().pipe(
-      tap((user: any) => this.userSubject.next(user.userData)),
-      catchError(() => {
-        this.userSubject.next(null);
-        return of(null);
-      }),
-      finalize(() => this.isLoading = false)
-    );
-  }
 
   login(password: string, mobile: string) {
     return this.http.post("/api/user/login", { password, phoneNumber: mobile });
@@ -69,20 +56,91 @@ export class AuthService {
     return this.http.post("/api/user/verify/register?phoneNumber=" + phoneNumber + "&verificationCode=" + verificationCode, userData);
   }
 
-  async loadUser() {
-    this.logUserData().subscribe((user: any) => {
-      this.userSubject.next(user.userData);
-      return user;
-    }
-      , err => {
-        this.userSubject.next(null);
-        return null;
-      }
-    )
 
+  authStatus$() {
+    return this.authState$.asObservable();
+  }
+
+  userStatus$() {
+    return this.userSubject.asObservable();
   }
 
 
+  async loadUser() {
+
+
+    if (isPlatformBrowser(this.platformId)) {
+      let isUsercahche = JSON.parse(localStorage.getItem('isLoggedIn'));
+      let usercahche = JSON.parse(localStorage.getItem('user'));
+      if (this.userSubject.value || isUsercahche) {
+        this.userSubject.next(this.userSubject.value ? this.userSubject.value : usercahche);
+        this.authState$.next(true);
+        return this.userSubject.value ? this.userSubject.value : usercahche;
+      }
+
+      else {
+        return this.reloadData();
+      }
+
+    }
+    else
+      return of(false)
+  }
+  reloadData() {
+    this.logUserData().pipe(
+      takeUntil(this.destroy$), take(1),
+      map((user: any) => user.userData),
+      tap((user: any) => {
+        this.setuserSubjectSub(user);
+      }),
+      catchError(() => {
+        this.setuserSubjectSub(null);
+        return of(null);
+      }),
+      finalize(() => this.isLoading = false)
+    );
+  }
+
+  preloadAuth() {
+    if (isPlatformBrowser(this.platformId)) {
+      let isUsercahche = JSON.parse(localStorage.getItem('isLoggedIn'));
+      let usercahche = JSON.parse(localStorage.getItem('user'));
+      // prevent multiple calls
+      if (this.authState$.value !== null || !!isUsercahche) {
+        return of(this.authState$.value ? this.authState$.value : usercahche);
+      }
+
+      return this.logUserData().pipe(
+        map((user: any) => user.userData),
+        tap((data) => {
+          this.authState$.next(true);
+          this.userSubject.next(data)
+        }),
+        catchError(() => {
+          this.authState$.next(false);
+          this.userSubject.next(null)
+          return of(false);
+        })
+      );
+    }
+    else
+      return of(false)
+
+  }
+  preloadNAuth() {
+    // prevent multiple calls
+    if (this.authState$.value !== null) {
+      return of(false);
+    }
+
+    return this.logUserData().pipe(
+      tap(() => this.authState$.next(false)),
+      catchError(() => {
+        this.authState$.next(true);
+        return of(false);
+      })
+    );
+  }
   get user() {
     return this.userSubject.value;
   }
@@ -91,16 +149,30 @@ export class AuthService {
     return this.userSubject;
   }
   setuserSubjectSub(user: any) {
-    this.userSubject.next(user);
+    if (isPlatformBrowser(this.platformId)) {
+      if (!!user) {
+
+        this.userSubject.next(user);
+        this.authState$.next(true);
+        localStorage.setItem('isLoggedIn', JSON.stringify(true));
+        localStorage.setItem('user', JSON.stringify(user));
+      }
+      else {
+        this.userSubject.next(null);
+        this.authState$.next(false);
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('user');
+      }
+    }
+
+
   }
 
   logout() {
     return this.http.get("/api/user/logout");
   }
 
-  get userObs() {
-    return this.user$;
-  }
+
 
   getoLoaction(): any {
     return this.http.get("https://ipinfo.io/json");
@@ -116,5 +188,10 @@ export class AuthService {
   deleteAddress(addressId: string): Observable<any> {
     return this.http.delete(`${this.url}/user/address/${addressId}`);
   }
+  ngOnDestroy(): void {
+    this.destroy$?.next();
+    this.destroy$?.complete();
+  }
+
 
 }

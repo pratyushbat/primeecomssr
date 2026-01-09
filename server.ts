@@ -74,7 +74,6 @@ ${urls.map(u => `
   // All regular routes use the Angular engine
   server.get('*', (req: any, res, next) => {
     const { protocol, originalUrl, baseUrl, headers } = req;
-    console.log('protocol,originalUrl,baseUrl', protocol,originalUrl,baseUrl)
     commonEngine
       .render({
         bootstrap: AppServerModule,

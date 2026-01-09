@@ -14,7 +14,7 @@ export class ImageslidercomponentComponent {
 
   currentIndex = 0;
   constructor() {
-    console.log(this.images)
+   
   }
 
   startHover() {

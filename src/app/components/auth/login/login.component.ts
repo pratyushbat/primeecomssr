@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
-import { Subject, take, takeUntil } from 'rxjs';
+import { map, Subject, take, takeUntil } from 'rxjs';
 
 
 const validatePassword = (password: any) => {
@@ -35,7 +35,7 @@ const validatePhoneNumber = (phoneNumber: any) => {
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements OnInit,OnDestroy {
+export class LoginComponent implements OnInit, OnDestroy {
   countryCode = "91";
   phoneNumber = "";
   isPasswordHidden = false;
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit,OnDestroy {
   }
 
   setCounterCode(arg: any) {
-    console.log(arg)
+    console.log('arg',arg)
   }
 
   submitLogin() {
@@ -68,12 +68,14 @@ export class LoginComponent implements OnInit,OnDestroy {
         .pipe(takeUntil(this.destroy$), take(1))
         .subscribe(data => {
           this._authService.logUserData()
-            .pipe(takeUntil(this.destroy$), take(1))
+            .pipe(map((user: any) => user.userData),
+              takeUntil(this.destroy$), take(1))
             .subscribe((data: any) => {
-              this._authService.setuserSubjectSub(data.userData);
+              this._authService.setuserSubjectSub(data);
               this.router.navigate(["/home"]);
             },
               error => {
+                this._authService.setuserSubjectSub(null);
                 console.log(error);
               });
         },
@@ -83,7 +85,7 @@ export class LoginComponent implements OnInit,OnDestroy {
     }
   }
 
- ngOnDestroy() {
+  ngOnDestroy() {
     this.destroy$?.next();
     this.destroy$?.complete();
 

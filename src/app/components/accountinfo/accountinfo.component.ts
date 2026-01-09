@@ -46,28 +46,23 @@ export class AccountinfoComponent implements OnInit {
   }
 
   getData() {
-    if (this._authService.currentUser) {
-      this.userData = this._authService.currentUser;
-      if (this.userData.addresses?.length)
-        this.selectedAddress = this.userData.addresses[0];
-      this.patchAddreesssForm();
-    }
 
 
-    this.refreshUser();
-  }
-
-  refreshUser() {
-    this._authService.refreshUser().pipe(
-      map(user => {
-        if (user)
-          this.userData = user;
+    this._authService.userStatus$().subscribe(data => {
+      if (data) {
+        this.userData = data;
         if (this.userData.addresses?.length)
           this.selectedAddress = this.userData.addresses[0];
         this.patchAddreesssForm();
-      })
-    );
+      }
+      else
+        this._authService.reloadData();
+
+    })
+
   }
+
+
 
   logOut() {
     this.isLoading = true;
@@ -75,7 +70,7 @@ export class AccountinfoComponent implements OnInit {
       this._authService.setuserSubjectSub(null);
       this.isLoading = false;
       this.router.navigate(["/login"]);
-    }, err => {  this.isLoading = false; });
+    }, err => { this.isLoading = false; });
   }
 
   saveAdd() {
@@ -94,7 +89,7 @@ export class AccountinfoComponent implements OnInit {
       next: res => {
         alert('Address saved');
         this.isLoading = false;
-        this.refreshUser();
+       this._authService.reloadData();
       },
       error: err => {
         alert(err.error.message)
@@ -114,7 +109,7 @@ export class AccountinfoComponent implements OnInit {
       fullName: this.userData.firstName + ' ' + this.userData.lastName,
       phone: this.userData.phoneNumber,
       city: this.userData.userLocationData.city,
-      state: this.userData.userLocationData.region, 
+      state: this.userData.userLocationData.region,
     });
   }
   /*   goBackFunc() {

@@ -3,37 +3,29 @@ import { Inject, Injectable } from "@angular/core";
 import { CookieService } from "ngx-cookie-service";
 import { AuthService } from "./auth.service";
 
-import { catchError, map, Observable, of } from "rxjs";
+import { catchError, map, Observable, of, take } from "rxjs";
 import { CanActivate, Router } from "@angular/router";
+import { error } from "node:console";
 
 @Injectable({ providedIn: 'root' })
 export class NonCookieAuthGuard implements CanActivate {
 
   constructor(
-    private authService: AuthService,
+    private _authService: AuthService,
     private router: Router
   ) { }
 
   canActivate(): Observable<boolean> {
-    if (!this.authService.currentUser) {
-      return of(true);
-    }
+  
 
-
-    // 2️⃣ Otherwise refresh from backend
-    return this.authService.refreshUser().pipe(
-      map(user => {
-        console.log('user inside non auth',user)
-        if (this.authService.loading()) {
-          return false;
-        }
-
-        if (!user) return true;
-        else{
-
+return this._authService.authStatus$().pipe(
+      take(1),
+      map(isLoggedIn => {
+        if (isLoggedIn) {
           this.router.navigate(['/home']);
           return false;
         }
+        return true;
       })
     );
   }

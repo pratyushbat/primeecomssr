@@ -76,7 +76,7 @@ export const apiInterceptor: HttpInterceptorFn = (
     CartComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -90,7 +90,7 @@ export const apiInterceptor: HttpInterceptorFn = (
     CookieService,
     {
       provide: APP_INITIALIZER,
-      useFactory: (auth: AuthService) => () => auth.refreshUser().toPromise(),
+      useFactory: (auth: AuthService) => () => auth.loadUser(),
       deps: [AuthService],
       multi: true
     }

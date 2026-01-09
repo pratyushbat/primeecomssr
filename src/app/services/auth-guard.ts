@@ -15,16 +15,15 @@ export class CookieAuthGuard implements CanActivate {
   ) { }
 
   canActivate(): Observable<boolean> {
-    if (this.authService.currentUser) {
-      return of(true);
-    }
-    return this.authService.refreshUser().pipe(
-      map(user => {
-        if (user) return true;
+   return this.authService.preloadAuth().pipe(
+      map(isLoggedIn => {
+        if (isLoggedIn) return true;
         this.router.navigate(['/login']);
         return false;
       })
     );
+
   }
+
 
 }               

@@ -25,32 +25,28 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getData();
-     this.getProducts();
+    this.getProducts();
   }
 
   getData() {
-    if (this._authService.currentUser) {
-      this.userData = this._authService.currentUser;
-     
-    }
 
-    else {
-      this._authService.refreshUser().pipe(
-        map(user => {
-          if (user)
-            this.userData = user;
-        })
-      );
-    }
+
+    this._authService.userStatus$().subscribe(data => {
+      if (data) {
+        this.userData = data;
+      }
+      else
+        this._authService.reloadData();
+
+    });
+
 
   }
   getProducts() {
     this.isLoading = true;
 
     this.products$ = this._productService.allproducts();
-    /* .pipe(
-      map((result: any) => result.data)     
-    ); */
+
 
     this.products$
       .pipe(takeUntil(this.destroy$), take(1))
@@ -63,6 +59,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       );
 
   }
+
   refreshProducts(event: any) {
     if (event) {
       this.isAddProduct = false;
@@ -82,7 +79,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       .subscribe(
         (result: any) => {
           this.isLoading = false;
-           this._cartService.updateCartMessage('Hello from Sender!');
+          this._cartService.updateCartMessage('Hello from Sender!');
         },
         (error: any) => (this.isLoading = false)
       );

@@ -68,7 +68,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       });
   }
   handelImageChange($event: Event) {
-    console.log($event)
+    console.log('image change',$event)
   }
   getUserLocation(): any {
     return this._authService.getoLoaction();
