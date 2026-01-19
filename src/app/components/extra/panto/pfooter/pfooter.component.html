@@ -1,0 +1,41 @@
+<footer class="tw-lleft-0 tw-lbottom-0 tw-w-full tw-z-50 tw-bg-[#f2f2f2] tw-py-10 tw-mt-20">
+    <app-container className="tw-flex tw-flex-col tw-gap-5 md:tw-gap-10">
+        <div class="tw-flex tw-flex-col sm:tw-flex-row sm:tw-justify-between tw-gap-5">
+            <!-- Logo and Infos -->
+            <div class="tw-flex tw-flex-col tw-gap-2">
+                <app-logo className="tw-font-semibold" />
+
+                <p class="tw-text-muted tw-max-w-sm tw-py-3.5 lg:tw-text-lg">
+                    The advantage of hiring a workspace with us is that givees you
+                    comfortable service and all-around facilities.
+                </p>
+            </div>
+
+            <ul
+                class="tw-grid tw-grid-cols-1 sm:tw-grid-cols-2 lg:tw-grid-cols-3 tw-gap-8 sm:tw-gap-24 md:tw-gap-28 lg:tw-gap-30">
+                @for (link of footerLinks; track link.title) {
+                <ul>
+                    <li class="tw-font-semibold tw-text-xl tw-text-accent tw-mb-3.5">
+                        {{link.title}}
+                    </li>
+                    @for (subLink of link.links; track subLink.title) {
+                    <li class="tw-mb-2.5 sm:tw-text-lg hover:tw-underline">
+                        <a [routerLink]="subLink.link">{{subLink.title}}</a>
+                    </li>
+                    }
+                </ul>
+                }
+            </ul>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="flex flex-col sm:flex-row text-muted gap-2 items-center sm:justify-between pt-5 md:text-lg">
+            <p>&copy; {{currentYear}} Girisa. All rights reserved.</p>
+
+            <ul class="flex items-center justify-between gap-5">
+                <li><a href="#">Terms & Conditions</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+            </ul>
+        </div>
+    </app-container>
+</footer>

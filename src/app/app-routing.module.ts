@@ -15,15 +15,29 @@ import { HelpsupportComponent } from './components/helpsupport/helpsupport.compo
 import { PaymentFailiureComponent } from './components/payments/payment-failiure/payment-failiure.component';
 import { PaymentSuccessComponent } from './components/payments/payment-success/payment-success.component';
 import { OrdersComponent } from './components/orders/orders.component';
+import { GalleryLoginComponent } from './components/extra/gallery-login/gallery-login.component';
+import { GalleryHomeComponent } from './components/extra/gallery-home/gallery-home.component';
+import { PantohomeComponent } from './components/extra/panto/pantohome/pantohome.component';
+import { ChooseusComponent } from './components/extra/panto/chooseus/chooseus.component';
+import { CustomelementComponent } from './components/extra/customelement/customelement.component';
+import { DynamicComponent } from './components/extra/dynamic/dynamic.component';
+import { ShopComponent } from './components/shop/shop.component';
 
 const routes: Routes = [
-  { path: '', component: LandingHomeComponent, canActivate: [NonCookieAuthGuard] },
+  { path: '', component: PantohomeComponent, canActivate: [NonCookieAuthGuard] },
+  { path: 'shop', component: ShopComponent },
   { path: 'contactus', component: ContactusComponent },
+  { path: 'glogin', component: GalleryLoginComponent },
+  { path: 'ghome', component: GalleryHomeComponent },
+  { path: 'chooseus', component: ChooseusComponent },
+  { path: 'custom', component: CustomelementComponent },
+  { path: 'dynamic', component: DynamicComponent },
+
   { path: 'help', component: HelpsupportComponent },
   { path: 'payment-success', component: PaymentSuccessComponent },
   { path: 'payment-failure', component: PaymentFailiureComponent },
-  { path: 'login', component: LoginComponent, canActivate: [NonCookieAuthGuard] },
-  { path: 'signup', component: SignupComponent, canActivate: [NonCookieAuthGuard] },
+  /*  { path: 'login', component: LoginComponent, canActivate: [NonCookieAuthGuard] },
+   { path: 'signup', component: SignupComponent, canActivate: [NonCookieAuthGuard] }, */
   {
     path: 'home', component: HomeComponent, canActivate: [CookieAuthGuard], children: [
       { path: 'products', component: ProductsComponent },

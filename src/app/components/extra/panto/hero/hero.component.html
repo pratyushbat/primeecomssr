@@ -1,0 +1,32 @@
+<section class="tw-relative tw-pt-20 has-bg-image tw-min-h-dvh" aria-label="Hero Section">
+    <app-container>
+        <div class="tw-relative tw-grid tw-place-items-center tw-text-center tw-pt-10">
+            <h3
+                class="tw-text-2xl sm:tw-text-3xl lg:tw-text-5xl xl:tw-text-6xl tw-text-surface tw-line-clamp-2 tw-font-medium">
+                Make your interior more <br />
+                minimalistic & modern
+            </h3>
+
+            <p
+                class="md:tw-text-lg xl:tw-text-xl tw-text-zinc-300 tw-py-5 tw-text-center sm:tw-w-2/3 md:tw-w-2/4 lg:tw-w-1/2">
+                Turn your room with nails into a lot more minimalist and modern with
+                ease and speed
+            </p>
+            <form class="tw-relative tw-flex tw-items-center tw-pt-3" role="searchbox"
+                (submit)="handleSubmit($event, searchInput.value)">
+                <input #searchInput type="search" inputmode="latin" placeholder="Search furniture..."
+                    class="tw-flex tw-outline-0 tw-text-surface tw-w-[280px] lg:tw-w-[300px] tw-border tw-border-border  tw-px-5 tw-py-3 tw-backdrop-blur-xs tw-bg-white/10 tw-rounded-full tw-pr-16" />
+
+                <button
+                    class="tw-absolute tw-right-1.5 tw-grid tw-place-items-center tw-bg-accent p-2 tw-rounded-full tw-transition-colors tw-duration-200 hover:tw-bg-accent/80 tw-cursor-pointer"
+                    aria-label="Search furniture">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="white" class="tw-size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </app-container>
+</section>

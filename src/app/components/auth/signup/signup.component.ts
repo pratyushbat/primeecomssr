@@ -3,6 +3,9 @@ import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { Subject, take, takeUntil } from 'rxjs';
 import { AlertService } from '../../../services/alert.service';
+import { ModalService } from '../../../services/modal.service';
+import { error } from 'console';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-signup',
@@ -10,6 +13,7 @@ import { AlertService } from '../../../services/alert.service';
   styleUrl: './signup.component.scss'
 })
 export class SignupComponent implements OnInit, OnDestroy {
+
   private destroy$ = new Subject<void>();
 
 
@@ -28,12 +32,14 @@ export class SignupComponent implements OnInit, OnDestroy {
   userLocationData: any = this.getUserLocation();
   step = "otp";
 
-  constructor(private _authService: AuthService, private router: Router, private _alertService: AlertService) { }
+  constructor(private _authService: AuthService, private router: Router, private _alertService: AlertService, private modalService: ModalService) { }
 
   ngOnInit(): void {
 
   }
-
+  close() {
+    this.modalService.close();
+  }
   handelOtpSubmit() {
     this.userData = {
       firstName: this.firstName,
@@ -58,21 +64,27 @@ export class SignupComponent implements OnInit, OnDestroy {
       .subscribe((data: any) => {
         if (data.success)
           this.step = "register";
-      })
+      }, error => this.close())
   }
   registerUser() {
     this._authService.register("91" + this.phoneNumber, this.verificationCode, this.userData)
       .pipe(takeUntil(this.destroy$), take(1))
       .subscribe((data: any) => {
         this._alertService.success('registerd user successfully!');
+        this.close();
         this.router.navigate(["/home"]);
-      });
+      }, error => this.close());
   }
   handelImageChange($event: Event) {
     console.log('image change', $event)
   }
   getUserLocation(): any {
     return this._authService.getoLoaction();
+  }
+
+  goToLogin() {
+    this.close();
+    setTimeout(() => this.modalService.requestOpen(LoginComponent))
   }
   ngOnDestroy() {
     this.destroy$?.next();

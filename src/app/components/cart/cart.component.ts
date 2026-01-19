@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { Subject, take, takeUntil } from 'rxjs';
 import { AlertService } from '../../services/alert.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-cart',
@@ -13,7 +14,7 @@ export class CartComponent implements OnInit, OnDestroy {
   cart: any;
   loading = true;
   private destroy$ = new Subject<void>();
-  constructor(private cartService: CartService, private _alertService: AlertService) { }
+  constructor(private cartService: CartService, private _alertService: AlertService, @Inject(PLATFORM_ID) private platformId: Object) { }
 
   ngOnInit() {
     this.loadCart();
@@ -69,7 +70,8 @@ export class CartComponent implements OnInit, OnDestroy {
    }
   */
   redirectToExternal(url: string) {
-    window.location.href = url;
+    if (isPlatformBrowser(this.platformId))
+      window.location.href = url;
   }
 
   ngOnDestroy() {

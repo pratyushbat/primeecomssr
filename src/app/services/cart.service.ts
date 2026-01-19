@@ -38,4 +38,7 @@ export class CartService {
   createOrderFromCart() {
     return this.http.post("/api/order/cartToOrder", {}, { withCredentials: true });
   }
+  allOrders() {
+    return this.http.get("/api/order/all", { withCredentials: true });
+  }
 }

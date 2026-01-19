@@ -1,0 +1,111 @@
+<div id="carouselExampleDark" class="carousel carousel-dark slide position-relative" data-bs-ride="carousel">
+    <div class=" w-100 h-100 bg-black position-absolute ley bg-opacity-50">
+
+    </div>
+
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+            aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="10000">
+            <img src="./assets/images/colorful-3d-shapes-vaporwave-style.jpg" class="d-block w-100" alt="...">
+
+        </div>
+        <div class="carousel-item" data-bs-interval="2000">
+            <img src="./assets/images/psychedelic-hand-collage.jpg" class="d-block w-100" alt="...">
+
+        </div>
+
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+
+<section id="about" class="container d-block">
+    <div class="row h-100">
+        <div class="col-md-5 col-12   d-flex align-items-start justify-content-center h-100 ">
+            <div class="img reveal "></div>
+        </div>
+        <div dir="rtl"
+            class="col-md-7 col-12  h-100 half2 d-flex flex-column justify-content-evenly align-items-center reveal">
+            <div class=" position-relative d-flex align-items-center justify-content-start  ">
+                <p class="header text-center">نبذه تعريفيه</p>
+                <h4 class=" position-absolute end-0 fs-3"></h4>
+            </div>
+            <div class=" paragraph">
+                <p class=""> Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates <br> deleniti ipsum
+                    autem neque iusto omnis aperiam nihil mollitia minima ducimus. Incidunt neque excepturi iste!
+                    Excepturi, sapiente distinctio non nulla dignissimos similique quae ipsum sequi id nostrum ratione
+                    ad voluptas iste repellendus ullam eaque illo possimus, totam exercitationem, vel ducimus. Laborum
+                    animi eligendi architecto maxime! Error totam aliquid facere? Recusandae magnam, harum temporibus
+                    aliquam ab alias dolor hic aperiam fugiat tempora quam facilis, enim assumenda dolores. Beatae
+                    assumenda officia maiores similique earum, corrupti atque exercitationem non provident sunt omnis.
+                    Repudiandae, doloribus saepe sequi nobis illum aut rem? Aperiam laudantium at beatae?
+                </p>
+            </div>
+            <div class=" text-end w-100 paragraph">
+                <h5><span class="data">البريد الالكتروني:</span> lorem&#64;gmail.com </h5>
+                <h5 class=" mt-3 "><span class="data">رقم الهاتف:</span> <span dir="ltr" class="text-end">+20 127 036
+                        3116
+                    </span> </h5>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<div routerLink="/gallery" class=" GTGAL d-flex align-items-center justify-content-center text-white fs-1 fw-bold">
+    <p class=" text-center"><i class="bi bi-arrow-right-short"></i>GO TO GALLERY</p>
+</div>
+
+
+<section id="contact" class=" mt-5">
+    <div class="container">
+        <p class="header text-center reveal">تواصل معنا</p>
+
+        <div class=" m-0 row p-5 ">
+            <div class="col-md-5 col-12 d-flex flex-column align-items-start reveal">
+                <textarea dir="rtl" name="" id="" [(ngModel)]="message"
+                    class=" border-0 border-bottom w-100 h-100 box-shadow rounded-3 p-3" placeholder="رسالتك"
+                    (focus)="isLogged()"></textarea>
+                <p *ngIf="messageErr !=''" class=" text-danger">{{messageErr}}</p>
+                <button [ngClass]="{'btnTextarea': messageErr !=''}" class=" btn rounded-3 btn-main mt-2"
+                    (click)="sendMessage()">
+                    <p *ngIf="sended" class=" m-0">تم الارسال</p> <i *ngIf="!sended"
+                        class="bi bi-send-fill text-white"></i>
+                </button>
+            </div>
+            <div class="col-md-7 col-12 row d-flex flex-column align-items-center justify-content-between reveal">
+                <div
+                    class=" d-flex col-lg-6 col-md-8 col-sm-8 col-12 mt-2 mt-sm-0 align-items-center justify-content-between ">
+
+
+                    <div class="social Facebook "><i class="bi bi-facebook fs-4"></i></div>
+                    <a class="social Whatsapp"><i class="bi bi-whatsapp fs-4"></i></a>
+                    <a>
+                        <div class="social Instagram"><i class="bi bi-instagram fs-4"></i></div>
+
+                    </a>
+
+
+                </div>
+                <div class=" align-items-center justify-content-between d-flex flex-column mt-5">
+                    <h3 class=" fw-bold " style="white-space: nowrap;">تواصل معنا</h3>
+                    <h3>lorem&#64;gmail.com</h3>
+                </div>
+                <p class="text-center mt-5">Copyright ©2023 All rights reserved | This template for gallery</p>
+            </div>
+        </div>
+    </div>
+</section>

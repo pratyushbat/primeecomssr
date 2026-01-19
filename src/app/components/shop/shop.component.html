@@ -1,0 +1,102 @@
+<section aria-label="Shop Section">
+    <div class="tw-relative tw-h-[400px] tw-overflow-hidden [clip-path:polygon(0_0,100%_0,100%_85%,0_100%)]">
+        <img src="../../../assets/images/panto/shop-bg.jpg" alt="Shop Background"
+            class="tw-size-full tw-object-cover tw-object-center" />
+
+        <h2
+            class="tw-absolute tw-top-1/2 tw-left-1/2 tw--translate-1/2 tw-text-accent tw-text-shadow-md tw-text-shadow-orange-200 tw-text-7xl md:text-8xl lg:text-9xl font-secondary font-semibold text-center">
+            Shop
+        </h2>
+    </div>
+    <app-container className="tw-grid tw-py-10">
+        <div class="tw-max-w-6xl tw-mx-auto tw-px-4 tw-grid tw-py-10">
+            <div class="tw-flex tw-flex-wrap tw-items-center tw-justify-center sm:tw-justify-start tw-gap-3 tw-mt-5">
+                <select name="sortBy" id="sort-by"
+                    class="tw-appearance-none tw-rounded-full tw-bg-accent tw-text-surface tw-px-2 tw-text-center tw-py-1 md:tw-py-2 tw-w-max tw-outline-0 tw-transition-colors tw-duration-200 hover:tw-bg-accent/90 tw-cursor-pointer"
+                    (change)="onChange($event)">
+                    <option value="">Sort by (All)</option>
+                    @for (sort of sortFilters; track sort.label) {
+                    <option value="{{ sort.value }}">{{ sort.label }}</option>
+                    }
+                </select>
+
+            </div>
+
+            <!-- Loading State -->
+            @if (isLoading()) {
+            <ul
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-center gap-8 lg:gap-12 xl:gap-20 mt-14 md:mt-20">
+                @for (skeletonCard of skeletonCards; track $index) {
+                <li>
+                    <app-skeleton-card />
+                </li>
+                }
+            </ul>
+            }
+            @else if (errorState()) {
+            <h3 class="text-center text-red-500">{{errorState()}}</h3>
+            }
+            @else if (featuredProducts().length > 0) {
+            <ul class="products-list">
+                @for (product of featuredProducts(); track product.id) {
+                <li>
+                    <app-product-card [product]="product" />
+                </li>
+                }
+            </ul>
+            }
+            @else {
+            <p class="tw-text-center tw-py-10">No featured products found.</p>
+            }
+
+            <!-- Navigation Buttons -->
+            <div class="tw-flex tw-items-center tw-justify-between tw-mt-14 tw-py-2">
+                <!-- Go To Previous Page -->
+                <button
+                    class="tw-inline-flex tw-items-center tw-rounded-full tw-bg-accent tw-p-3 sm:tw-px-4 sm:tw-py-1.5 tw-gap-2 tw-text-surface tw-w-max tw-place-self-center tw-text-xl tw-transition-all tw-duration-200 focus:tw-scale-105 hover:tw-bg-accent/90 group tw-cursor-pointer"
+                    aria-label="Previous Page"
+                    [ngClass]="isLoading() || currentPage() === 1 ? 'tw-opacity-70 tw-pointer-events-none' : ''"
+                    [disabled]="isLoading() || currentPage() === 1"
+                    [attr.aria-disabled]="(isLoading() || currentPage() === 1) ? true : null" (click)="goToPrevPage()">
+                    <span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="tw-round"
+                                d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
+                        </svg></span>
+
+                    <p class="hidden sm:block">Prev.</p>
+                </button>
+
+                <!-- Pagination -->
+                <p
+                    class="tw-flex tw-items-center tw-gap-3 sm:tw-gap-4 md:tw-gap-5 tw-text-lg lg:tw-text-xl tw-font-medium">
+                    Page
+                    <span
+                        class="tw-grid tw-place-items-center tw-border tw-border-border tw-px-3 tw-py-2">{{currentPage()}}</span>
+                    of
+                    <span
+                        class="tw-grid tw-place-items-center tw-border tw-border-border tw-px-3 tw-py-2">{{totalPages()}}</span>
+                </p>
+
+                <!-- Go To Next Page -->
+                <button
+                    class="tw-inline-flex tw-items-center tw-rounded-full tw-bg-accent tw-p-3 sm:tw-px-4 sm:tw-py-1.5 tw-gap-2 tw-text-surface tw-w-max tw-place-self-center tw-text-xl tw-transition-all tw-duration-200 focus:tw-scale-105 hover:tw-bg-accent/90 tw-group tw-cursor-pointer"
+                    aria-label="Next Page"
+                    [ngClass]="isLoading() || currentPage() === totalPages() ? 'tw-opacity-70 tw-pointer-events-none' : ''"
+                    [disabled]="isLoading() || currentPage() === totalPages()"
+                    [attr.aria-disabled]="(isLoading() || currentPage() === totalPages()) ? true : null"
+                    (click)="goToNextPage()">
+                    <span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="tw-size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m15 15 6-6m0 0-6-6m6 6H9a6 6 0 0 0 0 12h3" />
+                        </svg>
+                    </span>
+
+                    <p class="tw-hidden sm:tw-block">Next</p>
+                </button>
+            </div>
+
+        </div>
+    </app-container>
+</section>

@@ -40,7 +40,7 @@ export class CreateProductComponent {
 
   createProduct() {
 
-    if (this.productsForm.invalid || this.selectedFiles.length === 0) {
+    if (this.productsForm?.invalid || this.selectedFiles?.length === 0) {
       this._alertService.error('Please fill all fields and select images');
       return;
     }

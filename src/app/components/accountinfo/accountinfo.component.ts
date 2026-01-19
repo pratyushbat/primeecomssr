@@ -52,7 +52,7 @@ export class AccountinfoComponent implements OnInit {
     this._authService.userStatus$().subscribe(data => {
       if (data) {
         this.userData = data;
-        if (this.userData.addresses?.length)
+        if (this.userData?.addresses?.length)
           this.selectedAddress = this.userData.addresses[0];
         this.patchAddreesssForm();
       }

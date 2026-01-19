@@ -1,0 +1,155 @@
+<div class="tw-z-40  tw-animate-fade-in tw-backdrop-blur-sm tw-fixed tw-inset-0 tw-bg-black/50 tw-flex tw-items-center tw-justify-center tw-z-50"
+    (click)="close()">
+    <div class="tw-z-50 tw-bg-white tw-rounded-lg shadow-lg tw-w-full tw-max-w-7xl tw-p-6"
+        (click)="$event.stopPropagation()">
+
+        <div class="container ">
+            <div class="row w-100 h-90 tw-py-5 d-flex justify-content-center m-0 p-0 " id="logIn">
+                <div class="col-lg-4 col-md-8 col-11 mx-auto bg-white box-shadow rounded-3 p-3 m-0">
+                    <div class="h-35 align-items-center d-flex flex-column justify-content-evenly">
+                        <h1 class=" fw-bold">Welcome</h1>
+                        <h3>GALLERY</h3>
+                    </div>
+
+                    <div class="h-40 ">
+                        <form [formGroup]="logInForm" (submit)="Login()"
+                            class=" d-flex flex-column align-items-center justify-content-around h-100 container tw-px-5">
+                            <p class="text-start text-danger" *ngIf="loginErr">{{loginErr}}</p>
+                            <div class="position-relative w-100">
+                                <input dir="ltr" dir="ltr" type="email" placeholder="Email" formControlName="email"
+                                    name="email" class=" border-0 border-bottom p-2 tw-px-3 border-2 w-100 ">
+
+                                <div class=" loginErrs position-absolute top-7 end-0 text-danger"
+                                    *ngIf="logInForm.get('email')?.errors !==null && logInForm.get('email')?.touched">
+                                    <p *ngIf="logInForm.get('email')?.errors?.['required'] ">Email is required</p>
+                                    <p *ngIf="logInForm.get('email')?.errors?.['email'] ">Email is In-valid </p>
+                                </div>
+                                <p class="text-start text-danger" *ngIf="emailErr">{{emailErr}}</p>
+
+                            </div>
+                            <div class="position-relative w-100">
+
+                                <input dir="ltr" type="password" placeholder="Password" formControlName="password"
+                                    name="password" class=" border-0 border-bottom p-2 tw-px-3 border-2 w-100">
+
+
+                                <div class=" loginErrs position-absolute top-7 end-0 text-danger" *ngIf="cpassErr">
+                                    <p>Password is required</p>
+
+                                </div>
+                                <p class="text-start text-danger" *ngIf="passwordErr">{{passwordErr}}</p>
+                            </div>
+
+
+                            <button class="btn w-100 rounded-5 text-white btn-main transition">
+                                <p *ngIf="!LOGINloading">LOGIN</p><i *ngIf="LOGINloading"
+                                    class="p-0 m-0 spinner-border " role="status"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <div class=" h-20 d-flex justify-content-center align-items-end">
+
+                        <p>Don't have an account? <span class="cursor-pointer text-primary text-decoration-underline "
+                                (click)="switch()">Sign Up</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="row w-100 h-90 tw-py-5 d-flex justify-content-center hide m-0 p-0" id="signUp">
+                <div class="col-lg-4 col-md-8 col-11 bg-white box-shadow rounded-3 p-3 m-0">
+                    <div class="h-35 align-items-center d-flex flex-column justify-content-evenly">
+                        <h1 class=" fw-bold">Welcome</h1>
+                        <h3>GALLERY</h3>
+                    </div>
+
+                    <div class="h-45 ">
+                        <form [formGroup]="signUpForm" (submit)="signUp()"
+                            class=" d-flex flex-column align-items-center justify-content-between h-100 container tw-px-5">
+                            <p *ngIf="signupErr !=''" class=" text-danger text-start">{{signupErr}}</p>
+                            <div class="position-relative w-100">
+
+                                <input dir="ltr" type="text" placeholder="User name" formControlName="userName"
+                                    name="userName" class=" border-0 border-bottom p-2 tw-px-3 border-2 w-100">
+
+
+                                <div class=" loginErrs position-absolute top-7 end-0 text-danger"
+                                    *ngIf="signUpForm.get('userName')?.errors !==null && signUpForm.get('userName')?.touched">
+                                    <p *ngIf="signUpForm.get('userName')?.errors?.['required'] ">User name is required
+                                    </p>
+                                    <p *ngIf="signUpForm.get('userName')?.errors?.['minlength'] ">User name min char is
+                                        3 </p>
+                                    <p *ngIf="signUpForm.get('userName')?.errors?.['maxlength'] ">User name max char is
+                                        20</p>
+                                </div>
+                            </div>
+                            <div class="position-relative w-100">
+
+                                <input dir="ltr" type="email" placeholder="Email" formControlName="email" name="email"
+                                    class=" border-0 border-bottom p-2 tw-px-3 border-2 w-100">
+                                <p *ngIf="signUpEmailErr !=''" class="text-danger text-start">{{signUpEmailErr}}</p>
+
+                                <div class=" loginErrs position-absolute top-7 end-0 text-danger"
+                                    *ngIf="signUpForm.get('email')?.errors !==null && signUpForm.get('email')?.touched">
+                                    <p *ngIf="signUpForm.get('email')?.errors?.['required'] ">Email is required</p>
+                                    <p *ngIf="signUpForm.get('email')?.errors?.['email'] ">Email is In-valid </p>
+                                </div>
+                            </div>
+                            <div class="position-relative w-100">
+
+
+                                <input dir="ltr" type="password" placeholder="Password" formControlName="password"
+                                    name="password" class=" border-0 border-bottom p-2 tw-px-3 border-2 w-100">
+                                <p *ngIf="signUpPasswordErr !=''" class="text-danger text-start">{{signUpPasswordErr}}
+                                </p>
+
+                                <div class=" loginErrs position-absolute top-7 end-0 text-danger"
+                                    *ngIf="signUpForm.get('password')?.errors !==null && signUpForm.get('password')?.touched">
+                                    <p *ngIf="signUpForm.get('password')?.errors?.['required'] ">Password is required
+                                    </p>
+                                    <p *ngIf="signUpForm.get('password')?.errors?.['minlength'] ">Password min char is 5
+                                    </p>
+                                    <p *ngIf="signUpForm.get('password')?.errors?.['maxlength'] ">Password max char is
+                                        20</p>
+                                </div>
+                            </div>
+
+
+                            <div class="position-relative w-100">
+
+                                <input dir="ltr" type="password" placeholder="Confirm password"
+                                    formControlName="confirmPassword" name="confirmPassword"
+                                    class=" border-0 border-bottom p-2 tw-px-3 border-2 w-100">
+
+                                <p *ngIf="cpassErr" class="text-danger text-start">Confirm password must be the same as
+                                    the
+                                    password</p>
+                                <div class=" loginErrs position-absolute top-7 end-0 text-danger"
+                                    *ngIf="signUpForm.get('password')?.errors !==null && signUpForm.get('password')?.touched">
+                                    <p *ngIf="signUpForm.get('password')?.errors?.['required'] ">Password is required
+                                    </p>
+
+
+                                </div>
+                            </div>
+
+                            <button class="btn w-100 rounded-5 text-white btn-main transition" type="submit">
+                                <p *ngIf="!SIGNUPloading">SIGN UP</p><i *ngIf="SIGNUPloading"
+                                    class="p-0 m-0 spinner-border " role="status"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <div class=" h-20 d-flex justify-content-center align-items-end">
+
+                        <p>Don't have an account? <span class="cursor-pointer text-primary text-decoration-underline "
+                                (click)="switch()">Login</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

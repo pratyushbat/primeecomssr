@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { map, Subject, take, takeUntil } from 'rxjs';
 import { error } from 'node:console';
 import { AlertService } from '../../../services/alert.service';
+import { ModalService } from '../../../services/modal.service';
+import { SignupComponent } from '../signup/signup.component';
 
 
 const validatePassword = (password: any) => {
@@ -38,6 +40,8 @@ const validatePhoneNumber = (phoneNumber: any) => {
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit, OnDestroy {
+
+
   countryCode = "91";
   phoneNumber = "";
   isPasswordHidden = false;
@@ -45,13 +49,20 @@ export class LoginComponent implements OnInit, OnDestroy {
   password = "";
   private destroy$ = new Subject<void>();
 
-  constructor(private _authService: AuthService, private router: Router, private _alertService: AlertService) {
+  constructor(private _authService: AuthService, private router: Router, private _alertService: AlertService, private modalService: ModalService,) {
 
   }
   ngOnInit(): void {
 
   }
+  goToSignup() {
+    this.close();
+    setTimeout(() => this.modalService.requestOpen(SignupComponent), 10)
+  }
 
+  close() {
+    this.modalService.close();
+  }
   setCounterCode(arg: any) {
     console.log('arg', arg)
   }
@@ -75,11 +86,12 @@ export class LoginComponent implements OnInit, OnDestroy {
               takeUntil(this.destroy$), take(1))
             .subscribe((data: any) => {
               this._authService.setuserSubjectSub(data);
+              this.close();
               this.router.navigate(["/home"]);
             },
               error => {
                 this._authService.setuserSubjectSub(null);
-                console.log(error);
+                this.close();
               });
         },
           error => {

@@ -1,5 +1,7 @@
-<div class="tw-flex tw-justify-center tw-items-center tw-h-screen tw-flex-col tw-px-1 tw-md:tw-p-10">
-    <div class="glass tw-tw-py-5 tw-px-5 tw-md:tw-px-10 tw-md:tw-h-[35rem] tw-md:tw-w-[30rem]">
+<div class=" tw-z-40  tw-animate-fade-in tw-backdrop-blur-sm tw-fixed tw-inset-0 tw-bg-black/50  tw-flex tw-justify-center tw-items-center tw-h-screen tw-flex-col tw-px-1 md:tw-p-10"
+    (click)="close()">
+    <div class=" tw-z-50 tw-bg-white tw-rounded-lg shadow-lg tw-w-full  glass tw-py-5 tw-px-5 md:tw-px-10  md:tw-w-[30rem]"
+        (click)="$event.stopPropagation()">
         <div class="">
             <div class="tw-flex tw-justify-center tw-flex-col tw-items-center">
                 <h1 class="tw-text-3xl tw-font-bold ">Create Account</h1>
@@ -10,7 +12,7 @@
             <div class=" tw-flex tw-flex-col tw-justify-center tw-items-center tw-pt-5">
                 <label for="profilePic">
                     <img src="/assets/images/girlogo.png" alt="profile" alt=""
-                        class="tw-w-[8rem] tw-h-[8rem] tw-rounded-full tw-tw-cursor-pointer" />
+                        class="tw-w-[8rem] tw-h-[8rem] tw-rounded-full tw-cursor-pointer" />
                 </label>
                 <input type="file" id="profilePic" name="profilePic" class="hidden"
                     accept="image/png, image/gif, image/jpeg" (change)="handelImageChange($event)" />
@@ -65,7 +67,7 @@
                 </div>
                 <input [disabled]="loading" name="submit" type="submit"
                     [attr.value]="loading ? 'Sending OTP Wait' : 'Sent OTP'"
-                    class="tw-w-full tw-bg-violet-800 tw-h-12 tw-rounded-lg tw-mt-5 tw-text-white tw-hover:tw-bg-red-400 tw-cursor-pointer tw-outline-none tw-border-none" />
+                    class="tw-w-full tw-bg-violet-800 tw-h-12 tw-rounded-lg tw-mt-5 tw-text-white hover:tw-bg-red-400 tw-cursor-pointer tw-outline-none tw-border-none" />
             </form>
             <form *ngIf="step==='register'" class="tw-mt-5" (ngSubmit)="registerUser()">
                 <div class="tw-flex tw-justify-center tw-gatw-p-5 tw-items-center">
@@ -76,12 +78,12 @@
 
                 <input [disabled]="loading" name="submit" type="submit"
                     [attr.value]="loading ? 'Registering' : 'Register'"
-                    class="tw-w-full tw-bg-violet-800 tw-h-12 tw-rounded-lg tw-mt-5 tw-text-white tw-hover:tw-bg-red-400 tw-cursor-pointer tw-outline-none tw-border-none" />
+                    class="tw-w-full tw-bg-violet-800 tw-h-12 tw-rounded-lg tw-mt-5 tw-text-white hover:tw-bg-red-400 tw-cursor-pointer tw-outline-none tw-border-none" />
             </form>
             <div class="tw-mt-5 ">
                 <p class="tw-text-sm tw-text-slate-400 tw-text-center">
                     Already have an account?
-                    <span class="tw-text-red-400 tw-cursor-pointer" [routerLink]="'/login'">
+                    <span class="tw-text-red-400 tw-cursor-pointer" (click)="goToLogin()">
                         Login
                     </span>
                 </p>

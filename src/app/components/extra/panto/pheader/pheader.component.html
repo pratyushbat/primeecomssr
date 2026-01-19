@@ -1,0 +1,24 @@
+<header class="tw-fixed tw-top-0 tw-left-0 tw-w-full tw-z-50 " [class.tw-shadow-md]="isHeaderScrolled()"
+    [class.active]="isHeaderScrolled()" [class.tw-py-4]="isHeaderScrolled()" [class.tw-py-3]="!isHeaderScrolled()"
+    [class.tw-bg-transparent]="!isHeaderScrolled()">
+    <app-container className="tw-flex tw-items-center tw-justify-between">
+
+        <nav class="tw-hidden md:tw-flex tw-items-center tw-space-x-16 tw-text-surface tw-text-lg xl:tw-text-xl">
+            <a *ngFor="let link of navLinks; let i=index " [routerLink]="link.path" routerLinkActive="tw-text-accent"
+                [routerLinkActiveOptions]="{ exact: true }"
+                [attr.aria-current]="link.path === currentPath() ? 'page' : null"
+                class="hover:tw-text-accent tw-text-surface tw-transition tw-duration-100">{{
+                link.label }}</a>
+            <a class="hover:tw-text-accent tw-text-surface tw-transition tw-duration-100"
+                (click)="gologin('login')">login</a>
+            <a class="hover:tw-text-accent tw-text-surface tw-transition tw-duration-100"
+                (click)="gologin('signup')">signup</a>
+
+
+        </nav>
+
+
+    </app-container>
+
+
+</header>

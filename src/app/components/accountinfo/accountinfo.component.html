@@ -1,5 +1,5 @@
-<div class="tw-flex tw-justify-center tw-items-center tw-md:h-screen tw-flex-col py-5 tw-md:p-10">
-    <div class="glass py-5 tw-md:px-10 tw-px-5">
+<div class="tw-flex tw-justify-center tw-items-center md:h-screen tw-flex-col tw-py-5 md:p-10">
+    <div class="glassv  tw-py-5 md:px-10 tw-px-5">
         <div class="">
             <div class="tw-flex tw-justify-center tw-flex-col tw-items-center">
                 <h1 class="text-3xl font-bold ">
@@ -12,7 +12,7 @@
                     class="w-[8rem] h-[8rem] rounded-full cursor-pointer tw-mt-5" />
             </div>
 
-            <div class="tw-flex gap-3 tw-md:tw-flex-row tw-flex-col tw-justify-center tw-items-center tw-mt-5">
+            <div class="tw-flex gap-3 md:tw-flex-row tw-flex-col tw-justify-center tw-items-center tw-mt-5">
                 <input type="text" disabled [value]="userData?.firstName"
                     class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
                     placeholder="First Name" />
@@ -23,7 +23,7 @@
                     class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
                     placeholder="Email Id" />
             </div>
-            <div class="tw-flex gap-3 tw-md:tw-flex-row tw-flex-col tw-justify-center tw-items-center tw-mt-5">
+            <div class="tw-flex gap-3 md:tw-flex-row tw-flex-col tw-justify-center tw-items-center tw-mt-5">
                 <input type="text" disabled [value]="userData?.userLocationData?.city"
                     class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
                     placeholder="City" />
@@ -34,7 +34,7 @@
                     class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
                     placeholder="Country" />
             </div>
-            <div class="tw-flex gap-3 tw-md:tw-flex-row tw-flex-col tw-justify-center tw-items-center tw-mt-5">
+            <div class="tw-flex gap-3 md:tw-flex-row tw-flex-col tw-justify-center tw-items-center tw-mt-5">
                 <input type="text" disabled [value]="userData?.userLocationData?.postal"
                     class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
                     placeholder="Postal Code" />
@@ -49,20 +49,20 @@
 
 
             <!--     <button  [disabled]="isLoading" (click)="logOut()" type="button" class=" tw-w-full tw-rounded-lg tw-mt-4 tw-text-white bg-danger tw-box-border tw-border tw-border-transparent 
-            tw-hover:tw-bg-danger-strong tw-focus:tw-ring-4 
+            hover:tw-bg-danger-strong tw-focus:tw-ring-4 
             tw-focus:tw-ring-danger-medium 
             tw-shadow-xs
              tw-font-medium tw-leading-5 tw-rounded-base tw-text-sm tw-px-4 tw-py-2.5 tw-focus:tw-outline-none">  {{isLoading ? 'Loading Wait' : 'Logout'}}</button>
  -->
             <button type="button" [disabled]="isLoading" (click)="isAddAddress=true;"
-                class="tw-mt-4 tw-rounded-lg tw-text-white tw-bg-gradient-to-br tw-from-purple-600 tw-to-blue-500 tw-hover:tw-bg-gradient-to-bl tw-focus:tw-ring-4 tw-focus:tw-outline-none tw-focus:tw-ring-blue-300 tw-dark:tw-focus:tw-ring-blue-800 tw-font-medium tw-rounded-base tw-text-sm tw-px-4 tw-py-2.5 tw-text-center tw-leading-5">
+                class="tw-mt-4 tw-rounded-lg tw-text-white tw-bg-gradient-to-br tw-from-purple-600 tw-to-blue-500 hover:tw-bg-gradient-to-bl tw-focus:tw-ring-4 tw-focus:tw-outline-none tw-focus:tw-ring-blue-300 tw-dark:tw-focus:tw-ring-blue-800 tw-font-medium tw-rounded-base tw-text-sm tw-px-4 tw-py-2.5 tw-text-center tw-leading-5">
                 Add Address</button>
         </div>
 
 
 
     </div>
-    <div class="glass py-5 tw-md:px-10 tw-px-5 tw-mt-10" *ngIf="userData?.addresses?.length">
+    <div class="glass tw-py-5 md:px-10 tw-px-5 tw-mt-10" *ngIf="userData?.addresses?.length">
         <div class="tw-mt-10" *ngFor="let add of userData?.addresses; let i=index ">
             <h1 class="tw-h-12  tw-px-5 tw-w-full">Address
                 #{{i+1}} </h1>
@@ -89,13 +89,13 @@
                 <input class="tw-px-5 tw-w-full" type="checkbox" [checked]="add.isDefault" [disabled]="true" />
             </div>
             <button [disabled]="true" type="button"
-                class=" tw-w-full tw-rounded-lg tw-mt-4 tw-text-white bg-danger tw-box-border tw-border tw-border-transparent  tw-hover:tw-bg-danger-strong tw-focus:tw-ring-4             tw-focus:tw-ring-danger-medium             tw-shadow-xs             tw-font-medium tw-leading-5 tw-rounded-base tw-text-sm tw-px-4 tw-py-2.5 tw-focus:tw-outline-none">
+                class=" tw-w-full tw-rounded-lg tw-mt-4 tw-text-white bg-danger tw-box-border tw-border tw-border-transparent  hover:tw-bg-danger-strong tw-focus:tw-ring-4             tw-focus:tw-ring-danger-medium             tw-shadow-xs             tw-font-medium tw-leading-5 tw-rounded-base tw-text-sm tw-px-4 tw-py-2.5 tw-focus:tw-outline-none">
                 {{isLoading ? 'Deleting Wait' : 'Delete'}}</button>
         </div>
 
     </div>
 
-    <div class="glass py-5 tw-md:px-10 tw-px-5 tw-mt-10" *ngIf="isAddAddress && userData?.role ==='user'">
+    <div class="glass tw-py-5 md:px-10 tw-px-5 tw-mt-10" *ngIf="isAddAddress && userData?.role ==='user'">
         <div>
             <h2>Add Address</h2>
 
@@ -166,7 +166,7 @@
                 </div>
 
                 <input [disabled]="isLoading" name="submit" type="submit" [attr.value]="'submit'"
-                    class="tw-w-full tw-bg-violet-800 tw-h-12 tw-rounded-lg tw-mt-5 tw-text-white tw-hover:tw-bg-red-400 tw-cursor-pointer tw-outline-none tw-border-none" />
+                    class="tw-w-full tw-bg-violet-800 tw-h-12 tw-rounded-lg tw-mt-5 tw-text-white hover:tw-bg-red-400 tw-cursor-pointer tw-outline-none tw-border-none" />
             </form>
 
         </div>

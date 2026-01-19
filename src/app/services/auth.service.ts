@@ -7,11 +7,14 @@ import { BehaviorSubject, catchError, finalize, firstValueFrom, map, Observable,
   providedIn: 'root'
 })
 export class AuthService implements OnDestroy {
+  sendMessage(data: { message: String; email: any; }) {
+    return of(true)
+  }
 
   private destroy$ = new Subject<void>();
-
-  url: string = "http://localhost:8000";
-
+  /* "https://girisa.shop" */
+  url: string =
+    'http://localhost:8000';
 
   private userSubject = new BehaviorSubject<any>(null);
   authState$ = new BehaviorSubject<boolean | null>(null);

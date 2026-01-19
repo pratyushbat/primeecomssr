@@ -1,0 +1,50 @@
+<section class="tw-bg-[#f2f2f2] mt-20" aria-label="Featured Products Section">
+    <app-container className="tw-grid tw-py-10">
+        <div class="tw-max-w-6xl tw-mx-auto tw-px-4 tw-grid tw-py-10">
+            <h2 class="tw-text-3xl lg:tw-text-4xl tw-font-secondary tw-font-semibold tw-text-center">
+                Featured Products
+            </h2>
+            <!-- Loading State -->
+            @if (isLoading()) {
+            <ul
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-center gap-8 lg:gap-12 xl:gap-20 mt-14 md:mt-20">
+                @for (skeletonCard of skeletonCards; track $index) {
+                <li>
+                    <app-skeleton-card />
+                </li>
+                }
+            </ul>
+            }
+            @else if (errorState()) {
+            <h3 class="text-center text-red-500">{{errorState()}}</h3>
+            }
+            @else if (featuredProducts().length > 0) {
+            <ul class="products-list">
+                @for (product of featuredProducts(); track product.id) {
+                <li>
+                    <app-product-card [product]="product" />
+                </li>
+                }
+            </ul>
+            }
+            @else {
+            <p class="tw-text-center tw-py-10">No featured products found.</p>
+            }
+
+            <button
+                class="tw-inline-flex tw-items-center tw-mt-12 tw-bg-accent tw-px-4 tw-py-1.5 tw-gap-2 tw-text-surface tw-w-max tw-place-self-center tw-text-xl tw-transition-colors tw-duration-200 hover:tw-bg-accent/90 tw-group tw-cursor-pointer"
+                [routerLink]="['/shop']">
+                View All
+
+                <!-- Icon -->
+                <span aria-hidden="true"
+                    class="tw-transition-transform tw-duration-200 group-hover:tw-translate-x-1"><svg
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                    </svg>
+                </span>
+            </button>
+        </div>
+    </app-container>
+</section>

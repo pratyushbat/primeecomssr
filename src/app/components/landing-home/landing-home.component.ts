@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
+import { ModalService } from '../../services/modal.service';
+import { LoginComponent } from '../auth/login/login.component';
+import { SignupComponent } from '../auth/signup/signup.component';
 
 @Component({
   selector: 'app-landing-home',
@@ -7,7 +10,8 @@ import { Meta } from '@angular/platform-browser';
   styleUrl: './landing-home.component.scss'
 })
 export class LandingHomeComponent {
-  constructor(private meta: Meta) {
+
+  constructor(private meta: Meta, private modalSvc: ModalService) {
     this.meta.addTag({ name: 'description', content: "Welcome to Girisa Enterprise website, we are an MSE based out of India. We aim to deliver high-quality nails to our customers." });
     this.meta.addTag({ property: 'keywords', content: "GIRISA NAILS, buy GIRISA NAILS online, GIRISA NAILS SHOP price" });
     this.meta.addTag({ name: 'twitter-card', content: "GIRISA NAILS" });
@@ -15,6 +19,13 @@ export class LandingHomeComponent {
     this.meta.addTag({ property: 'og:title', content: "Buy GIRISA nails  online at best prices on https://girisa.shop" });
     this.meta.addTag({ property: 'og:description', content: "Welcome to Girisa Nails Enterprise website, we are an MSE based out of India. We aim to deliver high-quality nails to our customers." });
     this.meta.addTag({ property: 'og:keywords', content: "GIRISA, buy GIRISA online, GIRISA price" });
+  }
+
+  gologin(type: string) {
+    if (type === 'login')
+      this.modalSvc.requestOpen(LoginComponent);
+    else if (type === 'signup')
+      this.modalSvc.requestOpen(SignupComponent);
   }
 
 }

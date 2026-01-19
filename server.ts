@@ -20,8 +20,8 @@ export function app(): express.Express {
   const BASE_URL = 'https://girisa.shop';
 
 
-/*   server.use(cookieParser());    
-  server.use(authMiddleware); */
+  /*   server.use(cookieParser());    
+    server.use(authMiddleware); */
   // Serve static files from /browser
   server.get('*.*', express.static(browserDistFolder, {
     maxAge: '1y'
@@ -80,7 +80,7 @@ ${urls.map(u => `
         documentFilePath: indexHtml,
         url: `${protocol}://${headers.host}${originalUrl}`,
         publicPath: browserDistFolder,
-        providers: [{ provide: APP_BASE_HREF, useValue: baseUrl },{ provide: 'REQUEST', useValue: req }],
+        providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }, { provide: 'REQUEST', useValue: req }],
       })
       .then((html) => res.send(html))
       .catch((err) => next(err));

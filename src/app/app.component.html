@@ -1,8 +1,17 @@
+<!-- <button (click)="openLogin()">Open Login Modal</button> -->
+
+<ng-container #modalHost></ng-container>
 <div *ngIf="auth.loading(); else app">
   <div class="loader">Loading...</div>
 </div>
 
+
 <ng-template #app>
-  <app-alert></app-alert>
-  <router-outlet />
+  <div class="app-layout">
+    <app-pheader></app-pheader>
+    <app-alert></app-alert>
+    <router-outlet />
+    <app-pfooter></app-pfooter>
+  </div>
+
 </ng-template>

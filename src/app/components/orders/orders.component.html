@@ -1,1 +1,53 @@
-<p>orders works!</p>
+<div class="tw-min-h-screen tw-bg-gray-50 tw-px-4 tw-py-8">
+    <div class="max-w-5xl tw-mx-auto">
+        <h1 class="tw-text-2xl tw-mont-bold tw-text-gray-800 tw-mb-6">My Orders</h1>
+
+        <!-- Loading -->
+        <div *ngIf="loading" class="tw-text-center tw-py-12 tw-text-gray-500">
+            Loading orders…
+        </div>
+
+        <!-- Empty -->
+        <div *ngIf="!loading && orders?.length === 0"
+            class="tw-bg-white tw-rounded-xl tw-p-8 tw-text-center tw-text-gray-600 tw-shadow">
+            You don’t have any orders yet.
+        </div>
+
+        <!-- Orders List -->
+        <div *ngIf="!loading && orders?.length > 0" class="tw-space-y-4">
+            <div *ngFor="let order of orders"
+                class="tw-bg-white tw-rounded-xl tw-shadow tw-p-5 tw-mlex tw-mlex-col sm:flex-row sm:items-center sm:tw-justify-between">
+
+                <!-- Left -->
+                <div class="tw-space-y-1">
+                    <div class="tw-text-sm tw-text-gray-500">
+                        Order ID
+                        <span class="tw-font-medium tw-text-gray-800 tw-ml-1">{{ order._id }}</span>
+                    </div>
+                    <div class="tw-text-sm tw-text-gray-500">
+                        Date
+                        <span class="ml-1">{{ order.createdAt | date:'mediumDate' }}</span>
+                    </div>
+                </div>
+
+                <!-- Middle -->
+                <div class="mt-4 sm:tw-mt-0 tw-text-sm">
+                    <div class="tw-text-gray-500">Amount</div>
+                    <div class="tw-font-semibold tw-text-gray-800">₹{{ order.totalAmount }}</div>
+                </div>
+
+                <!-- Right -->
+                <div class="tw-mt-4 sm:mt-0 tw-mlex tw-items-center tw-gap-3">
+                    <span class="tw-px-3 tw-py-1 tw-rounded-full tw-text-xs tw-mont-semibold"
+                        [ngClass]="badgeClasses(order.status)">
+                        {{ order.status }}
+                    </span>
+
+                    <span class="tw-text-xs tw-text-gray-500">
+                        {{ order.paymentMethod }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

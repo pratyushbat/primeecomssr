@@ -1,0 +1,21 @@
+<section class="pt-10" aria-label="Choose Us Section">
+    <app-container
+        className="pt-10 tw-grid tw-grid-cols-1 lg:tw-grid-cols-[250px_1fr] lg:tw-gap-10 xl:tw-gap-16 tw-items-center">
+        <h2 class="tw-text-3xl lg:tw-text-4xl lg:tw-text-left tw-font-secondary tw-font-semibold tw-text-center">
+            Why Choose Us
+        </h2>
+
+        <ul class="tw-grid tw-grid-cols-1 sm:tw-grid-cols-2 lg:tw-grid-cols-3 gap-10 mt-10 ">
+
+            <li *ngFor="let box of chooseUsBoxes; trackBy: trackByTitle" class="flex flex-col gap-2">
+                <h3 class="text-xl font-semibold">{{box.title}}</h3>
+                <p class="text-zinc-500">{{box.description}}</p>
+                <button
+                    class="inline-block items-center tw-bg-accent tw-px-3 tw-py-1 text-surface w-max text-lg transition-colors duration-200 hover:tw-bg-accent/90 cursor-pointer">
+                    Learn More
+                </button>
+            </li>
+
+        </ul>
+    </app-container>
+</section>

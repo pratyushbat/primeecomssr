@@ -1,23 +1,3 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
-
-
-
-* {
-  font-family: "Poppins", sans-serif;
-}
-
-
-
-
-body {
-  background: #dcdce6;
-  background-image: url(../src/assets/images/Background.png);
-}
-
 .glass {
   background: rgba(255, 255, 255, 0.55);
   border-radius: 16px;
@@ -25,6 +5,42 @@ body {
   backdrop-filter: blur(3.1px);
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@theme {
+  /* Colors */
+  --color-bg: oklch(100% 0 0);
+  --color-text: oklch(30% 0 0);
+  --color-border: oklch(80% 0 0);
+  --color-surface: oklch(95% 0 0);
+  --color-muted: oklch(50% 0 0);
+  --color-accent: oklch(70% 0.15 40);
+
+  /* Fonts */
+  --font-primary: "Fira Sans", sans-serif;
+  --font-secondary: "Lobster Two", sans-serif;
+}
+
+/* 
+* {
+  font-family: "Poppins", sans-serif;
+}
+ */
+
+
+
+/* body {
+  background: #dcdce6;
+  background-image: url(../src/assets/images/Background.png);
+}
+ */
+
 
 
 /* 
@@ -34,3 +50,115 @@ body { margin: 0; background-color: #f6f9ff; }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
  */
+
+
+@layer theme {
+
+
+  :root {
+    --color-bg: oklch(100% 0 0);
+    --color-text: oklch(30% 0 0);
+    --color-border: oklch(80% 0 0);
+    --color-surface: oklch(95% 0 0);
+    --color-muted: oklch(50% 0 0);
+    --color-accent: oklch(70% 0.15 40);
+
+    --font-primary: "Fira Sans", sans-serif;
+    --font-secondary: "Lobster Two", sans-serif;
+  }
+
+  .dark {
+    --color-bg: oklch(18% 0 0);
+    --color-text: oklch(92% 0 0);
+    --color-surface: oklch(22% 0 0);
+    --color-border: oklch(35% 0 0);
+    --color-accent: oklch(75% 0.18 40);
+  }
+}
+
+
+
+
+body {
+  background-color: var(--color-bg);
+  font-family: var(--font-primary);
+  color: var(--color-text);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  font-family: var(--font-primary);
+  color: var(--color-text);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+p-toast {
+  max-width: 90vw;
+  word-break: break-word;
+  z-index: 9999;
+}
+
+@layer components {
+  .card {
+    @apply tw-bg-surface;
+  }
+
+
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar-thumb {
+  @apply tw-bg-accent tw-rounded-xl;
+}
+
+
+@layer utilities {
+
+  .top-category-list {
+    @apply md:tw-gap-5 tw-flex tw-items-center tw-gap-3 tw-bg-zinc-300 tw-p-5 tw-rounded-full tw-mt-6 md:tw-mt-8 tw-place-self-center;
+  }
+
+  .products-list {
+    @apply sm:tw-grid-cols-2 tw-grid tw-grid-cols-1 lg:tw-grid-cols-3 xl:tw-grid-cols-4 tw-items-center tw-gap-8 lg:tw-gap-12 xl:tw-gap-20 tw-mt-14 md:tw-mt-20;
+  }
+
+  /*   .major-category-bentocard {
+    @apply first:tw-col-span-6 tw-relative tw-size-full tw-overflow-hidden tw-rounded-lg md:first:tw-col-span-4 md:first:tw-row-span-2 tw-nth-[2]:tw-col-span-6 md:tw-nth-[2]:tw-col-span-4 md:tw-nth-[2]:row-span-2 tw-nth-[3]:tw-col-span-6 tw-nth-[3]:row-span-2 md:tw-nth-[3]:tw-col-span-2 md:tw-nth-[3]:row-span-2 tw-nth-[4]:tw-col-span-6 tw-nth-[4]:row-span-2 md:tw-nth-[4]:tw-col-span-2 md:tw-nth-[4]:row-span-2 tw-nth-[5]:tw-col-span-12 md:tw-nth-[5]:tw-col-span-4 tw-nth-[6]:tw-col-span-12 md:tw-nth-[6]:tw-col-span-4 tw-nth-[7]:tw-col-span-6 md:tw-nth-[7]:tw-col-span-2 tw-nth-[8]:tw-col-span-6 md:tw-nth-[8]:tw-col-span-2 tw-nth-[9]:tw-col-span-12 md:tw-nth-[9]:tw-col-span-4 tw-nth-[10]:tw-col-span-12 md:tw-nth-[10]:tw-col-span-4 tw-nth-[11]:tw-col-span-6 md:tw-nth-[11]:tw-col-span-2 tw-nth-[12]:tw-col-span-6 md:tw-nth-[12]:tw-col-span-2 cursor-pointer;
+  } */
+}
+
+
+/* @layer base {
+
+  *,
+  *::before,
+  *::after,
+  ::backdrop,
+  ::file-selector-button {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0 solid;
+  }
+} */
+
+ol,
+ul,
+menu {
+  list-style: none;
+  padding-left: 0;
+}

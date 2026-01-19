@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, inject, NgModule } from '@angular/core';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, inject, NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -26,6 +26,20 @@ import { AlertService } from './services/alert.service';
 import { PaymentSuccessComponent } from './components/payments/payment-success/payment-success.component';
 import { PaymentFailiureComponent } from './components/payments/payment-failiure/payment-failiure.component';
 import { OrdersComponent } from './components/orders/orders.component';
+import { GalleryLoginComponent } from './components/extra/gallery-login/gallery-login.component';
+import { GalleryHomeComponent } from './components/extra/gallery-home/gallery-home.component';
+import { PantohomeComponent } from './components/extra/panto/pantohome/pantohome.component';
+import { HeroComponent } from './components/extra/panto/hero/hero.component';
+import { ChooseusComponent } from './components/extra/panto/chooseus/chooseus.component';
+import { CustomelementComponent } from './components/extra/customelement/customelement.component';
+import { DynamicComponent } from './components/extra/dynamic/dynamic.component';
+import { PheaderComponent } from './components/extra/panto/pheader/pheader.component';
+import { ShopComponent } from './components/shop/shop.component';
+import { FeaturedProductsComponent } from './components/featured-products/featured-products.component';
+import { ProductCardComponent } from './components/product-card/product-card.component';
+import { PfooterComponent } from './components/extra/panto/pfooter/pfooter.component';
+
+
 const AUTH_EXCLUDED_URLS = [
   '/api/login',
   '/api/register',
@@ -86,14 +100,29 @@ export const apiInterceptor: HttpInterceptorFn = (
     AlertComponent,
     PaymentSuccessComponent,
     PaymentFailiureComponent,
-    OrdersComponent
+    OrdersComponent,
+    GalleryLoginComponent,
+    GalleryHomeComponent,
+    PantohomeComponent,
+    CustomelementComponent,
+    DynamicComponent,
+    PheaderComponent,
+    PfooterComponent,
+    ShopComponent,
+    FeaturedProductsComponent,
+
+
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HeroComponent,
+    ChooseusComponent,
+    ProductCardComponent
   ],
   providers: [
     provideClientHydration(),

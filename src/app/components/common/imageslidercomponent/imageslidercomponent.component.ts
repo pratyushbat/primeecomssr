@@ -14,15 +14,15 @@ export class ImageslidercomponentComponent {
 
   currentIndex = 0;
   constructor() {
-   
+
   }
 
   startHover() {
-    if (this.images.length <= 1) return;
+    if (this.images?.length <= 1) return;
 
     this.intervalId = setInterval(() => {
       this.currentIndex =
-        (this.currentIndex + 1) % this.images.length;
+        (this.currentIndex + 1) % this.images?.length;
     }, 800); // change speed (ms)
   }
 
@@ -38,12 +38,12 @@ export class ImageslidercomponentComponent {
 
   next() {
     this.currentIndex =
-      (this.currentIndex + 1) % this.images.length;
+      (this.currentIndex + 1) % this.images?.length;
   }
 
   prev() {
     this.currentIndex =
-      (this.currentIndex - 1 + this.images.length) % this.images.length;
+      (this.currentIndex - 1 + this.images?.length) % this.images?.length;
   }
 
   goTo(index: number) {
