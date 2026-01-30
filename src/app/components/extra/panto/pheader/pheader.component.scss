@@ -31,3 +31,11 @@
     transition: background-color 0.2s ease-in-out;
     animation: slideIn 0.3s ease-in-out;
 }
+
+.tw-z-50 {
+    z-index: 9951;
+}
+
+.tw-bg-transparent-custom {
+    background-color: #212529;
+}

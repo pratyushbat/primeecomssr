@@ -7,8 +7,6 @@ import { CookieAuthGuard } from './services/auth-guard';
 import { ContactusComponent } from './components/contactus/contactus.component';
 import { AccountinfoComponent } from './components/accountinfo/accountinfo.component';
 import { NonCookieAuthGuard } from './services/non-auth-guard';
-import { LandingHomeComponent } from './components/landing-home/landing-home.component';
-import { ProductsComponent } from './components/products/products.component';
 import { ProductComponent } from './components/product/product.component';
 import { CartComponent } from './components/cart/cart.component';
 import { HelpsupportComponent } from './components/helpsupport/helpsupport.component';
@@ -22,9 +20,16 @@ import { ChooseusComponent } from './components/extra/panto/chooseus/chooseus.co
 import { CustomelementComponent } from './components/extra/customelement/customelement.component';
 import { DynamicComponent } from './components/extra/dynamic/dynamic.component';
 import { ShopComponent } from './components/shop/shop.component';
+import { authmatchGuard } from './authmatch.guard';
+import { TestcustomcvinputComponent } from './components/testcustomcvinput/testcustomcvinput.component';
+import { RoleGuard } from './services/role-guard';
 
 const routes: Routes = [
-  { path: '', component: PantohomeComponent, canActivate: [NonCookieAuthGuard] },
+  {
+    path: '', component: PantohomeComponent, data: {
+      roles: ['user', 'user']
+    }, canActivate: [NonCookieAuthGuard]
+  },
   { path: 'shop', component: ShopComponent },
   { path: 'contactus', component: ContactusComponent },
   { path: 'glogin', component: GalleryLoginComponent },
@@ -36,19 +41,26 @@ const routes: Routes = [
   { path: 'help', component: HelpsupportComponent },
   { path: 'payment-success', component: PaymentSuccessComponent },
   { path: 'payment-failure', component: PaymentFailiureComponent },
-  /*  { path: 'login', component: LoginComponent, canActivate: [NonCookieAuthGuard] },
-   { path: 'signup', component: SignupComponent, canActivate: [NonCookieAuthGuard] }, */
+  { path: 'test-custom', component: TestcustomcvinputComponent },
   {
-    path: 'home', component: HomeComponent, canActivate: [CookieAuthGuard], children: [
-      { path: 'products', component: ProductsComponent },
+    path: 'home', data: {
+      roles: ['admin', 'user']
+    }, component: HomeComponent, canActivate: [CookieAuthGuard, RoleGuard], children: [
+      { path: '', redirectTo: 'products', pathMatch: "full" },
+      { path: 'products', component: ShopComponent },
       { path: 'product/:productId', component: ProductComponent },
       { path: 'bag', component: CartComponent },
       { path: 'help', component: HelpsupportComponent },
       { path: 'accountinfo', component: AccountinfoComponent },
       { path: 'orders', component: OrdersComponent },
-      { path: '', redirectTo: 'products', pathMatch: "full" },
+
       { path: '**', redirectTo: 'products' }
     ]
+  },
+  {
+    path: 'admin', canActivate: [CookieAuthGuard, RoleGuard], data: {
+      roles: ['admin']
+    }, loadChildren: () => import('./features/admin/admin.module').then(m => m.AdminModule), canLoad: [authmatchGuard]
   },
 
   { path: '**', redirectTo: 'login' }

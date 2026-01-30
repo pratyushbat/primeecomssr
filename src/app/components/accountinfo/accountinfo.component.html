@@ -101,9 +101,18 @@
 
             <form class="tw-mt-5" [formGroup]="addressForm" (ngSubmit)="saveAdd()">
                 <div class="tw-flex tw-justify-center tw-gatw-p-5 tw-items-center">
-                    <input type="text" formControlName="fullName"
-                        class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
-                        placeholder=" fullName" />
+                    <div class="form-control">
+
+                        <input type="text" formControlName="fullName"
+                            class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"
+                            placeholder=" fullName" />
+                        <p *ngIf="addressForm.get('fullName')?.pending">Checking...</p>
+
+                        <p *ngIf="addressForm.get('fullName')?.errors?.['usernameTaken']">
+                            fullName already taken
+                        </p>
+                        <p *ngIf="emailInvalid">fullName is invalid</p>
+                    </div>
 
                     <input type="text" formControlName="phone"
                         class="tw-h-12 tw-bg-white tw-outline-none tw-border-none tw-rounded-xl tw-px-5 tw-w-full"

@@ -5,18 +5,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HttpHandlerFn, HttpInterceptorFn, HttpRequest, provideHttpClient, withInterceptors } from '@angular/common/http';
+
+import { HttpHandlerFn, HttpInterceptorFn, HttpRequest, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
 import { CookieService } from 'ngx-cookie-service';
 import { ContactusComponent } from './components/contactus/contactus.component';
 import { AccountinfoComponent } from './components/accountinfo/accountinfo.component';
 import { AuthService } from './services/auth.service';
 import { LandingHomeComponent } from './components/landing-home/landing-home.component';
-import { ProductsComponent } from './components/products/products.component';
-import { CreateProductComponent } from './components/create-product/create-product.component';
+
 import { ProductComponent } from './components/product/product.component';
-import { ImageslidercomponentComponent } from './components/common/imageslidercomponent/imageslidercomponent.component';
 import { CartComponent } from './components/cart/cart.component';
 import { catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
@@ -33,11 +31,15 @@ import { HeroComponent } from './components/extra/panto/hero/hero.component';
 import { ChooseusComponent } from './components/extra/panto/chooseus/chooseus.component';
 import { CustomelementComponent } from './components/extra/customelement/customelement.component';
 import { DynamicComponent } from './components/extra/dynamic/dynamic.component';
-import { PheaderComponent } from './components/extra/panto/pheader/pheader.component';
 import { ShopComponent } from './components/shop/shop.component';
 import { FeaturedProductsComponent } from './components/featured-products/featured-products.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { PfooterComponent } from './components/extra/panto/pfooter/pfooter.component';
+import { IfAdminDirective } from './directive/attribute-directive/ifAdminDirective';
+import { HeaderComponent } from './components/header/header.component';
+import { SharedModule } from './shared/shared.module';
+import { PheaderComponent } from './components/extra/panto/pheader/pheader.component';
+import { TestcustomcvinputComponent } from './components/testcustomcvinput/testcustomcvinput.component';
 
 
 const AUTH_EXCLUDED_URLS = [
@@ -84,6 +86,7 @@ export const apiInterceptor: HttpInterceptorFn = (
 
 @NgModule({
   declarations: [
+    IfAdminDirective,
     AppComponent,
     LoginComponent,
     SignupComponent,
@@ -91,10 +94,7 @@ export const apiInterceptor: HttpInterceptorFn = (
     ContactusComponent,
     AccountinfoComponent,
     LandingHomeComponent,
-    ProductsComponent,
-    CreateProductComponent,
     ProductComponent,
-    ImageslidercomponentComponent,
     CartComponent,
     HelpsupportComponent,
     AlertComponent,
@@ -106,23 +106,21 @@ export const apiInterceptor: HttpInterceptorFn = (
     PantohomeComponent,
     CustomelementComponent,
     DynamicComponent,
-    PheaderComponent,
     PfooterComponent,
     ShopComponent,
     FeaturedProductsComponent,
-
-
+    HeaderComponent,
+    PheaderComponent,
+    TestcustomcvinputComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
+    SharedModule,
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
     AppRoutingModule,
     HeroComponent,
     ChooseusComponent,
-    ProductCardComponent
+    ProductCardComponent,
   ],
   providers: [
     provideClientHydration(),

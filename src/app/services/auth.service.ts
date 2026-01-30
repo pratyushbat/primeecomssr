@@ -7,6 +7,8 @@ import { BehaviorSubject, catchError, finalize, firstValueFrom, map, Observable,
   providedIn: 'root'
 })
 export class AuthService implements OnDestroy {
+
+
   sendMessage(data: { message: String; email: any; }) {
     return of(true)
   }
@@ -43,6 +45,16 @@ export class AuthService implements OnDestroy {
     return this.http.get("/api/user/getloggeduser", { withCredentials: true });
   }
 
+  /* let headers = new HttpHeaders().set('header1', headerValue1); // create header object
+headers = headers.append('header2', headerValue2); // add a new header, creating a new object
+headers = headers.append('header3', headerValue3); // add another header
+
+let params = new HttpParams().set('param1', value1); // create params object
+params = params.append('param2', value2); // add a new param, creating a new object
+params = params.append('param3', value3); // add another param
+
+return this._http.get<any[]>('someUrl', { headers: headers, params: params })
+ */
   sendOtp(phoneNumber: string, email: string) {
     return this.http.post("/api/user/register/sendotp?phoneNumber=" + phoneNumber, { email });
   }
@@ -71,9 +83,12 @@ export class AuthService implements OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
       let isUsercahche = JSON.parse(localStorage.getItem('isLoggedIn'));
       let usercahche = JSON.parse(localStorage.getItem('user'));
+
       if (this.userSubject.value || isUsercahche) {
         this.userSubject.next(this.userSubject.value ? this.userSubject.value : usercahche);
+        this.setuserSubjectSub(this.userSubject.value ? this.userSubject.value : usercahche);
         this.authState$.next(true);
+
         return this.userSubject.value ? this.userSubject.value : usercahche;
       }
 
@@ -91,6 +106,7 @@ export class AuthService implements OnDestroy {
       map((user: any) => user.userData),
       tap((user: any) => {
         this.setuserSubjectSub(user);
+
       }),
       catchError(() => {
         this.setuserSubjectSub(null);
@@ -147,16 +163,18 @@ export class AuthService implements OnDestroy {
   get userSubjectSub() {
     return this.userSubject;
   }
+
   setuserSubjectSub(user: any) {
     if (isPlatformBrowser(this.platformId)) {
       if (!!user) {
-
+        this.userRoles.push(user.role)
         this.userSubject.next(user);
         this.authState$.next(true);
         localStorage.setItem('isLoggedIn', JSON.stringify(true));
         localStorage.setItem('user', JSON.stringify(user));
       }
       else {
+        this.userRoles = [];
         this.userSubject.next(null);
         this.authState$.next(false);
         localStorage.removeItem('isLoggedIn');
@@ -191,7 +209,21 @@ export class AuthService implements OnDestroy {
   loading() {
     return this.isLoading;
   }
+  /* ['USER', 'ADMIN'] */
+  private userRoles: string[] = [];
 
+  hasRole(role: string): boolean {
+    return this.userRoles.includes(role);
+  }
+
+  hasAnyRole(roles: string[]): boolean {
+
+    return roles.some(r => this.userRoles.includes(r));
+  }
+
+  hasAllRoles(roles: string[]): boolean {
+    return roles.every(r => this.userRoles.includes(r));
+  }
 
   ngOnDestroy(): void {
     this.destroy$?.next();

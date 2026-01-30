@@ -1,5 +1,5 @@
 <div class="container tw-py-5">
-  <h1 class="mb-4 text-center">Featured Products</h1>
+  <h1 class="mb-4 text-center"> Products</h1>
 
   <div class="row g-4">
 
@@ -8,11 +8,13 @@
       <div class="card product-card position-relative">
         <span class="badge badge-discount">30% OFF</span>
 
-        <img src="https://via.placeholder.com/400x300" class="product-img w-100" alt="Leather Wallet">
+        <img [src]="product.images[0].url" class="product-img w-100" alt="product.name">
+        <input #usernameInput type="text" />
+
 
         <div class="card-body">
-          <h6 class="card-title">Premium Leather Wallet</h6>
-
+          <h6 class="card-title" appHighlight>{{ product.name }}</h6>
+          <input appInputControl [readonlyMode]="isReadonly" [requiredMode]="isRequired" placeholder="Enter name" />
           <div class="rating mb-2">
             <i class="bi bi-star-fill"></i>
             <i class="bi bi-star-fill"></i>
@@ -23,9 +25,15 @@
           </div>
 
           <div class="mb-2">
-            <span class="price">₹1,299</span>
-            <span class="old-price ms-2">₹1,999</span>
+            <span class="price">₹{{ product.price }}</span>
+            <span class="old-price ms-2" #userPara>₹999</span>
           </div>
+
+          <button [appDynamicClass]="isActive" activeClasses="highlight active"
+            activestyle="padding:10px; margin:10px; color:white; background:black" title="hello btn" disabled="isActive"
+            (tracked)="onTracked($event)" (click)="toggleActive()">
+            Click to Toggle Active Class
+          </button>
 
           <button class="btn btn-success w-100 btn-sm">
             Add to Cart

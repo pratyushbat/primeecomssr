@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { Router } from 'express';
-import { map, shareReplay, Subject, take, takeUntil } from 'rxjs';
-import { ProductsService } from '../../services/products.service';
-import { CartService } from '../../services/cart.service';
-import { AlertService } from '../../services/alert.service';
+
+import { Subject, take, takeUntil } from 'rxjs';
+import { CartService } from '../../../../services/cart.service';
+import { AuthService } from '../../../../services/auth.service';
+import { ProductsService } from '../../../../services/products.service';
+import { AlertService } from '../../../../services/alert.service';
+
+
 
 @Component({
   selector: 'app-products',

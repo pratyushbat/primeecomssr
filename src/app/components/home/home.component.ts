@@ -1,18 +1,19 @@
-import { Component, HostListener, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { AfterViewInit, Component, HostListener, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { CookieService } from 'ngx-cookie-service';
-import { map, Subject, take, takeUntil } from 'rxjs';
+import { Subject, Subscription, take, takeUntil } from 'rxjs';
 import { Meta } from '@angular/platform-browser';
 import { CartService } from '../../services/cart.service';
 import { isPlatformBrowser } from '@angular/common';
+import { ModalService } from '../../services/modal.service';
+
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   private destroy$ = new Subject<void>();
   toggleSidebar: boolean = false
   isShow: boolean = false;
@@ -23,8 +24,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   currentUserData: any;
   isLoading: boolean = false;
   cartLength: number = 0;
-
-  constructor(private _authService: AuthService, private router: Router, private meta: Meta, private _cartService: CartService, @Inject(PLATFORM_ID) private platformId: Object) {
+  private sub = new Subscription();
+  constructor(private _authService: AuthService, private router: Router, private meta: Meta, private _cartService: CartService, @Inject(PLATFORM_ID) private platformId: Object, private modalService: ModalService) {
     this.meta.addTag({ name: 'description', content: "We are Girisa Nails, we are an MSE based out of India. We aim to deliver high-quality nails to our customers." });
     this.meta.addTag({ property: 'keywords', content: "nails, girisa nails,buy affordable nails, online nails store, modern nails, GIRISA NAILS, buy GIRISA NAILS online, GIRISA NAILS SHOP price" });
     this.meta.addTag({ name: 'twitter-card', content: "GIRISA NAILS" });
@@ -32,6 +33,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.meta.addTag({ property: 'og:title', content: "Buy GIRISA nails  online at best prices on https://girisa.shop" });
     this.meta.addTag({ property: 'og:description', content: "Welcome to Girisa Nails Enterprise website, we are an MSE based out of India. We aim to deliver high-quality nails to our customers." });
     this.meta.addTag({ property: 'og:keywords', content: "nails, girisa nails,buy affordable nails, online nails store, modern nails,  ,GIRISA Nails, buy GIRISA nails online, GIRISA nails price" });
+  }
+  ngAfterViewInit(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    this.sub = this.modalService.toggleSBar$.subscribe(tt => {
+      console.log('subscribing in home')
+      this.ontoggleSidebar(tt)
+    })
   }
   ngOnInit(): void {
     this._cartService.currentCartMessage$
@@ -79,7 +88,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         behavior: 'smooth'
       });
   }
-  ontoggleSidebar() {
+  ontoggleSidebar(event?: any) {
     this.toggleSidebar = !this.toggleSidebar
   }
 
@@ -121,6 +130,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$?.next();
     this.destroy$?.complete();
+    this.sub?.unsubscribe();
 
   }
+
+
 }

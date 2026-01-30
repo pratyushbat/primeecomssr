@@ -16,16 +16,17 @@ export class NonCookieAuthGuard implements CanActivate {
   ) { }
 
   canActivate(): Observable<boolean> {
-  
 
-return this._authService.authStatus$().pipe(
+
+    return this._authService.authStatus$().pipe(
       take(1),
       map(isLoggedIn => {
         if (isLoggedIn) {
           this.router.navigate(['/home']);
           return false;
         }
-        return true;
+        else
+          return true;
       })
     );
   }

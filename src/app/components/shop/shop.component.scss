@@ -1,0 +1,10 @@
+/* for current compoent used witrh hostbindfing */
+:host(.yellow-style) {
+    background-color: rgb(242, 242, 208);
+    display: block;
+}
+
+/* for child below */
+:host ::ng-deep p {
+    background-color: rgb(230, 107, 13);
+}

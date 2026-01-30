@@ -1,9 +1,11 @@
 <section aria-label="Shop Section">
+
+
     <div class="tw-relative tw-h-[400px] tw-overflow-hidden [clip-path:polygon(0_0,100%_0,100%_85%,0_100%)]">
         <img src="../../../assets/images/panto/shop-bg.jpg" alt="Shop Background"
             class="tw-size-full tw-object-cover tw-object-center" />
 
-        <h2
+        <h2 (click)="yellowStyle=!yellowStyle"
             class="tw-absolute tw-top-1/2 tw-left-1/2 tw--translate-1/2 tw-text-accent tw-text-shadow-md tw-text-shadow-orange-200 tw-text-7xl md:text-8xl lg:text-9xl font-secondary font-semibold text-center">
             Shop
         </h2>
@@ -27,7 +29,7 @@
             <ul
                 class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-center gap-8 lg:gap-12 xl:gap-20 mt-14 md:mt-20">
                 @for (skeletonCard of skeletonCards; track $index) {
-                <li>
+                <li class="yellow-style">
                     <app-skeleton-card />
                 </li>
                 }
@@ -39,8 +41,8 @@
             @else if (featuredProducts().length > 0) {
             <ul class="products-list">
                 @for (product of featuredProducts(); track product.id) {
-                <li>
-                    <app-product-card [product]="product" />
+                <li class="styled-component">
+                    <app-product-card [currentUserData]=" currentUserData" [product]="product" />
                 </li>
                 }
             </ul>
@@ -95,8 +97,17 @@
 
                     <p class="tw-hidden sm:tw-block">Next</p>
                 </button>
-            </div>
 
+
+            </div>
+            <div>
+                <ng-template #myTemplate let-name>
+                    <p>Hello {{ name }} 👋</p>
+                </ng-template>
+
+                <button (click)="insert()">Insert View FInal</button>
+                <ng-container #container></ng-container>
+            </div>
         </div>
     </app-container>
 </section>

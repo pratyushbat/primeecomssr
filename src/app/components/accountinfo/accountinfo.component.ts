@@ -4,6 +4,7 @@ import { map } from 'rxjs';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AlertService } from '../../services/alert.service';
+import { usernameAsyncValidator } from '../../directive/userNameValidator';
 
 @Component({
   selector: 'app-accountinfo',
@@ -14,11 +15,13 @@ export class AccountinfoComponent implements OnInit {
 
   userData: any;
 
-  public isLoading: boolean = false;
-
+  loading = false;
+  get isLoading() {
+    return this.loading || this.addressForm.pending || this.addressForm.invalid;
+  }
 
   addressForm = this.fb.group({
-    fullName: ['', Validators.required],
+    fullName: ['', Validators.required, [usernameAsyncValidator]],
     phone: ['', Validators.required],
     addressLine1: ['', Validators.required],
     addressLine2: ['', Validators.required],
@@ -38,6 +41,12 @@ export class AccountinfoComponent implements OnInit {
 
 
   countries = ['India'];
+  canSubmit: any;
+
+  get emailInvalid() {
+    const control = this.addressForm.get('fullName');
+    return control?.invalid && control?.touched;
+  }
 
   constructor(private _authService: AuthService, private router: Router, private fb: FormBuilder, private _alertService: AlertService) {
 
@@ -66,18 +75,18 @@ export class AccountinfoComponent implements OnInit {
 
 
   logOut() {
-    this.isLoading = true;
+    this.loading = true;
     this._authService.logout().subscribe(data => {
       this._alertService.success('Logout successfully!');
       this._authService.setuserSubjectSub(null);
-      this.isLoading = false;
+      this.loading = false;
       this.router.navigate(["/login"]);
-    }, err => { this.isLoading = false; });
+    }, err => { this.loading = false; });
   }
 
   saveAdd() {
-
-    if (this.addressForm.invalid) {
+    if (this.addressForm.pending) return;
+    else if (this.addressForm.invalid) {
       this._alertService.error('Please fill all fields');
       return;
     }
@@ -85,17 +94,17 @@ export class AccountinfoComponent implements OnInit {
     this.saveAddressApi(this.addressForm.value);
   }
   saveAddressApi(address: any) {
-    this.isLoading = true;
+    this.loading = true;
 
     this._authService.saveAddress(address).subscribe({
       next: res => {
-        this.isLoading = false;
+        this.loading = false;
         this._alertService.success('Address added successfully!');
         this._authService.reloadData();
       },
       error: err => {
         this._alertService.error(err?.error?.message ? err.error.message : 'something went wrong while saving address');
-        this.isLoading = false;
+        this.loading = false;
       },
     });
   }

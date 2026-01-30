@@ -10,8 +10,14 @@ import { isPlatformBrowser } from '@angular/common';
 export class CustomelementComponent implements OnInit {
   constructor(private injector: Injector, @Inject(PLATFORM_ID) private platformId: Object) {
     const el = createCustomElement(MywidgetComponent, { injector });
-    if (isPlatformBrowser(platformId))
+    if (isPlatformBrowser(platformId)) {
+
+      /* Angular Element */
+      /* Angular change detection Dependency inkjectin  Logic-heavy → Angular Elements */
       customElements.define('my-widget', el);
+      /* Custom Elememnt  UI only → Custom Elements*/
+      customElements.define('my-button', MyButton);
+    }
   }
   ngOnInit(): void {
     this.fun1();
@@ -22,4 +28,9 @@ export class CustomelementComponent implements OnInit {
 
   }
 
+}
+class MyButton extends HTMLElement {
+  connectedCallback() {
+    this.innerHTML = `<button class="btn btn-success">Click me</button>`;
+  }
 }

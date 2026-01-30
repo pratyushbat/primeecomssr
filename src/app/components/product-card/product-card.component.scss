@@ -1,3 +1,9 @@
 figure {
     margin: 0 0 0;
 }
+
+/* for parent */
+:host-context(.styled-component) {
+    border: 1px solid black;
+    display: block;
+}

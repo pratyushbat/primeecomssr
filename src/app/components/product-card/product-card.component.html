@@ -1,13 +1,14 @@
 <article
     class="tw-relative tw-flex tw-flex-col tw-bg-surface tw-rounded--2xl tw-min-h-[200px]     lg:tw-min-w-[280px] tw-max-w-[260px] md:tw-max-w-[280px] tw-place-self-center tw-drop-shadow-xl tw-drop-shadow-muted/30">
-    <figure class="tw-rounded-t-2xl tw-overflow-hidden tw-group tw-cursor-pointer  tw-max-h-[220px] tw-min-h-[220px] ">
+    <figure [routerLink]="['/home/product', product()._id]"
+        class="tw-rounded-t-2xl tw-overflow-hidden tw-group tw-cursor-pointer  tw-max-h-[220px] tw-min-h-[220px] ">
         <img (error)="onImgError($event)" [src]="product().images[0].url" [alt]="  product().name+'s Picture'"
             [routerLink]="['/shop', product().name || '']"
             class="tw-size-full tw-object-cover tw-rounded-t-2xl tw-group-hover:tw-scale-105 tw-transition-all tw-duration-200 tw-group-hover:tw-brightness-90 tw-ease-in-out" />
     </figure>
     <div class="tw-flex tw-flex-col tw-left-0 tw-bottom-0 tw-ga-1.5 tw-w-full tw-bg-bg tw-p-5 tw-rounded--b-2xl">
         <div class="tw-flex tw-items-center tw-justify-between"><span class="tw-text-xl tw-text-muted"> {{
-                product().category }}
+                product().category}}
 
             </span>
             <button
@@ -35,7 +36,7 @@
         <div class="tw-flex tw-items-center tw-justify-between tw-pt-3.5 tw-gap-3">
             <span class="tw-text-xl tw-font-medium">₹ {{ product()?.price || 0}}
             </span>
-            <button
+            <button (click)="!!currentUserData ? addToCart(product()): gologinSignup('signup')"
                 class="tw-inline-flex tw-items-center tw-bg-accent tw-ga-1.5 tw-px-3 tw-py-1 tw-text-surface tw-rounded--full tw-transition-colors tw-duration-100 hover:tw-bg-accent/90 tw-cursor-pointer"
                 aria-label="Add To Cart">Add To Cart <span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg"
                         fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="tw-size-6">

@@ -7,6 +7,7 @@ import { AlertService } from '../../services/alert.service';
 import { skeletonCards } from '../../util/skeletonCard';
 import { isPlatformBrowser } from '@angular/common';
 
+
 @Component({
   selector: 'app-featured-products',
   templateUrl: './featured-products.component.html',
@@ -34,8 +35,6 @@ export class FeaturedProductsComponent {
   }
 
   ngOnInit(): void {
-
-
 
   }
 

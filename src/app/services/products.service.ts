@@ -17,8 +17,8 @@ export class ProductsService {
   allproducts() {
     return this.http.get("/api/product/all").pipe(shareReplay(1));;
   }
-  productById() {
-    return this.http.get("/api/productsById");
+  productById(id: string) {
+    return this.http.get("/api/product/productId/" + id);
   }
   cartProductsById() {
     return this.http.get("/api/products/cart/userId", { withCredentials: true });

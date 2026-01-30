@@ -8,10 +8,11 @@
 
 <ng-template #app>
   <div class="app-layout">
-    <app-pheader></app-pheader>
-    <app-alert></app-alert>
+    <!--  <app-pheader (onToggle)="ontoggleSidebar($event)"></app-pheader> -->
+    <app-header (onToggle)="ontoggleSidebar($event)"></app-header>
     <router-outlet />
-    <app-pfooter></app-pfooter>
+    <app-alert></app-alert>
+    <!--     <app-pfooter></app-pfooter> -->
   </div>
 
 </ng-template>

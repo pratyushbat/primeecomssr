@@ -14,7 +14,8 @@ export class ModalService {
   private close$ = new Subject<void>();
   openRequests$ = this.open$.asObservable();
   closeRequests$ = this.close$.asObservable();
-
+  private toggleSB$ = new Subject<Type<any>>();
+  toggleSBar$ = this.toggleSB$.asObservable();
   constructor() { }
 
 
@@ -39,7 +40,9 @@ export class ModalService {
   requestClose() {
     this.close$.next();
   }
-
+  toggleSidebar(t: any) {
+    this.toggleSB$.next(t);
+  }
   openloginOrSignup(type: string) {
     if (type === 'login')
       this.requestOpen(LoginComponent);

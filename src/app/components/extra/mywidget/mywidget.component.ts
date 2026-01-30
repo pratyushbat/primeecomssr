@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-mywidget',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './mywidget.component.scss'
 })
 export class MywidgetComponent {
-
+  @Input() message = '';
 }

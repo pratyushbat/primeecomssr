@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { ProductsService } from '../../services/products.service';
+
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AlertService } from '../../services/alert.service';
+import { ProductsService } from '../../../../services/products.service';
+import { AlertService } from '../../../../services/alert.service';
+
 
 @Component({
   selector: 'app-create-product',

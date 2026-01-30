@@ -1,19 +1,54 @@
-<header class="tw-fixed tw-top-0 tw-left-0 tw-w-full tw-z-50 " [class.tw-shadow-md]="isHeaderScrolled()"
-    [class.active]="isHeaderScrolled()" [class.tw-py-4]="isHeaderScrolled()" [class.tw-py-3]="!isHeaderScrolled()"
-    [class.tw-bg-transparent]="!isHeaderScrolled()">
+<header id="header" class="tw-fixed tw-top-0 tw-left-0 tw-w-full tw-z-50 tw-pl-4 "
+    [class.tw-shadow-md]="isHeaderScrolled()" [class.active]="isHeaderScrolled()" [class.tw-py-4]="isHeaderScrolled()"
+    [class.tw-py-3]="!isHeaderScrolled()" [class.tw-bg-transparent-custom]="!isHeaderScrolled()">
     <app-container className="tw-flex tw-items-center tw-justify-between">
 
         <nav class="tw-hidden md:tw-flex tw-items-center tw-space-x-16 tw-text-surface tw-text-lg xl:tw-text-xl">
+
             <a *ngFor="let link of navLinks; let i=index " [routerLink]="link.path" routerLinkActive="tw-text-accent"
                 [routerLinkActiveOptions]="{ exact: true }"
                 [attr.aria-current]="link.path === currentPath() ? 'page' : null"
-                class="hover:tw-text-accent tw-text-surface tw-transition tw-duration-100">{{
-                link.label }}</a>
-            <a class="hover:tw-text-accent tw-text-surface tw-transition tw-duration-100"
-                (click)="gologin('login')">login</a>
-            <a class="hover:tw-text-accent tw-text-surface tw-transition tw-duration-100"
-                (click)="gologin('signup')">signup</a>
+                class="hover:tw-text-accent tw-text-surface tw-transition tw-duration-100 tw-whitespace-nowrap">{{
+                link.label }} </a>
+            <div class="form-check mx-0  tw-px-0">
+                <input class="form-check-input" type="checkbox" value="" id="sidebarToggleCheck"
+                    (change)="ontoggleSidebar()" style="display: none;">
 
+                <label class="form-check-label" for="sidebarToggleCheck">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                        class="bi bi-list toggle-sidebar-btn" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+                    </svg>
+                </label>
+            </div>
+            <a *ngIf="isLoadingUser() " routerLink="/home/bag"
+                class="hover:tw-text-accent tw-text-surface tw-transition tw-duration-100 tw-whitespace-nowrap">
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" fill="currentColor" class="bi bi-cart"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                </svg>
+                <span *ngIf="!!cartLength" class='badge badge-warning' id='lblCartCount'> {{cartLength}} </span>
+            </a>
+            <a *ngIf="!isLoadingUser() "
+                class="hover:tw-text-accent tw-text-surface tw-transition tw-duration-100 tw-whitespace-nowrap"
+                (click)="gologin('login')">login </a>
+            <a *ngIf="!isLoadingUser()"
+                class="hover:tw-text-accent tw-text-surface tw-transition tw-duration-100 tw-whitespace-nowrap"
+                (click)="gologin('signup')">signup</a>
+            <a *ngIf="isLoadingUser()" class="dropdown-item d-flex align-items-center" (click)="onSignOut()"
+                [style.cursor]="'pointer'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-box-arrow-right icon" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
+                    <path fill-rule="evenodd"
+                        d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                </svg>
+                <span>Sign Out</span>
+            </a>
 
         </nav>
 

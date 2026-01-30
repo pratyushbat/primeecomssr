@@ -1,4 +1,4 @@
-import { Component, inject, PLATFORM_ID, signal } from '@angular/core';
+import { AfterViewInit, Component, effect, HostBinding, inject, OnDestroy, OnInit, PLATFORM_ID, QueryList, signal, TemplateRef, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
 import { Subject, take, takeUntil } from 'rxjs';
 
 import { skeletonCards } from '../../util/skeletonCard';
@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { CartService } from '../../services/cart.service';
 import { ProductsService } from '../../services/products.service';
 import { AlertService } from '../../services/alert.service';
+import { ProductCardComponent } from '../product-card/product-card.component';
 type sortValue = Pick<ProductsFilters, 'sort'>;
 
 @Component({
@@ -14,9 +15,19 @@ type sortValue = Pick<ProductsFilters, 'sort'>;
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.scss'
 })
-export class ShopComponent {
+export class ShopComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('myTemplate') template!: TemplateRef<any>;
+  @ViewChild('container', { read: ViewContainerRef })
+  vcr!: ViewContainerRef;
+  currentUserData: any;
 
+  insert() {
+    this.vcr.createEmbeddedView(this.template, {
+      $implicit: 'Pratyush'
+    });
+  }
 
+  @HostBinding('class.yellow-style') yellowStyle = true;
   private destroy$ = new Subject<void>();
   userData: any;
 
@@ -41,14 +52,44 @@ export class ShopComponent {
     { label: 'Oldest', value: 'oldest' },
   ];
   private platformId = inject(PLATFORM_ID);
+  @ViewChildren(ProductCardComponent) children!: QueryList<ProductCardComponent>;
+
+  count = signal(0);
+
   constructor(private _authService: AuthService, private _cartService: CartService, private _productService: ProductsService, private _alertService: AlertService) {
     if (!isPlatformBrowser(this.platformId)) return;
     this.getProducts();
+    effect(() => {
+      console.log('Count changed:', this.count());
+    });
+  }
+
+  ngAfterViewInit(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    console.log('after vierew inint')
+    console.log(this.children)
+    this.children.forEach((child: ProductCardComponent) => {
+      child.showAlert();
+      console.log('show alert in parenrt')
+    });
+    ``
+
+
+    setTimeout(() => {
+      this.count.set(1);
+      this.count.set(2);
+
+    }, 2000)
   }
 
   ngOnInit(): void {
-
-
+    this.getAuthData();
+  }
+  getAuthData() {
+    this._authService.userStatus$().subscribe(data => {
+      if (data)
+        this.currentUserData = data;
+    });
 
   }
 

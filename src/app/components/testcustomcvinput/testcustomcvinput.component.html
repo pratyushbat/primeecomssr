@@ -1,0 +1,14 @@
+<div class="yellow-style col-md-6">
+
+    <form *ngIf="form" [formGroup]="form">
+        <app-custom-input formControlName="name"></app-custom-input>
+        <div *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+            Name is required
+        </div>
+        <button type="submit" [disabled]="form.invalid">
+            Submit
+        </button>
+    </form>
+
+    <pre>{{ form.value | json }}</pre>
+</div>
